@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "07/11/2026 08:47",
+  "atualizado_em": "07/11/2026 10:39",
   "ugs_monitoradas": [
     "130010",
     "130141",
@@ -14,7 +14,7 @@
     },
     "NOV/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 4839899.330000001
+      "RAP_PAGO_MES": 5070875.190000001
     },
     "JAN/2026": {
       "EXE_PAGO_MES": 0.0,
@@ -37302,8 +37302,8 @@
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
       "empenhado": 18795.6,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 15338.15,
-      "pago_acumulado": 3457.45
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 18795.6
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -37319,8 +37319,8 @@
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
       "empenhado": 6474.04,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 6474.04,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 6474.04
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -37336,8 +37336,8 @@
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
       "empenhado": 2192.82,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 2192.82,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 2192.82
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -37370,8 +37370,8 @@
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
       "empenhado": 6474.04,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 6474.04,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 6474.04
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -72099,8 +72099,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 764000.0,
-      "a_liquidar": 382000.0,
+      "empenhado": 426567.97,
+      "a_liquidar": 44567.97,
       "liquidado_a_pagar": 382000.0,
       "pago_acumulado": 0.0
     },
@@ -77760,8 +77760,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 112479.56,
-      "a_liquidar": 56239.78,
+      "empenhado": 70886.9,
+      "a_liquidar": 14647.12,
       "liquidado_a_pagar": 56239.78,
       "pago_acumulado": 0.0
     },
@@ -78083,8 +78083,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1452000.0,
-      "a_liquidar": 726000.0,
+      "empenhado": 904613.68,
+      "a_liquidar": 178613.68,
       "liquidado_a_pagar": 726000.0,
       "pago_acumulado": 0.0
     },
@@ -78100,8 +78100,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1452000.0,
-      "a_liquidar": 726000.0,
+      "empenhado": 920147.87,
+      "a_liquidar": 194147.87,
       "liquidado_a_pagar": 726000.0,
       "pago_acumulado": 0.0
     },
@@ -80905,8 +80905,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1414000.0,
-      "a_liquidar": 688000.0,
+      "empenhado": 790570.77,
+      "a_liquidar": 64570.77,
       "liquidado_a_pagar": 726000.0,
       "pago_acumulado": 0.0
     },
@@ -81806,8 +81806,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 477500.0,
-      "a_liquidar": 238750.0,
+      "empenhado": 277202.08,
+      "a_liquidar": 38452.08,
       "liquidado_a_pagar": 238750.0,
       "pago_acumulado": 0.0
     },
@@ -88351,8 +88351,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 2865000.0,
-      "a_liquidar": 0.0,
+      "empenhado": 3206742.16,
+      "a_liquidar": 341742.16,
       "liquidado_a_pagar": 1894516.22,
       "pago_acumulado": 970483.78
     },
@@ -90714,8 +90714,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 39393.86,
-      "a_liquidar": 19696.93,
+      "empenhado": 30330.85,
+      "a_liquidar": 10633.92,
       "liquidado_a_pagar": 19696.93,
       "pago_acumulado": 0.0
     },
@@ -90765,8 +90765,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 571090.0,
-      "a_liquidar": 285545.0,
+      "empenhado": 383626.39,
+      "a_liquidar": 98081.39,
       "liquidado_a_pagar": 285545.0,
       "pago_acumulado": 0.0
     },
@@ -90850,8 +90850,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 571090.0,
-      "a_liquidar": 285545.0,
+      "empenhado": 296245.61,
+      "a_liquidar": 10700.61,
       "liquidado_a_pagar": 285545.0,
       "pago_acumulado": 0.0
     },
@@ -91496,8 +91496,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 573000.0,
-      "a_liquidar": 286500.0,
+      "empenhado": 309513.77,
+      "a_liquidar": 23013.77,
       "liquidado_a_pagar": 286500.0,
       "pago_acumulado": 0.0
     },
@@ -92108,8 +92108,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 571090.0,
-      "a_liquidar": 285545.0,
+      "empenhado": 331333.3,
+      "a_liquidar": 45788.3,
       "liquidado_a_pagar": 285545.0,
       "pago_acumulado": 0.0
     },
@@ -92142,8 +92142,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 571090.0,
-      "a_liquidar": 285545.0,
+      "empenhado": 292580.17,
+      "a_liquidar": 7035.17,
       "liquidado_a_pagar": 285545.0,
       "pago_acumulado": 0.0
     },
@@ -93876,8 +93876,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 859500.0,
-      "a_liquidar": 429750.0,
+      "empenhado": 474580.03,
+      "a_liquidar": 44830.03,
       "liquidado_a_pagar": 429750.0,
       "pago_acumulado": 0.0
     },
@@ -93978,8 +93978,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 573000.0,
-      "a_liquidar": 286500.0,
+      "empenhado": 288966.61,
+      "a_liquidar": 2466.61,
       "liquidado_a_pagar": 286500.0,
       "pago_acumulado": 0.0
     },
@@ -94182,8 +94182,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1151663.16,
-      "a_liquidar": 575831.58,
+      "empenhado": 637610.72,
+      "a_liquidar": 61779.14,
       "liquidado_a_pagar": 575831.58,
       "pago_acumulado": 0.0
     },
@@ -94386,8 +94386,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 955000.0,
-      "a_liquidar": 477500.0,
+      "empenhado": 568786.76,
+      "a_liquidar": 91286.76,
       "liquidado_a_pagar": 477500.0,
       "pago_acumulado": 0.0
     },
@@ -94403,8 +94403,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 955000.0,
-      "a_liquidar": 477500.0,
+      "empenhado": 530614.29,
+      "a_liquidar": 53114.29,
       "liquidado_a_pagar": 477500.0,
       "pago_acumulado": 0.0
     },
@@ -94675,8 +94675,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 792686.3,
-      "a_liquidar": 396343.15,
+      "empenhado": 472509.31,
+      "a_liquidar": 76166.16,
       "liquidado_a_pagar": 396343.15,
       "pago_acumulado": 0.0
     },
@@ -96001,8 +96001,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 3820000.0,
-      "a_liquidar": 1910000.0,
+      "empenhado": 3440854.81,
+      "a_liquidar": 1530854.81,
       "liquidado_a_pagar": 1910000.0,
       "pago_acumulado": 0.0
     },
@@ -96154,8 +96154,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 4318259.8,
-      "a_liquidar": 2159129.9,
+      "empenhado": 3886449.95,
+      "a_liquidar": 1727320.05,
       "liquidado_a_pagar": 2159129.9,
       "pago_acumulado": 0.0
     },
@@ -96171,8 +96171,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1910000.0,
-      "a_liquidar": 955000.0,
+      "empenhado": 1882181.68,
+      "a_liquidar": 927181.68,
       "liquidado_a_pagar": 955000.0,
       "pago_acumulado": 0.0
     },
@@ -96222,8 +96222,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 2865000.0,
-      "a_liquidar": 1432500.0,
+      "empenhado": 2823230.71,
+      "a_liquidar": 1390730.71,
       "liquidado_a_pagar": 1432500.0,
       "pago_acumulado": 0.0
     },
@@ -96885,8 +96885,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 859500.0,
-      "a_liquidar": 429750.0,
+      "empenhado": 483468.75,
+      "a_liquidar": 53718.75,
       "liquidado_a_pagar": 429750.0,
       "pago_acumulado": 0.0
     },
@@ -98551,8 +98551,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 573000.0,
-      "a_liquidar": 286500.0,
+      "empenhado": 291769.82,
+      "a_liquidar": 5269.82,
       "liquidado_a_pagar": 286500.0,
       "pago_acumulado": 0.0
     },
@@ -98687,8 +98687,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1012300.0,
-      "a_liquidar": 506150.0,
+      "empenhado": 608250.82,
+      "a_liquidar": 102100.82,
       "liquidado_a_pagar": 506150.0,
       "pago_acumulado": 0.0
     },
@@ -99860,8 +99860,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 12207392.56,
-      "a_liquidar": 6103696.28,
+      "empenhado": 10994088.11,
+      "a_liquidar": 4890391.83,
       "liquidado_a_pagar": 6103696.28,
       "pago_acumulado": 0.0
     },
@@ -99911,8 +99911,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1910000.0,
-      "a_liquidar": 955000.0,
+      "empenhado": 962894.39,
+      "a_liquidar": 7894.39,
       "liquidado_a_pagar": 955000.0,
       "pago_acumulado": 0.0
     },
@@ -100591,8 +100591,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1337000.0,
-      "a_liquidar": 668500.0,
+      "empenhado": 733543.95,
+      "a_liquidar": 65043.95,
       "liquidado_a_pagar": 668500.0,
       "pago_acumulado": 0.0
     },
@@ -103022,8 +103022,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 1528000.0,
-      "a_liquidar": 764000.0,
+      "empenhado": 809540.39,
+      "a_liquidar": 45540.39,
       "liquidado_a_pagar": 764000.0,
       "pago_acumulado": 0.0
     },
@@ -104620,8 +104620,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 859500.0,
-      "a_liquidar": 429750.0,
+      "empenhado": 437996.8,
+      "a_liquidar": 8246.8,
       "liquidado_a_pagar": 429750.0,
       "pago_acumulado": 0.0
     },
@@ -109297,8 +109297,8 @@
       "departamento": "FISCON",
       "empenhado": 112274.31,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 8963.14,
-      "pago_acumulado": 103311.17
+      "liquidado_a_pagar": 22372.28,
+      "pago_acumulado": 89902.03
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -122370,8 +122370,8 @@
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
       "empenhado": 49300.0,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 49300.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 2884.05,
+      "pago_acumulado": 46415.95
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -122829,8 +122829,8 @@
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
       "empenhado": 2552410.0,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 1162700.0,
-      "pago_acumulado": 1389710.0
+      "liquidado_a_pagar": 995210.0,
+      "pago_acumulado": 1557200.0
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
