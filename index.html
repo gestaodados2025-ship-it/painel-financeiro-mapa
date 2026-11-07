@@ -26,7 +26,7 @@
     </div>
   </header>
 
-  <main class="p-3 space-y-3 max-w-[1750px] mx-auto">
+  <main class="p-3 space-y-3 max-w-[1850px] mx-auto">
 
     <!-- BLOCO SUPERIOR: BUSCA E BOTÕES DE AÇÃO -->
     <section class="bg-slate-400 p-2.5 rounded border border-slate-500 shadow-inner space-y-2">
@@ -65,8 +65,8 @@
     <!-- BLOCO PRINCIPAL: FICHA DO PROCESSO RAIZ (ESQUERDA) | DDO E DESPESAS (DIREITA) -->
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-3">
 
-      <!-- FICHA DE CADASTRO DO PROCESSO (8 colunas) -->
-      <section class="xl:col-span-8 bg-slate-400 p-3 rounded border border-slate-500 shadow-inner">
+      <!-- FICHA DE CADASTRO DO PROCESSO (7 colunas) -->
+      <section class="xl:col-span-7 bg-slate-400 p-3 rounded border border-slate-500 shadow-inner">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
 
           <!-- COLUNA 1 DA FICHA -->
@@ -203,10 +203,33 @@
               <span class="bg-black text-white font-bold px-2 py-1 w-24 text-center border border-black">UF</span>
               <select id="inp-uf" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
                 <option value="">Selecione...</option>
-                <option value="DF">Distrito Federal - DF</option>
-                <option value="GO">Goiás - GO</option>
+                <option value="AC">Acre - AC</option>
+                <option value="AL">Alagoas - AL</option>
+                <option value="AP">Amapá - AP</option>
+                <option value="AM">Amazonas - AM</option>
                 <option value="BA">Bahia - BA</option>
+                <option value="CE">Ceará - CE</option>
+                <option value="DF">Distrito Federal - DF</option>
+                <option value="ES">Espírito Santo - ES</option>
+                <option value="GO">Goiás - GO</option>
+                <option value="MA">Maranhão - MA</option>
+                <option value="MT">Mato Grosso - MT</option>
+                <option value="MS">Mato Grosso do Sul - MS</option>
+                <option value="MG">Minas Gerais - MG</option>
+                <option value="PA">Pará - PA</option>
+                <option value="PB">Paraíba - PB</option>
+                <option value="PR">Paraná - PR</option>
+                <option value="PE">Pernambuco - PE</option>
+                <option value="PI">Piauí - PI</option>
+                <option value="RJ">Rio de Janeiro - RJ</option>
+                <option value="RN">Rio Grande do Norte - RN</option>
+                <option value="RS">Rio Grande do Sul - RS</option>
+                <option value="RO">Rondônia - RO</option>
+                <option value="RR">Roraima - RR</option>
+                <option value="SC">Santa Catarina - SC</option>
                 <option value="SP">São Paulo - SP</option>
+                <option value="SE">Sergipe - SE</option>
+                <option value="TO">Tocantins - TO</option>
               </select>
             </div>
           </div>
@@ -214,45 +237,52 @@
         </div>
       </section>
 
-      <!-- PAINÉIS LATERIAIS (DIREITA - 4 colunas): DDO E DESPESAS CONTRATUAIS -->
-      <section class="xl:col-span-4 space-y-2">
-        <!-- DDO -->
+      <!-- PAINÉIS LATERIAIS (DIREITA - 5 colunas): DDO (10 linhas) E DESPESAS CONTRATUAIS (30 linhas) -->
+      <section class="xl:col-span-5 space-y-2">
+        <!-- DDO (10 linhas editáveis) -->
         <div class="bg-slate-400 p-2 rounded border border-slate-500">
           <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
             DECLARAÇÃO DE DISPONIBILIDADE ORÇAMENTÁRIA - DDO
           </div>
-          <table class="w-full text-left border-collapse bg-white text-[10px]">
-            <thead>
-              <tr class="bg-slate-300 text-slate-900 border border-slate-500">
-                <th class="p-1 border">Data</th>
-                <th class="p-1 border">Processo SEI</th>
-                <th class="p-1 border">Valor</th>
-                <th class="p-1 border">Situação</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="p-1 border text-slate-400 text-center" colspan="4">Nenhum registro DDO</td></tr>
-            </tbody>
-          </table>
+          <div class="overflow-x-auto bg-white rounded border border-slate-500 max-h-48 overflow-y-auto">
+            <table class="w-full text-left border-collapse text-[10px]">
+              <thead>
+                <tr class="bg-slate-300 text-slate-900 border border-slate-500 sticky top-0">
+                  <th class="p-1 border">Data</th>
+                  <th class="p-1 border">Processo SEI</th>
+                  <th class="p-1 border">Valor (R$)</th>
+                  <th class="p-1 border">Situação</th>
+                  <th class="p-1 border">NE</th>
+                  <th class="p-1 border">Objeto</th>
+                  <th class="p-1 border">Período</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-ddo-lateral">
+                <!-- Gerado via Script (10 linhas) -->
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <!-- Despesas Contratuais / Eventuais (Por Competência) -->
+        <!-- Despesas Contratuais / Eventuais (30 linhas editáveis) -->
         <div class="bg-slate-400 p-2 rounded border border-slate-500">
           <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
             DESPESAS CONTRATUAIS / EVENTUAIS
           </div>
-          <div class="max-h-64 overflow-y-auto">
-            <table class="w-full text-left border-collapse bg-white text-[10px]">
+          <div class="overflow-x-auto bg-white rounded border border-slate-500 max-h-64 overflow-y-auto">
+            <table class="w-full text-left border-collapse text-[10px]">
               <thead>
-                <tr class="bg-slate-300 text-slate-900 border border-slate-500">
+                <tr class="bg-slate-300 text-slate-900 border border-slate-500 sticky top-0">
                   <th class="p-1 border">Competência</th>
                   <th class="p-1 border">Processo SEI</th>
-                  <th class="p-1 border text-right">Valor</th>
+                  <th class="p-1 border text-right">Valor (R$)</th>
+                  <th class="p-1 border">Situação</th>
                   <th class="p-1 border">Orçamento</th>
+                  <th class="p-1 border">Obs</th>
                 </tr>
               </thead>
-              <tbody id="tabela-despesas-eventuais">
-                <tr><td class="p-1 border text-slate-400 text-center" colspan="4">Aguardando seleção</td></tr>
+              <tbody id="tabela-despesas-lateral">
+                <!-- Gerado via Script (30 linhas) -->
               </tbody>
             </table>
           </div>
@@ -271,7 +301,7 @@
       <button class="bg-slate-200 border border-black px-3 py-0.5 rounded font-bold shadow-sm">CORRIGIR / AJUSTAR</button>
     </section>
 
-    <!-- BLOCO INFERIOR (LINHA 17 EM DIANTE): RELAÇÃO DE EMPENHOS & EXECUÇÃO MENSAL (SETOR FINANCEIRO) -->
+    <!-- BLOCO INFERIOR (LINHA 17 EM DIANTE): RELAÇÃO DE EMPENHOS & EXECUÇÃO MENSAL -->
     <section class="bg-slate-400 p-2 rounded border border-slate-500 shadow-sm space-y-2">
       <div class="bg-black text-white px-3 py-1 font-bold text-xs uppercase tracking-wider flex justify-between items-center">
         <span>Relação de Notas de Empenho & Execução por Competência (Setor Financeiro)</span>
@@ -289,22 +319,22 @@
               <th class="p-1.5 border border-slate-600">ND - Detalhada</th>
               <th class="p-1.5 border border-slate-600 text-right">Total Empenhado</th>
               <th class="p-1.5 border border-slate-600 text-right">Saldo Empenho</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jan (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Fev (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Mar (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Abr (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Mai (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jun (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jul (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Ago (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Set (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Out (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Nov (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Dez (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jan (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Fev (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Mar (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Abr (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Mai (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jun (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jul (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Ago (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Set (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Out (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Nov (R$)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Dez (R$)</th>
             </tr>
           </thead>
           <tbody id="tabela-empenhos-inferior" class="divide-y divide-slate-300">
-            <!-- Preenchido via script -->
+            <!-- Linhas de Empenho -->
           </tbody>
         </table>
       </div>
@@ -328,6 +358,11 @@
       "130255": "UNIDADE DE GERENCIAMENTO DE PROGRAMAS",
       "135098": "GESTAO DE CONTRATOS DE REPASSE"
     };
+
+    const listaCompetencias = [
+      "dezembro/2023", "janeiro/2024", "fevereiro/2024", "março/2024", "abril/2024", "maio/2024",
+      "junho/2024", "julho/2024", "agosto/2024", "setembro/2024", "outubro/2024", "novembro/2024", "dezembro/2024"
+    ];
 
     function formatarMoeda(v) {
       return Number(v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -381,6 +416,75 @@
         document.getElementById("inp-media-mensal").value = formatarMoeda(total / 12);
       } else {
         document.getElementById("inp-media-mensal").value = "N/A (Não é Contrato)";
+      }
+    }
+
+    function montarTabelasLaterais(dadosDdo = [], dadosDespesas = []) {
+      // DDO: 10 linhas
+      const tbodyDdo = document.getElementById("tabela-ddo-lateral");
+      tbodyDdo.innerHTML = "";
+      for (let i = 0; i < 10; i++) {
+        const d = dadosDdo[i] || {};
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="p-1 border"><input type="date" value="${d.data || ''}" class="w-full border px-0.5 bg-white font-mono text-[9px]" /></td>
+          <td class="p-1 border"><input type="text" value="${d.proc || ''}" placeholder="SEI" class="w-full border px-0.5 bg-white font-mono text-[9px]" /></td>
+          <td class="p-1 border"><input type="number" step="0.01" value="${d.valor || ''}" placeholder="0,00" class="w-full border px-0.5 bg-white text-right font-mono text-[9px]" /></td>
+          <td class="p-1 border">
+            <select class="w-full border px-0.5 bg-white text-[9px]">
+              <option value="">Selecione...</option>
+              <option value="Empenhado" ${d.situacao === 'Empenhado' ? 'selected' : ''}>Empenhado</option>
+              <option value="A Empenhar" ${d.situacao === 'A Empenhar' ? 'selected' : ''}>A Empenhar</option>
+            </select>
+          </td>
+          <td class="p-1 border"><input type="text" value="${d.ne || ''}" placeholder="NE" class="w-full border px-0.5 bg-white font-mono text-[9px]" /></td>
+          <td class="p-1 border">
+            <select class="w-full border px-0.5 bg-white text-[9px]">
+              <option value="">Selecione...</option>
+              <option value="Contratação" ${d.objeto === 'Contratação' ? 'selected' : ''}>Contratação</option>
+              <option value="Prorrogação" ${d.objeto === 'Prorrogação' ? 'selected' : ''}>Prorrogação</option>
+              <option value="Repactuação/Reajuste" ${d.objeto === 'Repactuação/Reajuste' ? 'selected' : ''}>Repactuação/Reajuste</option>
+            </select>
+          </td>
+          <td class="p-1 border"><input type="text" value="${d.periodo || ''}" placeholder="Período" class="w-full border px-0.5 bg-white text-[9px]" /></td>
+        `;
+        tbodyDdo.appendChild(tr);
+      }
+
+      // Despesas Contratuais / Eventuais: 30 linhas
+      const tbodyDesp = document.getElementById("tabela-despesas-lateral");
+      tbodyDesp.innerHTML = "";
+      for (let i = 0; i < 30; i++) {
+        const des = dadosDespesas[i] || {};
+        const tr = document.createElement("tr");
+        
+        let optsComp = `<option value="">Selecione...</option>`;
+        listaCompetencias.forEach(comp => {
+          const sel = (des.competencia === comp || (!des.competencia && i === 0 && comp === "dezembro/2023")) ? 'selected' : '';
+          optsComp += `<option value="${comp}" ${sel}>${comp}</option>`;
+        });
+
+        tr.innerHTML = `
+          <td class="p-1 border"><select class="w-full border px-0.5 bg-white text-[9px]">${optsComp}</select></td>
+          <td class="p-1 border"><input type="text" value="${des.proc || ''}" placeholder="SEI" class="w-full border px-0.5 bg-white font-mono text-[9px]" /></td>
+          <td class="p-1 border"><input type="number" step="0.01" value="${des.valor || ''}" placeholder="0,00" class="w-full border px-0.5 bg-white text-right font-mono text-[9px]" /></td>
+          <td class="p-1 border">
+            <select class="w-full border px-0.5 bg-white text-[9px]">
+              <option value="">Selecione...</option>
+              <option value="COFEF" ${des.situacao === 'COFEF' ? 'selected' : ''}>COFEF</option>
+              <option value="DIEC" ${des.situacao === 'DIEC' ? 'selected' : ''}>DIEC</option>
+            </select>
+          </td>
+          <td class="p-1 border">
+            <select class="w-full border px-0.5 bg-white text-[9px]">
+              <option value="">Selecione...</option>
+              <option value="RAP" ${des.orcamento === 'RAP' ? 'selected' : ''}>RAP</option>
+              <option value="EXE" ${des.orcamento === 'EXE' ? 'selected' : ''}>EXE</option>
+            </select>
+          </td>
+          <td class="p-1 border"><input type="text" value="${des.obs || ''}" placeholder="Observação" class="w-full border px-0.5 bg-white text-[9px]" /></td>
+        `;
+        tbodyDesp.appendChild(tr);
       }
     }
 
@@ -462,6 +566,42 @@
         return;
       }
 
+      // Captura dados do DDO
+      const dadosDdo = [];
+      document.querySelectorAll("#tabela-ddo-lateral tr").forEach(tr => {
+        const inputs = tr.querySelectorAll("input");
+        const sel = tr.querySelectorAll("select");
+        if (inputs[0].value || inputs[1].value) {
+          dadosDdo.push({
+            data: inputs[0].value,
+            proc: inputs[1].value,
+            valor: inputs[2].value,
+            situacao: sel[0].value,
+            ne: inputs[3].value,
+            objeto: sel[1].value,
+            periodo: inputs[4].value
+          });
+        }
+      });
+
+      // Captura dados das Despesas Contratuais
+      const dadosDespesas = [];
+      document.querySelectorAll("#tabela-despesas-lateral tr").forEach(tr => {
+        const sel = tr.querySelectorAll("select");
+        const inputs = tr.querySelectorAll("input");
+        if (inputs[0].value || inputs[1].value) {
+          dadosDespesas.push({
+            competencia: sel[0].value,
+            proc: inputs[0].value,
+            valor: inputs[1].value,
+            situacao: sel[1].value,
+            orcamento: sel[2].value,
+            obs: inputs[2].value
+          });
+        }
+      });
+
+      // Captura empenhos
       const linhasEmp = [];
       document.querySelectorAll("#tabela-empenhos-inferior tr").forEach(tr => {
         const inputs = tr.querySelectorAll("input");
@@ -508,6 +648,8 @@
         fimVigencia: document.getElementById("inp-fim-vigencia").value,
         valorTotal: parseFloat(document.getElementById("inp-valor-total").value || 0),
         valorRepasse: parseFloat(document.getElementById("inp-valor-repasse")?.value || 0),
+        ddo: dadosDdo,
+        despesas: dadosDespesas,
         empenhos: linhasEmp
       };
 
@@ -520,7 +662,7 @@
 
       localStorage.setItem("sdr_contratos_oficiais", JSON.stringify(contratosSalvos));
       atualizarSelectBusca();
-      alert("Contrato, Parceria e Empenhos salvos com sucesso!");
+      alert("Contrato, DDO, Despesas e Empenhos salvos com sucesso!");
     }
 
     function atualizarSelectBusca() {
@@ -550,7 +692,11 @@
         document.getElementById("inp-fim-vigencia").value = c.fimVigencia || "";
         document.getElementById("inp-valor-total").value = c.valorTotal;
         document.getElementById("inp-valor-repasse").value = c.valorRepasse || 0;
+
+        // Monta tabelas laterais com dados salvos
+        montarTabelasLaterais(c.ddo || [], c.despesas || []);
         
+        // Empenhos
         const tbody = document.getElementById("tabela-empenhos-inferior");
         tbody.innerHTML = "";
         if (c.empenhos && c.empenhos.length > 0) {
@@ -590,32 +736,17 @@
 
     function limparFormulario() {
       document.getElementById("select-busca-processo").value = "";
-      document.getElementById("inp-processo").value = "";
-      document.getElementById("inp-favorecido").value = "";
-      document.getElementById("inp-cnpj").value = "";
-      document.getElementById("inp-contrato-num").value = "";
-      document.getElementById("inp-valor-total").value = "";
-      document.getElementById("inp-ug").value = "";
-      document.getElementById("inp-nome-ug").value = "";
-      document.getElementById("inp-sigla").value = "";
-      document.getElementById("inp-modalidade").value = "";
-      document.getElementById("inp-grupo").value = "";
-      document.getElementById("inp-inicio-vigencia").value = "";
-      document.getElementById("inp-fim-vigencia").value = "";
-      document.getElementById("inp-dias-vencer").value = "";
-      document.getElementById("inp-media-mensal").value = "";
-      document.getElementById("inp-orcamento").value = "";
-      document.getElementById("inp-atividade").value = "";
-      document.getElementById("inp-formalizacao").value = "Contrato";
-      document.getElementById("inp-endereco").value = "";
-      document.getElementById("inp-regiao").value = "";
-      document.getElementById("inp-uf").value = "";
+      document.querySelectorAll("input:not([type='button']), select").forEach(el => {
+        if(el.id !== 'inp-data-cad' && el.id !== 'inp-data-alt') el.value = "";
+      });
       document.getElementById("tabela-empenhos-inferior").innerHTML = "";
       adicionarLinhaEmpenho();
+      montarTabelasLaterais();
     }
 
     carregarBasesTesouro();
     atualizarSelectBusca();
+    montarTabelasLaterais();
     if (document.getElementById("tabela-empenhos-inferior").children.length === 0) {
       adicionarLinhaEmpenho();
     }
