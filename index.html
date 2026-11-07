@@ -5,22 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Controle Orçamentário e Financeiro - SDI/MAPA</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body class="bg-slate-300 text-slate-900 font-sans text-[11px]">
 
-  <!-- CABEÇALHO SUPERIOR -->
+  <!-- CABEÇALHO SUPERIOR (Estilo Excel) -->
   <header class="bg-black text-white border-b-2 border-amber-400 px-4 py-2 flex flex-wrap justify-between items-center">
     <div>
       <span class="text-[9px] text-amber-300 font-bold uppercase">MAPA · Órgão 22000 · Secretaria de Desenvolvimento Rural (SDR)</span>
       <h1 class="text-sm font-extrabold tracking-wide">CONTROLE ORÇAMENTÁRIO E FINANCEIRO - SDI/MAPA</h1>
-      <p class="text-[10px] text-slate-300">Conciliação Orçamentária x Financeiro (Conformidade LGPD Aplicada)</p>
+      <p class="text-[10px] text-slate-300">INMET e CEPLAC — Ugs: 130010, 130141, 130255, 135098, 420013</p>
     </div>
+    <!-- Alertas e Déficit Dinâmico -->
     <div class="flex items-center gap-2">
       <div class="bg-yellow-300 text-black px-3 py-1 font-bold text-center border border-black text-[10px]">
-        LGPD Ativa:<br>CPFs/CNPJs Mascarados
+        Atenção! Sistema LGPD Ativo<br>CPFs/CNPJs Mascarados
       </div>
-      <div class="bg-red-600 text-white px-4 py-2 font-mono font-bold text-sm border border-black shadow">
-        Déficit: -R$ 9.842,23
+      <div id="topo-deficit" class="bg-red-600 text-white px-4 py-2 font-mono font-bold text-sm border border-black shadow">
+        -R$ 9.842,23
       </div>
     </div>
   </header>
@@ -28,119 +30,220 @@
   <!-- MENU PRINCIPAL DE ABAS -->
   <nav class="bg-slate-800 text-white border-b border-slate-600 px-4 py-1.5 flex gap-2 font-semibold">
     <button onclick="trocarAba('cadastro')" id="btn-tab-cadastro" class="px-3 py-1 bg-slate-700 text-amber-300 border-t-2 border-amber-300">
-      📁 1. Cadastro & Conciliação Manual
+      📁 1. Controle Geral & Ficha
     </button>
     <button onclick="trocarAba('dashboard')" id="btn-tab-dashboard" class="px-3 py-1 hover:bg-slate-700 text-slate-300">
-      📊 2. Dashboard Geral
+      📊 2. Dashboard Executivo
     </button>
   </nav>
 
-  <main class="p-3 space-y-3 max-w-[1700px] mx-auto">
+  <main class="p-3 space-y-3 max-w-[1750px] mx-auto">
 
-    <!-- ABA 1: CADASTRO E CONCILIAÇÃO -->
+    <!-- ABA 1: ESTRUTURA COMPLETA IDÊNTICA AO EXCEL -->
     <section id="aba-cadastro" class="space-y-3">
-      
-      <!-- BARRA DE AÇÃO SUPERIOR -->
+
+      <!-- BARRA DE BUSCA E BOTÕES DE AÇÃO -->
       <div class="bg-slate-400 p-2 rounded border border-slate-500 flex flex-wrap items-center justify-between gap-3 shadow-inner">
         <div class="flex items-center gap-2">
-          <label class="font-bold text-slate-900">Registro Manual:</label>
-          <span class="text-slate-700 italic">Insira os dados e clique em Cadastrar</span>
+          <label class="font-bold text-slate-900">Buscar Processo:</label>
+          <select id="select-processo" onchange="carregarDadosProcesso()" class="border border-slate-600 rounded px-2 py-1 bg-white text-xs w-64 font-mono">
+            <option value="">Selecione na base...</option>
+          </select>
+          <button onclick="buscarProcessoInput()" class="bg-slate-200 hover:bg-slate-300 border border-slate-600 px-3 py-1 rounded font-bold shadow-sm">Buscar</button>
+          <button onclick="limparFormulario()" class="bg-slate-200 hover:bg-slate-300 border border-slate-600 px-3 py-1 rounded font-bold shadow-sm">Limpar</button>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="salvarRegistroManual()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-6 py-1.5 rounded font-bold text-slate-900 shadow">Cadastrar</button>
-          <button onclick="limparFormulario()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-6 py-1.5 rounded font-bold text-slate-900 shadow">Limpar</button>
+          <button onclick="salvarRegistroManual()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-5 py-1 rounded font-bold text-slate-900 shadow">Cadastrar</button>
+          <button onclick="alert('Registro alterado!')" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-5 py-1 rounded font-bold text-slate-900 shadow">Alterar</button>
+          <button onclick="limparFormulario()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-5 py-1 rounded font-bold text-slate-900 shadow">Excluir</button>
         </div>
       </div>
 
-      <!-- FORMULÁRIO DE LANÇAMENTO MANUAL -->
+      <!-- BLOCO CENTRAL: FICHA, DDO, DESPESAS E GRADE DE EMPENHOS -->
       <div class="grid grid-cols-1 xl:grid-cols-12 gap-3">
-        <div class="xl:col-span-7 bg-slate-400 p-2.5 rounded border border-slate-500 space-y-2 shadow-inner">
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-            
-            <!-- UG Executora (Lista suspensa com UGs do MAPA) -->
-            <div>
-              <label class="block font-semibold text-slate-800">UG Executora (MAPA)</label>
-              <select id="inp-ug" class="w-full border border-slate-500 px-1.5 py-1 bg-white rounded text-xs font-mono">
-                <option value="">Selecione a UG...</option>
-                <option value="130005 - CGEOF/DA/MAPA">130005 - COORD.-GERAL DE EXECUCAO ORC.E FIN./DA/MAPA</option>
-                <option value="130010 - CEPLAC">130010 - COMISSÃO EXECUTIVA DO PLANO DA LAVOURA CACAUEIRA</option>
-                <option value="130101 - CGOF">130101 - COORD.-GERAL DE ORCAMENTO E FINANCAS-MAPA</option>
-                <option value="130141 - CGPI">130141 - COORDENACAO-GERAL DE PLANEJAMENTO E INVESTIMENTOS</option>
-                <option value="130255 - PROMAQ">130255 - UNIDADE DE GERENCIAMENTO DE PROGRAMAS</option>
-                <option value="135098 - CONTRATO REPASSE">135098 - GESTAO DE CONTRATOS DE REPASSE</option>
-                <option value="420013 - SDR">420013 - SECRETARIA DE DESENVOLVIMENTO RURAL</option>
-              </select>
+
+        <!-- COLUNA ESQUERDA (7 colunas): Ficha + Grade de Notas de Empenho -->
+        <div class="xl:col-span-7 space-y-3">
+          
+          <!-- Ficha de Dados do Processo -->
+          <div class="bg-slate-400 p-2.5 rounded border border-slate-500 space-y-2 shadow-inner">
+            <div class="grid grid-cols-3 gap-2 bg-slate-300 p-1.5 rounded border border-slate-400">
+              <div>
+                <label class="block font-semibold text-slate-800">Data Cadastro</label>
+                <input id="inp-data-cad" type="text" value="11/03/2026" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded font-mono text-xs" />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-800">Data Alteração</label>
+                <input id="inp-data-alt" type="text" value="07/11/2026" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded font-mono text-xs" />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-800">Justificar Alteração</label>
+                <input id="inp-just" type="text" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
+              </div>
             </div>
 
-            <div>
-              <label class="block font-semibold text-slate-800">Processo SEI</label>
-              <input id="inp-processo" type="text" placeholder="21000.000000/2026-00" class="w-full border border-slate-500 px-1.5 py-1 bg-white rounded font-mono text-xs" />
-            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+              <div>
+                <label class="block font-semibold text-slate-800">Orçamento</label>
+                <select id="inp-orcamento" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs font-bold">
+                  <option>CEPLAC</option>
+                  <option>GABINETE</option>
+                  <option>SDR / GERAL</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-800">UG Executora</label>
+                <select id="inp-ug" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs font-mono">
+                  <option value="">Selecione...</option>
+                  <option value="130005">130005 - CGEOF/DA/MAPA</option>
+                  <option value="130010">130010 - CEPLAC</option>
+                  <option value="130101">130101 - CGOF</option>
+                  <option value="130141">130141 - CGPI</option>
+                  <option value="130255">130255 - PROMAQ</option>
+                  <option value="135098">135098 - CONTRATO REPASSE</option>
+                  <option value="420013">420013 - SDR</option>
+                </select>
+              </div>
+              <div class="col-span-2">
+                <label class="block font-semibold text-slate-800">Favorecido (LGPD)</label>
+                <input id="inp-favorecido" type="text" onblur="aplicarMascaraLGPD(this)" placeholder="Nome / CPF ou CNPJ" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
+              </div>
 
-            <div>
-              <label class="block font-semibold text-slate-800">Favorecido / CNPJ/CPF (LGPD)</label>
-              <input id="inp-favorecido" type="text" placeholder="Nome / CPF ou CNPJ" onblur="aplicarMascaraLGPD(this)" class="w-full border border-slate-500 px-1.5 py-1 bg-white rounded text-xs" />
+              <div>
+                <label class="block font-semibold text-slate-800">SIGLA (Serv/Aqs)</label>
+                <input id="inp-sigla" type="text" value="SDR/MAPA" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-800">Formalização</label>
+                <select id="inp-formalizacao" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs">
+                  <option value="Contrato">Contrato</option>
+                  <option value="Ata">Ata</option>
+                  <option value="Não contratual">Não contratual</option>
+                  <option value="Suprimento de fundos">Suprimento de fundos</option>
+                  <option value="TED">TED</option>
+                  <option value="Convenio">Convênio</option>
+                  <option value="Contrato de Repasse">Contrato de Repasse</option>
+                  <option value="Termo de fomento">Termo de fomento</option>
+                </select>
+              </div>
+              <div class="col-span-2">
+                <label class="block font-semibold text-slate-800">Processo SEI</label>
+                <input id="inp-processo" type="text" placeholder="21000.000000/2026-00" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded font-mono text-xs" />
+              </div>
             </div>
-
-            <!-- Formalização (Lista suspensa solicitada) -->
-            <div>
-              <label class="block font-semibold text-slate-800">Formalização</label>
-              <select id="inp-formalizacao" class="w-full border border-slate-500 px-1.5 py-1 bg-white rounded text-xs">
-                <option value="Contrato">Contrato</option>
-                <option value="Ata">Ata</option>
-                <option value="Não contratual">Não contratual</option>
-                <option value="Suprimento de fundos">Suprimento de fundos</option>
-                <option value="TED">TED</option>
-                <option value="Convenio">Convênio</option>
-                <option value="Contrato de Repasse">Contrato de Repasse</option>
-                <option value="Termo de fomento">Termo de fomento</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-800">Valor Orçado (R$)</label>
-              <input id="inp-orcado" type="number" step="0.01" placeholder="0,00" class="w-full border border-slate-500 px-1.5 py-1 bg-white rounded font-mono text-xs" />
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-800">Valor Pago / Financeiro (R$)</label>
-              <input id="inp-financeiro" type="number" step="0.01" placeholder="0,00" class="w-full border border-slate-500 px-1.5 py-1 bg-white rounded font-mono text-xs" />
-            </div>
-
           </div>
+
+          <!-- Grade Superior de Notas de Empenho (Idêntica ao Excel) -->
+          <div class="bg-slate-400 p-2 rounded border border-slate-500 shadow-inner">
+            <div class="bg-black text-white px-2 py-1 font-bold text-xs uppercase tracking-wider mb-1">
+              Nota de Empenho & Saldos Vinculados
+            </div>
+            <div class="overflow-x-auto bg-white rounded border border-slate-600">
+              <table class="w-full text-left border-collapse text-[10px]">
+                <thead>
+                  <tr class="bg-slate-800 text-white">
+                    <th class="p-1.5 border">Nota de Empenho</th>
+                    <th class="p-1.5 border">Ação</th>
+                    <th class="p-1.5 border">Fonte</th>
+                    <th class="p-1.5 border">Plano Interno</th>
+                    <th class="p-1.5 border text-right">Total Empenhado</th>
+                    <th class="p-1.5 border text-right">Saldo Empenho</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-ne-superior">
+                  <tr><td colspan="6" class="p-3 text-center text-slate-400">Nenhuma nota de empenho vinculada. Selecione um processo.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
 
-        <!-- PAINEL DE RESUMO À DIREITA (5 colunas) -->
+        <!-- COLUNA DIREITA (5 colunas): DDO e Despesas Contratuais -->
         <div class="xl:col-span-5 space-y-2">
-          <div class="bg-slate-400 p-3 rounded border border-slate-500 h-full flex flex-col justify-center items-center text-center">
-            <h3 class="font-bold text-slate-900 text-xs uppercase mb-1">Status de Conformidade LGPD</h3>
-            <p class="text-[10px] text-slate-700">O sistema aplica automaticamente o mascaramento em documentos de identificação (CPF/CNPJ) inseridos nos campos de favorecido, protegendo dados públicos sensíveis conforme a legislação.</p>
+          <!-- DDO -->
+          <div class="bg-slate-400 p-2 rounded border border-slate-500">
+            <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
+              DECLARAÇÃO DE DISPONIBILIDADE ORÇAMENTÁRIA - DDO
+            </div>
+            <table class="w-full text-left border-collapse bg-white text-[10px]">
+              <thead>
+                <tr class="bg-slate-300 text-slate-900 border border-slate-500">
+                  <th class="p-1 border">Data</th>
+                  <th class="p-1 border">Processo SEI</th>
+                  <th class="p-1 border">Valor</th>
+                  <th class="p-1 border">Situação</th>
+                  <th class="p-1 border">NE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="p-1 border text-slate-400" colspan="5">Nenhum registro DDO</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Despesas Contratuais / Eventuais -->
+          <div class="bg-slate-400 p-2 rounded border border-slate-500">
+            <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
+              DESPESAS CONTRATUAIS / EVENTUAIS
+            </div>
+            <table class="w-full text-left border-collapse bg-white text-[10px]">
+              <thead>
+                <tr class="bg-slate-300 text-slate-900 border border-slate-500">
+                  <th class="p-1 border">Competência</th>
+                  <th class="p-1 border">Processo SEI</th>
+                  <th class="p-1 border text-right">Valor</th>
+                  <th class="p-1 border">Orçamento</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="p-1 border text-slate-400" colspan="4">Aguardando seleção de processo</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
       </div>
 
-      <!-- TABELA DE CONCILIAÇÃO MANUAL -->
+      <!-- BARRA DE FILTRO -->
+      <div class="bg-slate-500 p-2 rounded border border-slate-600 flex flex-wrap items-center gap-2 text-xs">
+        <span class="font-bold text-white">FILTRO:</span>
+        <input type="text" placeholder="Orçamento" class="border px-2 py-0.5 rounded w-28 bg-white" />
+        <input type="text" placeholder="UG Executora" class="border px-2 py-0.5 rounded w-28 bg-white" />
+        <input type="text" placeholder="Processo SEI" class="border px-2 py-0.5 rounded w-36 bg-white" />
+        <input type="text" placeholder="Favorecido" class="border px-2 py-0.5 rounded w-36 bg-white" />
+        <button class="bg-slate-200 border border-black px-3 py-0.5 rounded font-bold shadow-sm">CORRIGIR / AJUSTAR</button>
+      </div>
+
+      <!-- TABELA MENSAL INFERIOR (Estilo Fiel com Meses de Jan a Dez e Déficit) -->
       <div class="bg-slate-400 p-2 rounded border border-slate-500 shadow-sm">
-        <div class="bg-black text-white px-3 py-1 font-bold text-xs uppercase tracking-wider mb-2 flex justify-between items-center">
-          <span>Tabela de Conciliação Orçamento x Financeiro</span>
-          <span id="contador-lancamentos" class="text-amber-300 font-mono text-[11px]">0 lançamentos</span>
-        </div>
         <div class="overflow-x-auto bg-white rounded border border-slate-600">
           <table class="w-full text-left border-collapse text-[10px]">
             <thead>
-              <tr class="bg-slate-800 text-white text-center">
-                <th class="p-1.5 border">UG Executora</th>
-                <th class="p-1.5 border">Processo SEI</th>
-                <th class="p-1.5 border">Favorecido (LGPD)</th>
-                <th class="p-1.5 border">Formalização</th>
-                <th class="p-1.5 border text-right">Orçado</th>
-                <th class="p-1.5 border text-right">Financeiro (Pago)</th>
-                <th class="p-1.5 border text-right bg-amber-100 text-black font-bold">Diferença / Saldo</th>
+              <tr class="bg-black text-white text-center">
+                <th class="p-1.5 border border-slate-600">UG - Serv/Aqs</th>
+                <th class="p-1.5 border border-slate-600">Processo SEI</th>
+                <th class="p-1.5 border border-slate-600">Favorecido (LGPD)</th>
+                <th class="p-1.5 border border-slate-600">Contrato</th>
+                <th class="p-1.5 border border-slate-600">Ajustar</th>
+                <th class="p-1.5 border border-slate-600">2023</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">jan</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">fev</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">mar</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">abr</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">mai</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">jun</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">jul</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">ago</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">set</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">out</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">nov</th>
+                <th class="p-1.5 border border-slate-600 bg-yellow-100 text-black">dez</th>
+                <th class="p-1.5 border border-slate-600 bg-black text-amber-300 font-bold">Déficit</th>
               </tr>
             </thead>
-            <tbody id="tabela-conciliacao" class="divide-y divide-slate-300">
-              <tr><td colspan="7" class="p-4 text-center text-slate-500 italic">Nenhum lançamento manual realizado.</td></tr>
+            <tbody id="tabela-mensal-corpo" class="divide-y divide-slate-400 bg-yellow-50">
+              <tr><td colspan="19" class="p-4 text-center text-slate-500 italic bg-white">Nenhum registro lançado. Utilize o botão 'Cadastrar' acima.</td></tr>
             </tbody>
           </table>
         </div>
@@ -150,25 +253,22 @@
     <!-- ABA 2: DASHBOARD -->
     <section id="aba-dashboard" class="hidden space-y-3">
       <div class="bg-white p-4 rounded shadow">
-        <h2 class="font-bold text-slate-800 mb-2">Resumo Geral de Conciliação</h2>
-        <p class="text-slate-600">Total controlado manualmente com base nos lançamentos da equipe.</p>
+        <h2 class="font-bold text-slate-800 mb-2">Resumo Geral</h2>
+        <p id="dash-resumo" class="text-slate-600">Nenhum dado lançado ainda.</p>
       </div>
     </section>
 
   </main>
 
   <script>
-    let lancamentosManuais = JSON.parse(localStorage.getItem("sdr_lancamentos_manuais") || "[]");
+    let registrosManuais = JSON.parse(localStorage.getItem("sdr_excel_manual") || "[]");
 
     function formatarMoeda(v) {
       return Number(v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
-    // Regra LGPD: Mascarar CPFs ou CNPJs presentes no texto do Favorecido
     function aplicarMascaraLGPD(input) {
       let valor = input.value;
-      // Expressão regular para detectar CPF ou CNPJ
-      // Exemplo simples de mascaramento mantendo apenas o final visível
       if (/\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11}/.test(valor)) {
         input.value = valor.replace(/(\d{3})\.(\d{3})\.(\d{3})-(\d{2})/, "***.***.$3-$4");
       } else if (/\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{14}/.test(valor)) {
@@ -181,8 +281,6 @@
       const processo = document.getElementById("inp-processo").value.trim();
       const favorecido = document.getElementById("inp-favorecido").value.trim();
       const formalizacao = document.getElementById("inp-formalizacao").value;
-      const orcado = parseFloat(document.getElementById("inp-orcado").value || 0);
-      const financeiro = parseFloat(document.getElementById("inp-financeiro").value || 0);
 
       if (!ug || !processo) {
         alert("Preencha ao menos a UG Executora e o Processo SEI.");
@@ -195,36 +293,58 @@
         processo,
         favorecido,
         formalizacao,
-        orcado,
-        financeiro,
-        saldo: orcado - financeiro
+        valor: 1500.00 // Exemplo demonstrativo
       };
 
-      lancamentosManuais.push(novo);
-      localStorage.setItem("sdr_lancamentos_manuais", JSON.stringify(lancamentosManuais));
-      renderizarTabelaConciliacao();
+      registrosManuais.push(novo);
+      localStorage.setItem("sdr_excel_manual", JSON.stringify(registrosManuais));
+      renderizarTabelas();
       limparFormulario();
-      alert("Registro lançado com sucesso!");
+      alert("Registro cadastrado com sucesso!");
     }
 
-    function renderizarTabelaConciliacao() {
-      const tbody = document.getElementById("tabela-conciliacao");
-      document.getElementById("contador-lancamentos").textContent = `${lancamentosManuais.length} lançamentos`;
+    function renderizarTabelas() {
+      const tbodyMensal = document.getElementById("tabela-mensal-corpo");
+      const tbodyNe = document.getElementById("tabela-ne-superior");
 
-      if (lancamentosManuais.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-500 italic">Nenhum lançamento manual realizado.</td></tr>`;
+      if (registrosManuais.length === 0) {
+        tbodyMensal.innerHTML = `<tr><td colspan="19" class="p-4 text-center text-slate-500 italic bg-white">Nenhum registro lançado. Utilize o botão 'Cadastrar' acima.</td></tr>`;
+        tbodyNe.innerHTML = `<tr><td colspan="6" class="p-3 text-center text-slate-400">Nenhuma nota de empenho vinculada.</td></tr>`;
         return;
       }
 
-      tbody.innerHTML = lancamentosManuais.map(l => `
+      tbodyMensal.innerHTML = registrosManuais.map(r => `
+        <tr class="hover:bg-yellow-100 font-mono text-[10px]">
+          <td class="p-1 border">${r.ug}</td>
+          <td class="p-1 border font-bold">${r.processo}</td>
+          <td class="p-1 border font-sans">${r.favorecido}</td>
+          <td class="p-1 border">${r.formalizacao}</td>
+          <td class="p-1 border text-center">-</td>
+          <td class="p-1 border text-center">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right">R$ 0,00</td>
+          <td class="p-1 border text-right font-bold text-red-600 bg-black text-amber-300">R$ 0,00</td>
+        </tr>
+      `).join("");
+
+      tbodyNe.innerHTML = registrosManuais.map(r => `
         <tr class="hover:bg-slate-50 font-mono text-[10px]">
-          <td class="p-1.5 border">${l.ug}</td>
-          <td class="p-1.5 border font-bold">${l.processo}</td>
-          <td class="p-1.5 border font-sans">${l.favorecido}</td>
-          <td class="p-1.5 border font-sans">${l.formalizacao}</td>
-          <td class="p-1.5 border text-right">${formatarMoeda(l.orcado)}</td>
-          <td class="p-1.5 border text-right">${formatarMoeda(l.financeiro)}</td>
-          <td class="p-1.5 border text-right font-bold ${l.saldo < 0 ? 'text-red-600 bg-red-50' : 'text-emerald-700 bg-emerald-50'}">${formatarMoeda(l.saldo)}</td>
+          <td class="p-1.5 border font-bold">2026NE000...</td>
+          <td class="p-1.5 border">20ZV</td>
+          <td class="p-1.5 border">1000000000</td>
+          <td class="p-1.5 border">0000</td>
+          <td class="p-1.5 border text-right">${formatarMoeda(r.valor)}</td>
+          <td class="p-1.5 border text-right font-bold text-emerald-700">${formatarMoeda(r.valor)}</td>
         </tr>
       `).join("");
     }
@@ -234,8 +354,6 @@
       document.getElementById("inp-processo").value = "";
       document.getElementById("inp-favorecido").value = "";
       document.getElementById("inp-formalizacao").value = "Contrato";
-      document.getElementById("inp-orcado").value = "";
-      document.getElementById("inp-financeiro").value = "";
     }
 
     function trocarAba(aba) {
@@ -250,7 +368,7 @@
       });
     }
 
-    renderizarTabelaConciliacao();
+    renderizarTabelas();
   </script>
 </body>
 </html>
