@@ -3,396 +3,569 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Controle Orçamentário e Financeiro - SDI/MAPA</title>
+  <title>Controle Orçamentário e Financeiro - SDR/MAPA (2027)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { background-color: #d4d4d8; font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #111; margin: 0; padding: 6px; }
+    
+    /* Tabelas Estilo Planilha Excel (Bordas Coladas) */
+    .excel-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .excel-table th, .excel-table td { border: 1px solid #52525b; padding: 0; height: 21px; vertical-align: middle; overflow: hidden; }
+    
+    /* Rótulos da Ficha */
+    .lbl-black { background-color: #000000; color: #ffffff; font-weight: bold; padding: 0 5px; font-size: 10px; white-space: nowrap; text-align: left; }
+    .lbl-gray { background-color: #52525b; color: #ffffff; font-weight: bold; padding: 0 5px; font-size: 10px; white-space: nowrap; text-align: left; }
+    .lbl-darkred { background-color: #5c0f0f; color: #ffffff; font-weight: bold; padding: 0 5px; font-size: 10px; white-space: nowrap; text-align: left; }
+    
+    /* Inputs dentro de células */
+    .cell-input { width: 100%; height: 100%; border: none; padding: 0 4px; font-size: 10px; background-color: #ffffff; color: #000000; outline: none; display: block; }
+    .cell-input:focus { background-color: #fef9c3; box-shadow: inset 0 0 0 1px #2563eb; }
+    .cell-readonly { width: 100%; height: 100%; border: none; padding: 0 4px; font-size: 10px; background-color: #8e8e93; color: #ffffff; font-weight: bold; outline: none; display: block; }
+    .cell-readonly-light { width: 100%; height: 100%; border: none; padding: 0 4px; font-size: 10px; background-color: #a1a1aa; color: #111827; font-weight: bold; outline: none; display: block; }
+    
+    /* Botões 3D Estilo Planilha */
+    .btn-excel-gray { background: linear-gradient(to bottom, #e2e8f0, #cbd5e1); border: 2px outset #94a3b8; font-weight: bold; color: #0f172a; cursor: pointer; font-size: 11px; }
+    .btn-excel-gray:active { border-style: inset; }
+    .btn-excel-blue { background: linear-gradient(to bottom, #bae6fd, #7dd3fc); border: 2px outset #38bdf8; font-weight: bold; color: #0c4a6e; cursor: pointer; font-size: 12px; }
+    .btn-excel-blue:active { border-style: inset; }
+
+    /* Scrollbars compactas para as grades */
+    .scroll-box::-webkit-scrollbar { width: 8px; height: 8px; }
+    .scroll-box::-webkit-scrollbar-track { background: #cbd5e1; }
+    .scroll-box::-webkit-scrollbar-thumb { background: #64748b; }
+  </style>
 </head>
-<body class="bg-slate-300 text-slate-900 font-sans text-[11px]">
+<body>
 
-  <!-- CABEÇALHO SUPERIOR INSTITUCIONAL -->
-  <header class="bg-black text-white border-b-2 border-amber-400 px-4 py-2 flex flex-wrap justify-between items-center">
-    <div>
-      <span class="text-[9px] text-amber-300 font-bold uppercase">MAPA · Órgão 22000 · Secretaria de Desenvolvimento Rural (SDR)</span>
-      <h1 class="text-sm font-extrabold tracking-wide">CONTROLE ORÇAMENTÁRIO E FINANCEIRO - SDI/MAPA</h1>
-      <p class="text-[10px] text-slate-300">Módulo de Gestão de Contratos, Parcerias e Execução Financeira (LGPD Ativa)</p>
-    </div>
-    <div class="flex items-center gap-2">
-      <div class="bg-yellow-300 text-black px-3 py-1 font-bold text-center border border-black text-[10px]">
-        Sincronizado com Bases EXE & RAP
-      </div>
-      <div id="topo-deficit" class="bg-red-600 text-white px-4 py-2 font-mono font-bold text-sm border border-black shadow">
-        Déficit: R$ 0,00
-      </div>
-    </div>
-  </header>
+  <div class="max-w-[1900px] mx-auto space-y-1.5">
 
-  <main class="p-3 space-y-3 max-w-[1850px] mx-auto">
+    <!-- ========================================================================= -->
+    <!-- PARTE SUPERIOR: LADO ESQUERDO (BUSCA + FICHA + OBJETO + EMPENHOS)         -->
+    <!--                 LADO DIREITO  (DDO 10 LINHAS + DESPESAS 30 LINHAS)        -->
+    <!-- ========================================================================= -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-1.5 items-stretch">
 
-    <!-- BLOCO SUPERIOR: BUSCA E BOTÕES DE AÇÃO -->
-    <section class="bg-slate-400 p-2.5 rounded border border-slate-500 shadow-inner space-y-2">
-      <div class="grid grid-cols-1 xl:grid-cols-12 gap-3 items-center">
-        <div class="xl:col-span-3 flex items-center gap-2">
-          <label class="bg-black text-white px-3 py-1.5 font-bold uppercase w-32 text-center border border-black">BUSCAR PROCESSO</label>
-          <select id="select-busca-processo" onchange="carregarContratoSelecionado()" class="border border-slate-600 px-2 py-1 bg-white rounded font-mono text-xs w-full">
-            <option value="">Selecione o processo...</option>
-          </select>
+      <!-- COLUNA ESQUERDA (7 COLUNAS) -->
+      <div class="xl:col-span-7 flex flex-col justify-between space-y-1">
+
+        <!-- 1. TÍTULO PRETO + ALERTA COL T -->
+        <div class="flex gap-1 items-stretch h-11">
+          <div class="bg-black text-white flex-1 flex flex-col justify-center items-center border border-zinc-700 px-2">
+            <h1 class="text-xs font-extrabold tracking-wider uppercase">CONTROLE ORÇAMENTÁRIO E FINANCEIRO - SDR/MAPA</h1>
+            <p class="text-[10px] text-amber-400 font-semibold">Gestão de Contratos, Parcerias e Execução 2027 (LGPD Ativa) · <span id="status-tesouro" class="text-zinc-300">Sincronizando EXE/RAP...</span></p>
+          </div>
+          <div class="bg-yellow-300 text-black px-2 flex items-center justify-center text-center font-bold text-[10px] border border-black leading-tight w-40">
+            Atenção! Saldo Geral<br>de Execução
+          </div>
+          <div id="card-deficit-topo" class="bg-red-800 text-amber-300 px-3 flex items-center justify-center font-mono font-bold text-xs border border-black w-36">
+            R$ 0,00
+          </div>
         </div>
-        <div class="xl:col-span-9 flex flex-wrap items-center gap-2 justify-end">
-          <button onclick="buscarProcessoInput()" class="bg-slate-200 hover:bg-slate-300 border border-slate-600 px-4 py-1.5 rounded font-bold shadow-sm">Buscar</button>
-          <button onclick="limparFormulario()" class="bg-slate-200 hover:bg-slate-300 border border-slate-600 px-4 py-1.5 rounded font-bold shadow-sm">Limpar</button>
-          <button onclick="salvarOuAtualizarContrato()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-6 py-1.5 rounded font-bold text-slate-900 shadow">Cadastrar</button>
-          <button onclick="salvarOuAtualizarContrato()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-6 py-1.5 rounded font-bold text-slate-900 shadow">Alterar</button>
-          <button onclick="excluirContrato()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-6 py-1.5 rounded font-bold text-slate-900 shadow">Excluir</button>
-        </div>
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 bg-slate-300 p-1.5 rounded border border-slate-400 items-center">
-        <div class="flex items-center gap-2">
-          <span class="bg-black text-white px-2 py-1 font-bold w-32 text-center border border-black">Data Cadastro</span>
-          <input id="inp-data-cad" type="text" class="border border-slate-500 px-2 py-1 bg-white rounded font-mono text-xs w-full" />
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="bg-black text-white px-2 py-1 font-bold w-32 text-center border border-black">Data Alteração</span>
-          <input id="inp-data-alt" type="text" class="border border-slate-500 px-2 py-1 bg-white rounded font-mono text-xs w-full" />
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="bg-black text-white px-2 py-1 font-bold w-36 text-center border border-black">Justificar Alteração</span>
-          <input id="inp-justificativa" type="text" class="border border-slate-500 px-2 py-1 bg-white rounded text-xs w-full" />
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOCO PRINCIPAL: FICHA DO PROCESSO RAIZ (ESQUERDA) | DDO E DESPESAS (DIREITA) -->
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-3">
-
-      <!-- FICHA DE CADASTRO DO PROCESSO (7 colunas - Alinhada perfeitamente) -->
-      <section class="xl:col-span-7 bg-slate-400 p-3 rounded border border-slate-500 shadow-inner">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
-
-          <!-- COLUNA 1 DA FICHA -->
-          <div class="space-y-1.5">
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Orçamento</span>
-              <select id="inp-orcamento" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-bold">
-                <option value="">Selecione...</option>
-                <option value="CEPLAC">CEPLAC</option>
-                <option value="DECAP">DECAP</option>
-                <option value="DEPROS">DEPROS</option>
-                <option value="DIAGRO">DIAGRO</option>
-                <option value="DEPAC">DEPAC</option>
-                <option value="ORGÂNICO">ORGÂNICO</option>
-                <option value="GABINETE">GABINETE</option>
-                <option value="CGPI">CGPI</option>
-                <option value="PROMAQ">PROMAQ</option>
-                <option value="CONTRATO REPASSE">CONTRATO REPASSE</option>
-              </select>
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-32 text-center border border-black">UG Executora</span>
-              <select id="inp-ug" onchange="atualizarNomeUg()" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-mono">
-                <option value="">Selecione...</option>
-                <option value="130010">130010</option>
-                <option value="420013">420013</option>
-                <option value="130141">130141</option>
-                <option value="130255">130255</option>
-                <option value="135098">135098</option>
-              </select>
-            </div>
-            <div class="flex items-center">
-              <span class="bg-slate-600 text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Nome UG</span>
-              <input id="inp-nome-ug" type="text" readonly class="border border-slate-500 px-2 py-1.5 bg-amber-50 w-full text-xs font-bold text-amber-900" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-32 text-center border border-black">SIGLA (Serv/Aqs)</span>
-              <input id="inp-sigla" type="text" placeholder="Ex: SDR/MAPA" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-32 text-center border border-black">CNPJ/CPF</span>
-              <input id="inp-cnpj" type="text" onblur="aplicarMascaraLGPD(this)" placeholder="00.000.000/0001-00" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-mono" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Favorecido</span>
-              <input id="inp-favorecido" type="text" placeholder="Nome do Favorecido" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs" />
-            </div>
+        <!-- 2. CAIXA DE BUSCA E BOTÕES (Idêntica à Imagem) -->
+        <div class="bg-[#8e8e93] p-1.5 border border-zinc-600 grid grid-cols-12 gap-1.5 items-center">
+          <div class="col-span-5 space-y-1">
+            <table class="excel-table">
+              <tr>
+                <td class="lbl-black w-28">Buscar Processo</td>
+                <td>
+                  <select id="select-busca-processo" onchange="carregarContratoSelecionado()" class="cell-input font-mono">
+                    <option value="">Selecione ou digite abaixo...</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <table class="excel-table">
+              <tr>
+                <td class="lbl-black w-28">Data Cadastro</td>
+                <td><input id="inp-data-cad" type="text" readonly class="cell-readonly-light font-mono" placeholder="Automático" /></td>
+              </tr>
+              <tr>
+                <td class="lbl-black w-28">Data Alteração</td>
+                <td><input id="inp-data-alt" type="text" readonly class="cell-readonly-light font-mono" placeholder="Automático" /></td>
+              </tr>
+              <tr>
+                <td class="lbl-black w-28">Justificar Alteração</td>
+                <td><input id="inp-justificativa" type="text" class="cell-input" placeholder="Motivo da alteração..." /></td>
+              </tr>
+            </table>
           </div>
 
-          <!-- COLUNA 2 DA FICHA -->
-          <div class="space-y-1.5">
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-36 text-center border border-black">Processo SEI</span>
-              <input id="inp-processo" type="text" placeholder="21000.000000/2026-00" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-mono" />
+          <!-- Botões Buscar / Limpar + Cadastrar / Alterar / Excluir -->
+          <div class="col-span-7 flex items-center gap-1.5 h-full">
+            <div class="flex flex-col gap-1.5 w-24 h-full justify-center">
+              <button onclick="buscarProcessoInput()" class="btn-excel-gray py-1.5 rounded">Buscar</button>
+              <button onclick="limparFormulario()" class="btn-excel-gray py-1.5 rounded">Limpar</button>
             </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-36 text-center border border-black">Modalidade</span>
-              <input id="inp-modalidade" type="text" placeholder="Ex: Pregão" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-36 text-center border border-black">Atividade</span>
-              <select id="inp-atividade" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs">
-                <option value="">Selecione...</option>
-                <option value="Deslocamento">Deslocamento</option>
-                <option value="Funcionamento">Funcionamento</option>
-                <option value="Outras Despesas">Outras Despesas</option>
-              </select>
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-36 text-center border border-black">Natureza Despesa</span>
-              <input id="inp-grupo" type="text" placeholder="Ex: 3390" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-mono" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-36 text-center border border-black">Formalização</span>
-              <select id="inp-formalizacao" onchange="verificarFormalizacao()" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs">
-                <option value="Contrato">Contrato</option>
-                <option value="Ata">Ata</option>
-                <option value="Não contratual">Não contratual</option>
-                <option value="Suprimento de fundos">Suprimento de fundos</option>
-                <option value="TED">TED</option>
-                <option value="Convenio">Convênio</option>
-                <option value="Contrato de Repasse">Contrato de Repasse</option>
-                <option value="Termo de fomento">Termo de fomento</option>
-              </select>
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-36 text-center border border-black">Contrato nº</span>
-              <input id="inp-contrato-num" type="text" placeholder="Ex: 01/2026" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-mono" />
+            <div class="grid grid-cols-3 gap-1.5 flex-1 h-14">
+              <button onclick="salvarOuAtualizarContrato('cadastro')" class="btn-excel-blue h-full">Cadastrar</button>
+              <button onclick="salvarOuAtualizarContrato('alteracao')" class="btn-excel-blue h-full">Alterar</button>
+              <button onclick="excluirContrato()" class="btn-excel-blue h-full">Excluir</button>
             </div>
           </div>
-
-          <!-- COLUNA 3 DA FICHA -->
-          <div class="space-y-1.5">
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Início Vigência</span>
-              <input id="inp-inicio-vigencia" type="date" onchange="calcularDiasVencer()" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-mono" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Fim Vigência</span>
-              <input id="inp-fim-vigencia" type="date" onchange="calcularDiasVencer()" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-mono" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-slate-600 text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Dias a Vencer</span>
-              <input id="inp-dias-vencer" type="text" readonly class="border border-slate-500 px-2 py-1.5 bg-amber-50 w-full text-xs font-mono font-bold text-amber-900" placeholder="= Fim - Hoje" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Valor Total</span>
-              <input id="inp-valor-total" type="number" step="0.01" oninput="calcularMediaMensal()" placeholder="0,00" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs font-mono font-bold text-emerald-800" />
-            </div>
-            <div id="bloco-repasse" class="flex items-center hidden">
-              <span class="bg-amber-600 text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Valor Repasse</span>
-              <input id="inp-valor-repasse" type="number" step="0.01" placeholder="0,00" class="border border-slate-500 px-2 py-1.5 bg-amber-50 w-full text-xs font-mono font-bold text-amber-900" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-slate-600 text-white font-bold px-2 py-1.5 w-32 text-center border border-black">Média Mensal</span>
-              <input id="inp-media-mensal" type="text" readonly class="border border-slate-500 px-2 py-1.5 bg-slate-200 w-full text-xs font-mono" placeholder="Apenas Contrato" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-24 text-center border border-black">Endereço</span>
-              <input id="inp-endereco" type="text" placeholder="Esplanada..." class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-24 text-center border border-black">Região</span>
-              <select id="inp-regiao" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs">
-                <option value="">Selecione...</option>
-                <option value="Norte">Norte</option>
-                <option value="Sul">Sul</option>
-                <option value="Leste">Leste</option>
-                <option value="Oeste">Oeste</option>
-                <option value="Centro-Oeste">Centro-Oeste</option>
-              </select>
-            </div>
-            <div class="flex items-center">
-              <span class="bg-black text-white font-bold px-2 py-1.5 w-24 text-center border border-black">UF</span>
-              <select id="inp-uf" class="border border-slate-500 px-2 py-1.5 bg-white w-full text-xs">
-                <option value="">Selecione...</option>
-                <option value="AC">Acre - AC</option>
-                <option value="AL">Alagoas - AL</option>
-                <option value="AP">Amapá - AP</option>
-                <option value="AM">Amazonas - AM</option>
-                <option value="BA">Bahia - BA</option>
-                <option value="CE">Ceará - CE</option>
-                <option value="DF">Distrito Federal - DF</option>
-                <option value="ES">Espírito Santo - ES</option>
-                <option value="GO">Goiás - GO</option>
-                <option value="MA">Maranhão - MA</option>
-                <option value="MT">Mato Grosso - MT</option>
-                <option value="MS">Mato Grosso do Sul - MS</option>
-                <option value="MG">Minas Gerais - MG</option>
-                <option value="PA">Pará - PA</option>
-                <option value="PB">Paraíba - PB</option>
-                <option value="PR">Paraná - PR</option>
-                <option value="PE">Pernambuco - PE</option>
-                <option value="PI">Piauí - PI</option>
-                <option value="RJ">Rio de Janeiro - RJ</option>
-                <option value="RN">Rio Grande do Norte - RN</option>
-                <option value="RS">Rio Grande do Sul - RS</option>
-                <option value="RO">Rondônia - RO</option>
-                <option value="RR">Roraima - RR</option>
-                <option value="SC">Santa Catarina - SC</option>
-                <option value="SP">São Paulo - SP</option>
-                <option value="SE">Sergipe - SE</option>
-                <option value="TO">Tocantins - TO</option>
-              </select>
-            </div>
-          </div>
-
         </div>
-      </section>
 
-      <!-- PAINÉIS LATERIAIS (DIREITA - 5 colunas): DDO (10 linhas) E DESPESAS CONTRATUAIS (30 linhas) -->
-      <section class="xl:col-span-5 space-y-2">
-        <!-- DDO (10 linhas editáveis) -->
-        <div class="bg-slate-400 p-2 rounded border border-slate-500">
-          <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
+        <!-- 3. FICHA DE CADASTRO EM GRADE COLADA (4 COLUNAS EXATAS + CARD INTELIGENTE DE OBJETO) -->
+        <div class="bg-[#8e8e93] p-1 border border-zinc-600">
+          <table class="excel-table">
+            <colgroup>
+              <col style="width: 95px;" /><col style="width: 155px;" />
+              <col style="width: 105px;" /><col style="width: 145px;" />
+              <col style="width: 95px;" /><col style="width: 135px;" />
+              <col style="width: 90px;" /><col style="width: 115px;" />
+            </colgroup>
+            <tbody>
+              <!-- LINHA 1 -->
+              <tr>
+                <td class="lbl-black">Orçamento</td>
+                <td>
+                  <select id="inp-orcamento" class="cell-input font-bold">
+                    <option value=""></option>
+                    <option value="CEPLAC">CEPLAC</option>
+                    <option value="DECAP">DECAP</option>
+                    <option value="DEPROS">DEPROS</option>
+                    <option value="DIAGRO">DIAGRO</option>
+                    <option value="DEPAC">DEPAC</option>
+                    <option value="ORGÂNICO">ORGÂNICO</option>
+                    <option value="GABINETE">GABINETE</option>
+                    <option value="CGPI">CGPI</option>
+                    <option value="PROMAQ">PROMAQ</option>
+                    <option value="CONTRATO REPASSE">CONTRATO REPASSE</option>
+                    <option value="DEFLO">DEFLO</option>
+                  </select>
+                </td>
+                <td class="lbl-black">Processo SEI</td>
+                <td><input id="inp-processo" type="text" class="cell-input font-mono" placeholder="21000.000000/2027-00" /></td>
+                <td class="lbl-black">Início Vigência</td>
+                <td><input id="inp-inicio-vigencia" type="date" onchange="calcularDiasVencer()" class="cell-input font-mono" /></td>
+                <td class="lbl-black">Empenhado</td>
+                <td><input id="inp-empenhado" type="text" readonly class="cell-readonly text-right font-mono" value="R$ 0,00" /></td>
+              </tr>
+
+              <!-- LINHA 2 -->
+              <tr>
+                <td class="lbl-black">UG Executora</td>
+                <td>
+                  <select id="inp-ug" onchange="atualizarNomeUg()" class="cell-input font-mono font-bold">
+                    <option value=""></option>
+                    <option value="130010">130010</option>
+                    <option value="420013">420013</option>
+                    <option value="130141">130141</option>
+                    <option value="130255">130255</option>
+                    <option value="135098">135098</option>
+                  </select>
+                </td>
+                <td class="lbl-black">Modalidade</td>
+                <td><input id="inp-modalidade" type="text" class="cell-input" /></td>
+                <td class="lbl-black">Fim Vigência</td>
+                <td><input id="inp-fim-vigencia" type="date" onchange="calcularDiasVencer()" class="cell-input font-mono" /></td>
+                <td class="lbl-black">Liquidado</td>
+                <td><input id="inp-liquidado" type="text" readonly class="cell-readonly text-right font-mono" value="R$ 0,00" /></td>
+              </tr>
+
+              <!-- LINHA 3 -->
+              <tr>
+                <td class="lbl-gray">Nome UG</td>
+                <td><input id="inp-nome-ug" type="text" readonly class="cell-readonly-light truncate" /></td>
+                <td class="lbl-black">Atividade</td>
+                <td>
+                  <select id="inp-atividade" class="cell-input">
+                    <option value=""></option>
+                    <option value="Deslocamento">Deslocamento</option>
+                    <option value="Funcionamento">Funcionamento</option>
+                    <option value="Outras Despesas">Outras Despesas</option>
+                  </select>
+                </td>
+                <td class="lbl-gray">Dias a Vencer</td>
+                <td><input id="inp-dias-vencer" type="text" readonly class="cell-readonly-light font-mono text-center" /></td>
+                <td class="lbl-black">Em Liquidação</td>
+                <td><input id="inp-em-liquidacao" type="text" readonly class="cell-readonly text-right font-mono" value="R$ 0,00" /></td>
+              </tr>
+
+              <!-- LINHA 4 -->
+              <tr>
+                <td class="lbl-black">SIGLA (Serv/Aqs)</td>
+                <td><input id="inp-sigla" type="text" class="cell-input" /></td>
+                <td class="lbl-black">Natureza Despesa</td>
+                <td><input id="inp-natureza" type="text" class="cell-input font-mono" /></td>
+                <td class="lbl-black">Valor Total</td>
+                <td><input id="inp-valor-total" type="text" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this); recalcularTudo()" class="cell-input text-right font-mono font-bold text-emerald-900" placeholder="R$ 0,00" /></td>
+                <td class="lbl-black">Pago</td>
+                <td><input id="inp-pago" type="text" readonly class="cell-readonly text-right font-mono" value="R$ 0,00" /></td>
+              </tr>
+
+              <!-- LINHA 5 -->
+              <tr>
+                <td class="lbl-black">CNPJ/CPF</td>
+                <td><input id="inp-cnpj" type="text" onblur="aplicarMascaraLGPD(this)" class="cell-input font-mono" placeholder="Mascaramento LGPD" /></td>
+                <td class="lbl-black">Formalização</td>
+                <td>
+                  <select id="inp-formalizacao" onchange="recalcularTudo()" class="cell-input font-semibold">
+                    <option value=""></option>
+                    <option value="Compartilhamento">Compartilhamento</option>
+                    <option value="Contrato">Contrato</option>
+                    <option value="Ata">Ata</option>
+                    <option value="Não contratual">Não contratual</option>
+                    <option value="Suprimento de fundos">Suprimento de fundos</option>
+                    <option value="TED">TED</option>
+                    <option value="Convênio">Convênio</option>
+                    <option value="Contrato de Repasse">Contrato de Repasse</option>
+                    <option value="Termo de fomento">Termo de fomento</option>
+                  </select>
+                </td>
+                <td class="lbl-black">Valor Repasse</td>
+                <td><input id="inp-valor-repasse" type="text" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this); recalcularTudo()" class="cell-input text-right font-mono" placeholder="R$ 0,00" /></td>
+                <td class="lbl-black">Saldo NE</td>
+                <td><input id="inp-saldo-ne" type="text" readonly class="cell-readonly text-right font-mono" value="R$ 0,00" /></td>
+              </tr>
+
+              <!-- LINHA 6 -->
+              <tr>
+                <td class="lbl-black">Favorecido</td>
+                <td><input id="inp-favorecido" type="text" onblur="aplicarMascaraLGPD(this)" class="cell-input" /></td>
+                <td class="lbl-black">Contrato nº</td>
+                <td><input id="inp-contrato-num" type="text" class="cell-input font-mono" /></td>
+                <td class="lbl-gray">Média Mensal</td>
+                <td><input id="inp-media-mensal" type="text" readonly class="cell-readonly-light text-right font-mono" /></td>
+                <td class="lbl-darkred">Déficit</td>
+                <td><input id="inp-deficit" type="text" readonly class="cell-readonly text-right font-mono text-amber-300" value="R$ 0,00" /></td>
+              </tr>
+
+              <!-- LINHA 7: ENDEREÇO / REGIÃO / UF -->
+              <tr>
+                <td class="lbl-black">Endereço</td>
+                <td colspan="3"><input id="inp-endereco" type="text" class="cell-input" /></td>
+                <td class="lbl-black">Região</td>
+                <td>
+                  <select id="inp-regiao" class="cell-input">
+                    <option value=""></option>
+                    <option value="Norte">Norte</option>
+                    <option value="Sul">Sul</option>
+                    <option value="Leste">Leste</option>
+                    <option value="Oeste">Oeste</option>
+                    <option value="Centro-Oeste">Centro-Oeste</option>
+                  </select>
+                </td>
+                <td class="lbl-black">UF</td>
+                <td>
+                  <select id="inp-uf" class="cell-input">
+                    <option value=""></option>
+                    <option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option>
+                    <option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option>
+                    <option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option>
+                    <option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option>
+                    <option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option>
+                    <option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option>
+                    <option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option>
+                  </select>
+                </td>
+              </tr>
+
+              <!-- LINHA 8: CARD INTELIGENTE AUTO-AJUSTÁVEL PARA O OBJETO -->
+              <tr>
+                <td class="lbl-black" style="vertical-align: top; padding-top: 4px;">Objeto</td>
+                <td colspan="7" style="height: auto;">
+                  <textarea id="inp-objeto" rows="1" oninput="ajustarAlturaObjeto(this)" placeholder="Descreva o objeto do Contrato, Ata, Parceria, TED ou Convênio (o campo expande automaticamente conforme o texto)..." class="w-full border-none px-1.5 py-1 text-[10px] bg-white text-black outline-none resize-none leading-snug focus:bg-yellow-50 block"></textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 4. GRADE DE NOTAS DE EMPENHO (LINHA 17 EM DIANTE - COLUNA ESQUERDA) -->
+        <div class="bg-[#8e8e93] p-1 border border-zinc-600 flex-1 flex flex-col">
+          <div class="scroll-box overflow-y-auto max-h-[340px] border border-zinc-700 bg-[#8e8e93]">
+            <table class="excel-table">
+              <colgroup>
+                <col style="width: 135px;" />
+                <col style="width: 55px;" />
+                <col style="width: 80px;" />
+                <col style="width: 80px;" />
+                <col style="width: 85px;" />
+                <col style="width: 140px;" />
+                <col style="width: 140px;" />
+                <col style="width: 105px;" />
+                <col style="width: 105px;" />
+              </colgroup>
+              <thead class="sticky top-0 z-10">
+                <tr class="bg-black text-white text-[10px]">
+                  <th class="text-center">Nota de Empenho</th>
+                  <th class="text-center">Ação</th>
+                  <th class="text-center">Fonte</th>
+                  <th class="text-center">Plano Interno</th>
+                  <th class="text-center">ND - Detalhada</th>
+                  <th class="text-center">Descrição ND</th>
+                  <th class="text-center">Descrição NE</th>
+                  <th class="text-right pr-1.5">Total Empenhado</th>
+                  <th class="text-right pr-1.5">Saldo Empenho</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-empenhos">
+                <!-- 20 linhas geradas via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLUNA DIREITA (5 COLUNAS): DDO (10 LINHAS) + DESPESAS CONTRATUAIS / EVENTUAIS (30 LINHAS) -->
+      <div class="xl:col-span-5 flex flex-col justify-between space-y-1">
+
+        <!-- 1. DECLARAÇÃO DE DISPONIBILIDADE ORÇAMENTÁRIA - DDO (10 LINHAS) -->
+        <div class="bg-[#8e8e93] p-1 border border-zinc-600">
+          <div class="bg-black text-white text-center font-bold py-0.5 text-[10px] uppercase tracking-wider border border-zinc-700">
             DECLARAÇÃO DE DISPONIBILIDADE ORÇAMENTÁRIA - DDO
           </div>
-          <div class="overflow-x-auto bg-white rounded border border-slate-500 max-h-48 overflow-y-auto">
-            <table class="w-full text-left border-collapse text-[10px]">
-              <thead>
-                <tr class="bg-slate-300 text-slate-900 border border-slate-500 sticky top-0">
-                  <th class="p-1 border">Data</th>
-                  <th class="p-1 border">Processo SEI</th>
-                  <th class="p-1 border">Valor (R$)</th>
-                  <th class="p-1 border">Situação</th>
-                  <th class="p-1 border">NE</th>
-                  <th class="p-1 border">Objeto</th>
-                  <th class="p-1 border">Período</th>
+          <div class="scroll-box overflow-y-auto max-h-[145px] bg-white border border-zinc-700">
+            <table class="excel-table">
+              <colgroup>
+                <col style="width: 78px;" />
+                <col style="width: 115px;" />
+                <col style="width: 85px;" />
+                <col style="width: 90px;" />
+                <col style="width: 90px;" />
+                <col style="width: 115px;" />
+                <col style="width: 75px;" />
+              </colgroup>
+              <thead class="sticky top-0 z-10">
+                <tr class="bg-black text-white text-[10px]">
+                  <th class="text-center">Data</th>
+                  <th class="text-center">Processo SEI</th>
+                  <th class="text-center">Valor</th>
+                  <th class="text-center">Situação</th>
+                  <th class="text-center">NE</th>
+                  <th class="text-center">Objeto</th>
+                  <th class="text-center">Período</th>
                 </tr>
               </thead>
-              <tbody id="tabela-ddo-lateral">
-                <!-- Gerado via Script (10 linhas) -->
+              <tbody id="tbody-ddo">
+                <!-- 10 linhas geradas via JS -->
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- Despesas Contratuais / Eventuais (30 linhas editáveis) -->
-        <div class="bg-slate-400 p-2 rounded border border-slate-500">
-          <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
-            DESPESAS CONTRATUAIS / EVENTUAIS
+        <!-- 2. DESPESAS CONTRATUAIS / EVENTUAIS (30 LINHAS - DEZ/2026 A DEZ/2027) -->
+        <div class="bg-[#8e8e93] p-1 border border-zinc-600 flex-1 flex flex-col">
+          <div class="bg-black text-white text-center font-bold py-0.5 text-[10px] uppercase tracking-wider border border-zinc-700">
+            DESPESAS CONTRATUAIS / EVENTUAIS (COMPETÊNCIAS DEZ/2026 A DEZ/2027)
           </div>
-          <div class="overflow-x-auto bg-white rounded border border-slate-500 max-h-64 overflow-y-auto">
-            <table class="w-full text-left border-collapse text-[10px]">
-              <thead>
-                <tr class="bg-slate-300 text-slate-900 border border-slate-500 sticky top-0">
-                  <th class="p-1 border">Competência</th>
-                  <th class="p-1 border">Processo SEI</th>
-                  <th class="p-1 border text-right">Valor (R$)</th>
-                  <th class="p-1 border">Situação</th>
-                  <th class="p-1 border">Orçamento</th>
-                  <th class="p-1 border">Obs</th>
+          <div class="scroll-box overflow-y-auto max-h-[455px] bg-white border border-zinc-700 flex-1">
+            <table class="excel-table">
+              <colgroup>
+                <col style="width: 95px;" />
+                <col style="width: 120px;" />
+                <col style="width: 90px;" />
+                <col style="width: 75px;" />
+                <col style="width: 70px;" />
+                <col style="width: 140px;" />
+              </colgroup>
+              <thead class="sticky top-0 z-10">
+                <tr class="bg-black text-white text-[10px]">
+                  <th class="text-center">Competência</th>
+                  <th class="text-center">Processo SEI</th>
+                  <th class="text-center">Valor</th>
+                  <th class="text-center">Situação</th>
+                  <th class="text-center">Orçamento</th>
+                  <th class="text-center">Obs</th>
                 </tr>
               </thead>
-              <tbody id="tabela-despesas-lateral">
-                <!-- Gerado via Script (30 linhas) -->
+              <tbody id="tbody-despesas">
+                <!-- 30 linhas geradas via JS -->
               </tbody>
             </table>
           </div>
         </div>
-      </section>
+
+      </div>
 
     </div>
 
-    <!-- BARRA DE FILTRO -->
-    <section class="bg-slate-500 p-2 rounded border border-slate-600 flex flex-wrap items-center gap-2 text-xs">
-      <span class="font-bold text-white">FILTRO:</span>
-      <input type="text" placeholder="Orçamento" class="border px-2 py-0.5 rounded w-28 bg-white" />
-      <input type="text" placeholder="UG Executora" class="border px-2 py-0.5 rounded w-28 bg-white" />
-      <input type="text" placeholder="Processo SEI" class="border px-2 py-0.5 rounded w-36 bg-white" />
-      <input type="text" placeholder="Favorecido" class="border px-2 py-0.5 rounded w-36 bg-white" />
-      <button class="bg-slate-200 border border-black px-3 py-0.5 rounded font-bold shadow-sm">CORRIGIR / AJUSTAR</button>
-    </section>
-
-    <!-- BLOCO INFERIOR (LINHA 17 EM DIANTE): RELAÇÃO DE EMPENHOS & EXECUÇÃO MENSAL -->
-    <section class="bg-slate-400 p-2 rounded border border-slate-500 shadow-sm space-y-2">
-      <div class="bg-black text-white px-3 py-1 font-bold text-xs uppercase tracking-wider flex justify-between items-center">
-        <span>Relação de Notas de Empenho & Execução por Competência (Setor Financeiro)</span>
-        <button onclick="adicionarLinhaEmpenho()" class="bg-amber-400 text-slate-900 px-3 py-0.5 rounded font-bold text-[10px]">＋ Adicionar Empenho</button>
-      </div>
-
-      <div class="overflow-x-auto bg-white rounded border border-slate-600">
-        <table class="w-full text-left border-collapse text-[10px]">
+    <!-- ========================================================================= -->
+    <!-- BARRA DE FILTRO E CONTROLES (IGUAL À LINHA 47-49 DA PLANILHA)             -->
+    <!-- ========================================================================= -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-2 items-end pt-1">
+      <div class="xl:col-span-8 bg-[#8e8e93] p-0.5 border border-zinc-600">
+        <div class="bg-black text-white text-center font-bold py-0.5 text-[10px] uppercase">FILTRO</div>
+        <table class="excel-table">
           <thead>
-            <tr class="bg-slate-800 text-white text-center">
-              <th class="p-1.5 border border-slate-600 w-32">Nota de Empenho</th>
-              <th class="p-1.5 border border-slate-600">Ação</th>
-              <th class="p-1.5 border border-slate-600">Fonte</th>
-              <th class="p-1.5 border border-slate-600">Plano Interno</th>
-              <th class="p-1.5 border border-slate-600">ND - Detalhada</th>
-              <th class="p-1.5 border border-slate-600 text-right">Total Empenhado</th>
-              <th class="p-1.5 border border-slate-600 text-right">Saldo Empenho</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jan (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Fev (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Mar (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Abr (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Mai (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jun (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jul (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Ago (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Set (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Out (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Nov (R$)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Dez (R$)</th>
+            <tr class="bg-[#8e8e93] text-black font-semibold text-[9px] text-center">
+              <td>Orçamento</td>
+              <td>UG Executora</td>
+              <td>SIGLA (Serv/Aqs)</td>
+              <td>Processo SEI</td>
+              <td>Atividade</td>
+              <td>Formalização</td>
+              <td>Natureza Despesa</td>
+              <td>Favorecido</td>
             </tr>
           </thead>
-          <tbody id="tabela-empenhos-inferior" class="divide-y divide-slate-300">
-            <!-- Linhas de Empenho -->
+          <tbody>
+            <tr>
+              <td><select id="f-orcamento" onchange="renderizarResumoMensal()" class="cell-input"><option value="">Todos</option></select></td>
+              <td><select id="f-ug" onchange="renderizarResumoMensal()" class="cell-input"><option value="">Todas</option></select></td>
+              <td><select id="f-sigla" onchange="renderizarResumoMensal()" class="cell-input"><option value="">Todas</option></select></td>
+              <td><select id="f-processo" onchange="renderizarResumoMensal()" class="cell-input"><option value="">Todos</option></select></td>
+              <td><select id="f-atividade" onchange="renderizarResumoMensal()" class="cell-input"><option value="">Todas</option></select></td>
+              <td><select id="f-formalizacao" onchange="renderizarResumoMensal()" class="cell-input"><option value="">Todas</option></select></td>
+              <td><select id="f-natureza" onchange="renderizarResumoMensal()" class="cell-input"><option value="">Todas</option></select></td>
+              <td><select id="f-favorecido" onchange="renderizarResumoMensal()" class="cell-input"><option value="">Todos</option></select></td>
+            </tr>
           </tbody>
         </table>
       </div>
-    </section>
 
-  </main>
+      <div class="xl:col-span-4 flex items-center gap-3">
+        <div class="w-36 border border-zinc-600 bg-[#8e8e93] p-0.5">
+          <div class="bg-black text-white text-center font-bold py-0.5 text-[10px]">CORRIGIR</div>
+          <select id="sel-corrigir" onchange="renderizarResumoMensal()" class="cell-input font-bold text-center">
+            <option value="AJUSTAR">AJUSTAR</option>
+            <option value="ZERAR">OCULTAR ZERADOS</option>
+          </select>
+        </div>
+
+        <div class="flex gap-1">
+          <button onclick="limparFiltrosResumo()" class="bg-black hover:bg-zinc-800 text-white font-bold px-4 py-2 text-[10px] border border-zinc-500">TODOS</button>
+          <button onclick="filtrarRapExe('RAP')" class="bg-black hover:bg-zinc-800 text-amber-300 font-bold px-4 py-2 text-[10px] border border-zinc-500">RAP</button>
+          <button onclick="filtrarRapExe('EXE')" class="bg-black hover:bg-zinc-800 text-emerald-300 font-bold px-4 py-2 text-[10px] border border-zinc-500">EXE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- TABELA DE RESUMO CONSOLIDADO INFERIOR (DEZ/26 ATÉ DEZ/27 AUTOMÁTICO)      -->
+    <!-- ========================================================================= -->
+    <div class="bg-[#8e8e93] p-1 border border-zinc-600">
+      <div class="scroll-box overflow-x-auto max-h-[360px] bg-white border border-zinc-700">
+        <table class="excel-table" style="min-width: 1650px;">
+          <colgroup>
+            <col style="width: 145px;" />
+            <col style="width: 135px;" />
+            <col style="width: 140px;" />
+            <col style="width: 95px;" />
+            <col style="width: 85px;" />
+            <!-- 13 Colunas de Competência: dez/26 a dez/27 -->
+            <col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" />
+            <col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" />
+            <col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" />
+            <col style="width: 78px;" />
+            <col style="width: 95px;" />
+          </colgroup>
+          <thead class="sticky top-0 z-10">
+            <tr class="bg-black text-white text-[10px] text-center">
+              <th>UG - Serv/Aqs</th>
+              <th>Processo SEI</th>
+              <th>Favorecido</th>
+              <th>Contrato</th>
+              <th>Ajustar</th>
+              <th class="text-amber-300">dez/26</th>
+              <th>jan/27</th>
+              <th>fev/27</th>
+              <th>mar/27</th>
+              <th>abr/27</th>
+              <th>mai/27</th>
+              <th>jun/27</th>
+              <th>jul/27</th>
+              <th>ago/27</th>
+              <th>set/27</th>
+              <th>out/27</th>
+              <th>nov/27</th>
+              <th>dez/27</th>
+              <th class="text-amber-400">Déficit</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-resumo-mensal">
+            <!-- Preenchido automaticamente com todos os processos cadastrados -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
 
   <script>
     const FONTES_CSV = [
-      { nome: "EXE 2026 Padrão", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFcFQpuXUjut17Ftj89ugQvu-eK-ZPI7a90FoPOnhcvXFSL2ymU-WOPiYwBT8qa8tzCeyo05q_YanW/pub?gid=1204904051&single=true&output=csv" },
-      { nome: "EXE 2026 MDIR", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFcFQpuXUjut17Ftj89ugQvu-eK-ZPI7a90FoPOnhcvXFSL2ymU-WOPiYwBT8qa8tzCeyo05q_YanW/pub?gid=32904262&single=true&output=csv" }
+      { nome: "EXE Padrão", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFcFQpuXUjut17Ftj89ugQvu-eK-ZPI7a90FoPOnhcvXFSL2ymU-WOPiYwBT8qa8tzCeyo05q_YanW/pub?gid=1204904051&single=true&output=csv" },
+      { nome: "EXE MDIR", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFcFQpuXUjut17Ftj89ugQvu-eK-ZPI7a90FoPOnhcvXFSL2ymU-WOPiYwBT8qa8tzCeyo05q_YanW/pub?gid=32904262&single=true&output=csv" }
     ];
 
-    let baseTesouroGlobal = [];
-    let contratosSalvos = JSON.parse(localStorage.getItem("sdr_contratos_oficiais") || "[]");
+    const COMPETENCIAS_2027 = [
+      { id: "dez/26", label: "dezembro/2026" },
+      { id: "jan/27", label: "janeiro/2027" },
+      { id: "fev/27", label: "fevereiro/2027" },
+      { id: "mar/27", label: "março/2027" },
+      { id: "abr/27", label: "abril/2027" },
+      { id: "mai/27", label: "maio/2027" },
+      { id: "jun/27", label: "junho/2027" },
+      { id: "jul/27", label: "julho/2027" },
+      { id: "ago/27", label: "agosto/2027" },
+      { id: "set/27", label: "setembro/2027" },
+      { id: "out/27", label: "outubro/2027" },
+      { id: "nov/27", label: "novembro/2027" },
+      { id: "dez/27", label: "dezembro/2027" }
+    ];
 
-    const mapNomesUg = {
-      "130010": "COMISSÃO EXECUTIVA DO PLANO DA LAVOURA CACAUEIRA",
+    const MAP_NOMES_UG = {
+      "130010": "COMISSÃO EXEC. DO PLANO DA LAV. CACAUEIRA",
       "420013": "SECRETARIA DE DESENVOLVIMENTO RURAL",
-      "130141": "COORDENACAO-GERAL DE PLANEJAMENTO E INVESTIMENTOS",
-      "130255": "UNIDADE DE GERENCIAMENTO DE PROGRAMAS",
-      "135098": "GESTAO DE CONTRATOS DE REPASSE"
+      "130141": "COORD.-GERAL DE PLANEJAMENTO E INVESTIMENTOS",
+      "130255": "UNIDADE DE GERENCIAMENTO DE PROGRAMAS - PROMAQ",
+      "135098": "GESTÃO DE CONTRATOS DE REPASSE"
     };
 
-    const listaCompetencias = [
-      "dezembro/2023", "janeiro/2024", "fevereiro/2024", "março/2024", "abril/2024", "maio/2024",
-      "junho/2024", "julho/2024", "agosto/2024", "setembro/2024", "outubro/2024", "novembro/2024", "dezembro/2024"
-    ];
+    let baseTesouroGlobal = [];
+    let contratosSalvos = JSON.parse(localStorage.getItem("sdr_contratos_2027") || "[]");
+    let filtroRapExeAtivo = "";
+
+    // Utilitários de Moeda com R$ na frente
+    function brToFloat(v) {
+      if (typeof v === "number") return v;
+      if (!v) return 0;
+      const limpo = String(v).replace(/R\$|\s/g, "").replace(/\./g, "").replace(",", ".");
+      const num = parseFloat(limpo);
+      return isNaN(num) ? 0 : num;
+    }
 
     function formatarMoeda(v) {
       return Number(v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
+    function limparFormatacaoMoeda(input) {
+      const val = brToFloat(input.value);
+      input.value = val === 0 ? "" : String(val).replace(".", ",");
+    }
+
+    function formatarInputMoeda(input) {
+      if (!input.value.trim()) {
+        input.value = "";
+        return;
+      }
+      input.value = formatarMoeda(brToFloat(input.value));
+    }
+
+    // Card inteligente para Objeto
+    function ajustarAlturaObjeto(textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = Math.max(22, textarea.scrollHeight) + "px";
+    }
+
     function atualizarNomeUg() {
       const ug = document.getElementById("inp-ug").value;
-      document.getElementById("inp-nome-ug").value = mapNomesUg[ug] || "";
+      document.getElementById("inp-nome-ug").value = MAP_NOMES_UG[ug] || "";
     }
 
+    // Mascaramento LGPD Automático (CPF e CNPJ)
     function aplicarMascaraLGPD(input) {
-      let valor = input.value;
-      if (/\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11}/.test(valor)) {
-        input.value = valor.replace(/(\d{3})\.(\d{3})\.(\d{3})-(\d{2})/, "***.***.$3-$4");
-      } else if (/\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{14}/.test(valor)) {
-        input.value = valor.replace(/(\d{2})\.(\d{3})\.(\d{3})\/(\d{4})-(\d{2})/, "**.***.$3/$4-$5");
-      }
-    }
-
-    function verificarFormalizacao() {
-      const form = document.getElementById("inp-formalizacao").value;
-      const blocoRepasse = document.getElementById("bloco-repasse");
-      const tiposRepasse = ["Convenio", "TED", "Contrato de Repasse", "Termo de fomento"];
-      
-      if (tiposRepasse.includes(form)) {
-        blocoRepasse.classList.remove("hidden");
-      } else {
-        blocoRepasse.classList.add("hidden");
-      }
-      calcularMediaMensal();
+      let v = input.value;
+      if (!v) return;
+      // Mascara CPF (11 dígitos soltos ou formatados)
+      v = v.replace(/\b(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})\b/g, "***.$2.$3-**");
+      // Mascara CNPJ (14 dígitos)
+      v = v.replace(/\b(\d{2})\.?(\d{3})\.?(\d{3})\/?(\d{4})-?(\d{2})\b/g, "**.***.$3/$4-**");
+      input.value = v;
     }
 
     function calcularDiasVencer() {
@@ -402,90 +575,150 @@
         return;
       }
       const hoje = new Date();
-      const fim = new Date(fimStr);
-      const diffTime = fim - hoje;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      document.getElementById("inp-dias-vencer").value = diffDays >= 0 ? `${diffDays} dias` : `Vencido há ${Math.abs(diffDays)} dias`;
+      hoje.setHours(0, 0, 0, 0);
+      const fim = new Date(fimStr + "T00:00:00");
+      const diffDays = Math.ceil((fim - hoje) / (1000 * 60 * 60 * 24));
+      document.getElementById("inp-dias-vencer").value = `${diffDays} dias`;
     }
 
-    function calcularMediaMensal() {
-      const total = parseFloat(document.getElementById("inp-valor-total").value || 0);
-      const form = document.getElementById("inp-formalizacao").value;
-      
-      if (form === "Contrato" && total > 0) {
-        document.getElementById("inp-media-mensal").value = formatarMoeda(total / 12);
-      } else {
-        document.getElementById("inp-media-mensal").value = "N/A (Não é Contrato)";
+    // Monta as 20 linhas de Notas de Empenho na Esquerda
+    function montarGradeEmpenhos(dados = []) {
+      const tbody = document.getElementById("tbody-empenhos");
+      tbody.innerHTML = "";
+      for (let i = 0; i < 20; i++) {
+        const d = dados[i] || {};
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="bg-white"><input type="text" value="${d.ne || ''}" onblur="buscarEmpenhoNasBases(this)" class="cell-input font-mono uppercase" /></td>
+          <td class="bg-[#8e8e93] text-center font-mono text-[10px]">${d.acao || ''}</td>
+          <td class="bg-[#8e8e93] text-center font-mono text-[10px]">${d.fonte || ''}</td>
+          <td class="bg-[#8e8e93] text-center font-mono text-[10px]">${d.pi || ''}</td>
+          <td class="bg-[#8e8e93] text-center font-mono text-[10px]">${d.nd || ''}</td>
+          <td class="bg-[#8e8e93] px-1 truncate text-[9px]">${d.descNd || ''}</td>
+          <td class="bg-[#8e8e93] px-1 truncate text-[9px]">${d.descNe || ''}</td>
+          <td class="bg-[#8e8e93]"><input type="text" value="${d.totalEmp ? formatarMoeda(d.totalEmp) : 'R$ -'}" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this); recalcularTudo()" class="cell-readonly-light text-right font-mono" /></td>
+          <td class="bg-[#8e8e93]"><input type="text" value="${d.saldoEmp ? formatarMoeda(d.saldoEmp) : 'R$ -'}" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this); recalcularTudo()" class="cell-readonly-light text-right font-mono" /></td>
+        `;
+        tbody.appendChild(tr);
       }
     }
 
-    function montarTabelasLaterais(dadosDdo = [], dadosDespesas = []) {
-      const tbodyDdo = document.getElementById("tabela-ddo-lateral");
+    // Monta as 10 linhas de DDO e 30 linhas de Despesas Contratuais na Direita
+    function montarTabelasLaterais(dadosDdo = [], dadosDesp = []) {
+      const tbodyDdo = document.getElementById("tbody-ddo");
       tbodyDdo.innerHTML = "";
       for (let i = 0; i < 10; i++) {
         const d = dadosDdo[i] || {};
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td class="p-1 border"><input type="date" value="${d.data || ''}" class="w-full border px-0.5 bg-white font-mono text-[9px]" /></td>
-          <td class="p-1 border"><input type="text" value="${d.proc || ''}" placeholder="SEI" class="w-full border px-0.5 bg-white font-mono text-[9px]" /></td>
-          <td class="p-1 border"><input type="number" step="0.01" value="${d.valor || ''}" placeholder="0,00" class="w-full border px-0.5 bg-white text-right font-mono text-[9px]" /></td>
-          <td class="p-1 border">
-            <select class="w-full border px-0.5 bg-white text-[9px]">
-              <option value="">Selecione...</option>
+          <td><input type="date" value="${d.data || ''}" class="cell-input font-mono" /></td>
+          <td><input type="text" value="${d.proc || ''}" class="cell-input font-mono" /></td>
+          <td><input type="text" value="${d.valor ? formatarMoeda(brToFloat(d.valor)) : ''}" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this)" placeholder="R$ 0,00" class="cell-input text-right font-mono" /></td>
+          <td>
+            <select class="cell-input">
+              <option value=""></option>
               <option value="Empenhado" ${d.situacao === 'Empenhado' ? 'selected' : ''}>Empenhado</option>
               <option value="A Empenhar" ${d.situacao === 'A Empenhar' ? 'selected' : ''}>A Empenhar</option>
             </select>
           </td>
-          <td class="p-1 border"><input type="text" value="${d.ne || ''}" placeholder="NE" class="w-full border px-0.5 bg-white font-mono text-[9px]" /></td>
-          <td class="p-1 border">
-            <select class="w-full border px-0.5 bg-white text-[9px]">
-              <option value="">Selecione...</option>
+          <td><input type="text" value="${d.ne || ''}" class="cell-input font-mono uppercase" /></td>
+          <td>
+            <select class="cell-input">
+              <option value=""></option>
               <option value="Contratação" ${d.objeto === 'Contratação' ? 'selected' : ''}>Contratação</option>
               <option value="Prorrogação" ${d.objeto === 'Prorrogação' ? 'selected' : ''}>Prorrogação</option>
               <option value="Repactuação/Reajuste" ${d.objeto === 'Repactuação/Reajuste' ? 'selected' : ''}>Repactuação/Reajuste</option>
             </select>
           </td>
-          <td class="p-1 border"><input type="text" value="${d.periodo || ''}" placeholder="Período" class="w-full border px-0.5 bg-white text-[9px]" /></td>
+          <td><input type="text" value="${d.periodo || ''}" class="cell-input" /></td>
         `;
         tbodyDdo.appendChild(tr);
       }
 
-      const tbodyDesp = document.getElementById("tabela-despesas-lateral");
+      const tbodyDesp = document.getElementById("tbody-despesas");
       tbodyDesp.innerHTML = "";
       for (let i = 0; i < 30; i++) {
-        const des = dadosDespesas[i] || {};
-        const tr = document.createElement("tr");
-        
-        let optsComp = `<option value="">Selecione...</option>`;
-        listaCompetencias.forEach(comp => {
-          const sel = (des.competencia === comp) ? 'selected' : '';
-          optsComp += `<option value="${comp}" ${sel}>${comp}</option>`;
+        const des = dadosDesp[i] || {};
+        let optsComp = `<option value=""></option>`;
+        COMPETENCIAS_2027.forEach(c => {
+          const sel = des.competencia === c.label ? "selected" : "";
+          optsComp += `<option value="${c.label}" ${sel}>${c.label}</option>`;
         });
 
+        const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td class="p-1 border"><select class="w-full border px-0.5 bg-white text-[9px]">${optsComp}</select></td>
-          <td class="p-1 border"><input type="text" value="${des.proc || ''}" placeholder="SEI" class="w-full border px-0.5 bg-white font-mono text-[9px]" /></td>
-          <td class="p-1 border"><input type="number" step="0.01" value="${des.valor || ''}" placeholder="0,00" class="w-full border px-0.5 bg-white text-right font-mono text-[9px]" /></td>
-          <td class="p-1 border">
-            <select class="w-full border px-0.5 bg-white text-[9px]">
-              <option value="">Selecione...</option>
+          <td><select onchange="recalcularTudo()" class="cell-input">${optsComp}</select></td>
+          <td><input type="text" value="${des.proc || ''}" class="cell-input font-mono" /></td>
+          <td><input type="text" value="${des.valor ? formatarMoeda(brToFloat(des.valor)) : ''}" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this); recalcularTudo()" placeholder="R$ 0,00" class="cell-input text-right font-mono text-emerald-800 font-semibold" /></td>
+          <td>
+            <select onchange="recalcularTudo()" class="cell-input">
+              <option value=""></option>
               <option value="COFEF" ${des.situacao === 'COFEF' ? 'selected' : ''}>COFEF</option>
               <option value="DIEC" ${des.situacao === 'DIEC' ? 'selected' : ''}>DIEC</option>
             </select>
           </td>
-          <td class="p-1 border">
-            <select class="w-full border px-0.5 bg-white text-[9px]">
-              <option value="">Selecione...</option>
+          <td>
+            <select onchange="recalcularTudo()" class="cell-input">
+              <option value=""></option>
               <option value="RAP" ${des.orcamento === 'RAP' ? 'selected' : ''}>RAP</option>
               <option value="EXE" ${des.orcamento === 'EXE' ? 'selected' : ''}>EXE</option>
             </select>
           </td>
-          <td class="p-1 border"><input type="text" value="${des.obs || ''}" placeholder="Observação" class="w-full border px-0.5 bg-white text-[9px]" /></td>
+          <td><input type="text" value="${des.obs || ''}" class="cell-input" /></td>
         `;
         tbodyDesp.appendChild(tr);
       }
     }
 
+    // Recalcula automaticamente: Média Mensal, Empenhado, Saldo NE, Pago e Déficit
+    function recalcularTudo() {
+      const valorTotal = brToFloat(document.getElementById("inp-valor-total").value);
+      const valorRepasse = brToFloat(document.getElementById("inp-valor-repasse").value);
+      const formalizacao = document.getElementById("inp-formalizacao").value;
+
+      // Item 16: Média Mensal calculada apenas quando for Contrato
+      if (formalizacao === "Contrato" && valorTotal > 0) {
+        document.getElementById("inp-media-mensal").value = formatarMoeda(valorTotal / 12);
+      } else {
+        document.getElementById("inp-media-mensal").value = "R$ -";
+      }
+
+      // Soma Empenhos da Grade Esquerda
+      let somaEmpenhado = 0;
+      let somaSaldoNe = 0;
+      document.querySelectorAll("#tbody-empenhos tr").forEach(tr => {
+        const inputs = tr.querySelectorAll("input");
+        if (inputs[0].value.trim()) {
+          somaEmpenhado += brToFloat(inputs[1].value);
+          somaSaldoNe += brToFloat(inputs[2].value);
+        }
+      });
+
+      // Soma Pagamentos / Despesas Contratuais da Grade Direita
+      let somaPago = 0;
+      let somaEmLiquidacao = 0;
+      document.querySelectorAll("#tbody-despesas tr").forEach(tr => {
+        const sels = tr.querySelectorAll("select");
+        const inputs = tr.querySelectorAll("input");
+        const v = brToFloat(inputs[1].value);
+        if (v > 0) {
+          somaPago += v;
+          if (sels[1].value === "DIEC") somaEmLiquidacao += v;
+        }
+      });
+
+      const baseReferencia = valorTotal > 0 ? valorTotal : valorRepasse;
+      const deficit = somaEmpenhado - baseReferencia;
+
+      document.getElementById("inp-empenhado").value = formatarMoeda(somaEmpenhado);
+      document.getElementById("inp-liquidado").value = formatarMoeda(somaPago);
+      document.getElementById("inp-em-liquidacao").value = formatarMoeda(somaEmLiquidacao);
+      document.getElementById("inp-pago").value = formatarMoeda(somaPago);
+      document.getElementById("inp-saldo-ne").value = formatarMoeda(somaSaldoNe);
+      document.getElementById("inp-deficit").value = formatarMoeda(deficit);
+    }
+
+    // Carrega CSVs do Tesouro para autopreencher a linha 17+ de Empenhos
     async function carregarBasesTesouro() {
       try {
         let acumulado = [];
@@ -507,55 +740,44 @@
           }
         }
         baseTesouroGlobal = acumulado;
+        document.getElementById("status-tesouro").textContent = `Base EXE/RAP ativa (${baseTesouroGlobal.length} NEs)`;
       } catch (e) {
-        console.error("Erro ao carregar Tesouro:", e);
+        document.getElementById("status-tesouro").textContent = "Modo Offline (Lançamento Manual)";
       }
     }
 
     function buscarEmpenhoNasBases(input) {
       const neDigitada = input.value.trim().toUpperCase();
-      if (!neDigitada) return;
+      const tr = input.closest("tr");
+      const inputs = tr.querySelectorAll("input");
+
+      if (!neDigitada) {
+        for (let i = 1; i <= 6; i++) tr.cells[i].textContent = "";
+        inputs[1].value = "R$ -";
+        inputs[2].value = "R$ -";
+        recalcularTudo();
+        return;
+      }
 
       const encontrada = baseTesouroGlobal.find(d => String(d["NE CCor"]).toUpperCase().includes(neDigitada));
-      const tr = input.closest("tr");
-
       if (encontrada) {
-        const emp = parseFloat(String(encontrada["DOTACAO ATUALIZADA"] || encontrada["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"] || "0").replace(/\./g, "").replace(",", ".")) || 0;
-        const saldo = parseFloat(String(encontrada["CREDITO DISPONIVEL"] || "0").replace(/\./g, "").replace(",", ".")) || 0;
+        const emp = brToFloat(encontrada["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"] || encontrada["DOTACAO ATUALIZADA"] || 0);
+        const saldo = brToFloat(encontrada["DESPESAS EMPENHADAS A LIQUIDAR (CONTROLE EMPENHO)"] || encontrada["CREDITO DISPONIVEL"] || emp);
 
-        tr.cells[1].textContent = encontrada["Ação Governo"] || "-";
-        tr.cells[2].textContent = encontrada["Fonte Recursos Detalhada"] || "-";
-        tr.cells[3].textContent = encontrada["Plano Orçamentário"] || "-";
-        tr.cells[4].textContent = encontrada["Natureza Despesa Detalhada"] || "-";
-        tr.cells[5].textContent = formatarMoeda(emp);
-        tr.cells[6].textContent = formatarMoeda(saldo);
-      } else {
-        alert("Nota de empenho não encontrada nas bases EXE/RAP carregadas.");
+        tr.cells[1].textContent = encontrada["Ação Governo"] || "";
+        tr.cells[2].textContent = encontrada["Fonte Recursos Detalhada"] || "";
+        tr.cells[3].textContent = encontrada["Plano Orçamentário"] || "";
+        tr.cells[4].textContent = encontrada["Natureza Despesa Detalhada"] || "";
+        tr.cells[5].textContent = encontrada["Natureza Despesa"] || "";
+        tr.cells[6].textContent = encontrada["NE - Descrição"] || encontrada["NE CCor - Favorecido"] || "";
+        inputs[1].value = formatarMoeda(emp);
+        inputs[2].value = formatarMoeda(saldo);
       }
+      recalcularTudo();
     }
 
-    function adicionarLinhaEmpenho(dadosEmp = {}) {
-      const tbody = document.getElementById("tabela-empenhos-inferior");
-      const tr = document.createElement("tr");
-      tr.className = "hover:bg-slate-50 font-mono text-[10px]";
-      
-      const meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-      let inputsMeses = meses.map(m => `<td class="p-1 border text-right"><input type="number" step="0.01" value="${dadosEmp[m] || ''}" placeholder="R$ 0,00" class="w-20 border px-1 text-right bg-yellow-50" /></td>`).join("");
-
-      tr.innerHTML = `
-        <td class="p-1 border"><input type="text" value="${dadosEmp.ne || ''}" placeholder="Ex: 2026NE..." onblur="buscarEmpenhoNasBases(this)" class="w-full border px-1 font-mono uppercase bg-yellow-50" /></td>
-        <td class="p-1 border text-center text-slate-600">${dadosEmp.acao || '-'}</td>
-        <td class="p-1 border text-center text-slate-600">${dadosEmp.fonte || '-'}</td>
-        <td class="p-1 border text-center text-slate-600">${dadosEmp.pi || '-'}</td>
-        <td class="p-1 border text-center text-slate-600">${dadosEmp.nd || '-'}</td>
-        <td class="p-1 border text-right font-mono text-slate-800">${formatarMoeda(dadosEmp.totalEmp || 0)}</td>
-        <td class="p-1 border text-right font-mono text-emerald-700 font-bold">${formatarMoeda(dadosEmp.saldoEmp || 0)}</td>
-        ${inputsMeses}
-      `;
-      tbody.appendChild(tr);
-    }
-
-    function salvarOuAtualizarContrato() {
+    // Salvar / Alterar Contrato Completo
+    function salvarOuAtualizarContrato(modo) {
       const processo = document.getElementById("inp-processo").value.trim();
       const ug = document.getElementById("inp-ug").value;
 
@@ -564,69 +786,75 @@
         return;
       }
 
-      const dadosDdo = [];
-      document.querySelectorAll("#tabela-ddo-lateral tr").forEach(tr => {
+      const agora = new Date().toLocaleDateString("pt-BR");
+      const idxExistente = contratosSalvos.findIndex(c => c.processo === processo);
+
+      if (modo === "alteracao" && idxExistente >= 0 && !document.getElementById("inp-justificativa").value.trim()) {
+        alert("Informe o motivo no campo 'Justificar Alteração' para atualizar o registro.");
+        return;
+      }
+
+      const dataCad = idxExistente >= 0 ? contratosSalvos[idxExistente].dataCad : agora;
+      const dataAlt = idxExistente >= 0 ? agora : "";
+
+      document.getElementById("inp-data-cad").value = dataCad;
+      document.getElementById("inp-data-alt").value = dataAlt;
+
+      // Coleta Empenhos
+      const empenhos = [];
+      document.querySelectorAll("#tbody-empenhos tr").forEach(tr => {
         const inputs = tr.querySelectorAll("input");
-        const sel = tr.querySelectorAll("select");
-        if (inputs[0].value || inputs[1].value) {
-          dadosDdo.push({
+        if (inputs[0].value.trim()) {
+          empenhos.push({
+            ne: inputs[0].value.trim().toUpperCase(),
+            acao: tr.cells[1].textContent,
+            fonte: tr.cells[2].textContent,
+            pi: tr.cells[3].textContent,
+            nd: tr.cells[4].textContent,
+            descNd: tr.cells[5].textContent,
+            descNe: tr.cells[6].textContent,
+            totalEmp: brToFloat(inputs[1].value),
+            saldoEmp: brToFloat(inputs[2].value)
+          });
+        }
+      });
+
+      // Coleta DDO
+      const ddo = [];
+      document.querySelectorAll("#tbody-ddo tr").forEach(tr => {
+        const inputs = tr.querySelectorAll("input");
+        const sels = tr.querySelectorAll("select");
+        if (inputs[0].value || inputs[1].value || inputs[2].value) {
+          ddo.push({
             data: inputs[0].value,
             proc: inputs[1].value,
-            valor: inputs[2].value,
-            situacao: sel[0].value,
+            valor: brToFloat(inputs[2].value),
+            situacao: sels[0].value,
             ne: inputs[3].value,
-            objeto: sel[1].value,
+            objeto: sels[1].value,
             periodo: inputs[4].value
           });
         }
       });
 
-      const dadosDespesas = [];
-      document.querySelectorAll("#tabela-despesas-lateral tr").forEach(tr => {
-        const sel = tr.querySelectorAll("select");
+      // Coleta Despesas Contratuais / Eventuais
+      const despesas = [];
+      document.querySelectorAll("#tbody-despesas tr").forEach(tr => {
+        const sels = tr.querySelectorAll("select");
         const inputs = tr.querySelectorAll("input");
-        if (inputs[0].value || inputs[1].value) {
-          dadosDespesas.push({
-            competencia: sel[0].value,
+        if (sels[0].value || inputs[0].value || inputs[1].value) {
+          despesas.push({
+            competencia: sels[0].value,
             proc: inputs[0].value,
-            valor: inputs[1].value,
-            situacao: sel[1].value,
-            orcamento: sel[2].value,
+            valor: brToFloat(inputs[1].value),
+            situacao: sels[1].value,
+            orcamento: sels[2].value,
             obs: inputs[2].value
           });
         }
       });
 
-      const linhasEmp = [];
-      document.querySelectorAll("#tabela-empenhos-inferior tr").forEach(tr => {
-        const inputs = tr.querySelectorAll("input");
-        if (inputs.length > 0 && inputs[0].value.trim()) {
-          const empObj = {
-            ne: inputs[0].value.trim(),
-            acao: tr.cells[1].textContent,
-            fonte: tr.cells[2].textContent,
-            pi: tr.cells[3].textContent,
-            nd: tr.cells[4].textContent,
-            totalEmp: 0,
-            saldoEmp: 0,
-            jan: inputs[1]?.value || 0,
-            fev: inputs[2]?.value || 0,
-            mar: inputs[3]?.value || 0,
-            abr: inputs[4]?.value || 0,
-            mai: inputs[5]?.value || 0,
-            jun: inputs[6]?.value || 0,
-            jul: inputs[7]?.value || 0,
-            ago: inputs[8]?.value || 0,
-            set: inputs[9]?.value || 0,
-            out: inputs[10]?.value || 0,
-            nov: inputs[11]?.value || 0,
-            dez: inputs[12]?.value || 0
-          };
-          linhasEmp.push(empObj);
-        }
-      });
-
-      const dados = {
+      const registro = {
         processo,
         ug,
         nomeUg: document.getElementById("inp-nome-ug").value,
@@ -636,113 +864,241 @@
         favorecido: document.getElementById("inp-favorecido").value,
         modalidade: document.getElementById("inp-modalidade").value,
         atividade: document.getElementById("inp-atividade").value,
-        grupo: document.getElementById("inp-grupo").value,
+        natureza: document.getElementById("inp-natureza").value,
         formalizacao: document.getElementById("inp-formalizacao").value,
         contratoNum: document.getElementById("inp-contrato-num").value,
         inicioVigencia: document.getElementById("inp-inicio-vigencia").value,
         fimVigencia: document.getElementById("inp-fim-vigencia").value,
-        valorTotal: parseFloat(document.getElementById("inp-valor-total").value || 0),
-        valorRepasse: parseFloat(document.getElementById("inp-valor-repasse")?.value || 0),
-        ddo: dadosDdo,
-        despesas: dadosDespesas,
-        empenhos: linhasEmp
+        valorTotal: brToFloat(document.getElementById("inp-valor-total").value),
+        valorRepasse: brToFloat(document.getElementById("inp-valor-repasse").value),
+        endereco: document.getElementById("inp-endereco").value,
+        regiao: document.getElementById("inp-regiao").value,
+        uf: document.getElementById("inp-uf").value,
+        objeto: document.getElementById("inp-objeto").value,
+        dataCad,
+        dataAlt,
+        justificativa: document.getElementById("inp-justificativa").value,
+        empenhos,
+        ddo,
+        despesas
       };
 
-      const idx = contratosSalvos.findIndex(c => c.processo === processo);
-      if (idx >= 0) {
-        contratosSalvos[idx] = dados;
+      if (idxExistente >= 0) {
+        contratosSalvos[idxExistente] = registro;
       } else {
-        contratosSalvos.push(dados);
+        contratosSalvos.push(registro);
       }
 
-      localStorage.setItem("sdr_contratos_oficiais", JSON.stringify(contratosSalvos));
-      atualizarSelectBusca();
-      alert("Contrato, DDO, Despesas e Empenhos salvos com sucesso!");
-    }
-
-    function atualizarSelectBusca() {
-      const select = document.getElementById("select-busca-processo");
-      select.innerHTML = `<option value="">Selecione o processo...</option>` +
-        contratosSalvos.map(c => `<option value="${c.processo}">${c.processo} - ${c.favorecido || 'Sem Favorecido'}</option>`).join("");
+      localStorage.setItem("sdr_contratos_2027", JSON.stringify(contratosSalvos));
+      atualizarSelectsEConsolidado();
+      document.getElementById("select-busca-processo").value = processo;
+      alert("Registro gravado e consolidado na tabela mensal (dez/26 a dez/27)!");
     }
 
     function carregarContratoSelecionado() {
       const proc = document.getElementById("select-busca-processo").value;
       if (!proc) return;
       const c = contratosSalvos.find(x => x.processo === proc);
-      if (c) {
-        document.getElementById("inp-processo").value = c.processo;
-        document.getElementById("inp-ug").value = c.ug;
-        document.getElementById("inp-nome-ug").value = c.nomeUg;
-        document.getElementById("inp-orcamento").value = c.orcamento;
-        document.getElementById("inp-sigla").value = c.sigla;
-        document.getElementById("inp-cnpj").value = c.cnpj;
-        document.getElementById("inp-favorecido").value = c.favorecido;
-        document.getElementById("inp-modalidade").value = c.modalidade;
-        document.getElementById("inp-atividade").value = c.atividade;
-        document.getElementById("inp-grupo").value = c.grupo;
-        document.getElementById("inp-formalizacao").value = c.formalizacao;
-        document.getElementById("inp-contrato-num").value = c.contratoNum;
-        document.getElementById("inp-inicio-vigencia").value = c.inicioVigencia || "";
-        document.getElementById("inp-fim-vigencia").value = c.fimVigencia || "";
-        document.getElementById("inp-valor-total").value = c.valorTotal;
-        document.getElementById("inp-valor-repasse").value = c.valorRepasse || 0;
+      if (!c) return;
 
-        montarTabelasLaterais(c.ddo || [], c.despesas || []);
-        
-        const tbody = document.getElementById("tabela-empenhos-inferior");
-        tbody.innerHTML = "";
-        if (c.empenhos && c.empenhos.length > 0) {
-          c.empenhos.forEach(e => adicionarLinhaEmpenho(e));
-        } else {
-          adicionarLinhaEmpenho();
-        }
+      document.getElementById("inp-processo").value = c.processo || "";
+      document.getElementById("inp-ug").value = c.ug || "";
+      document.getElementById("inp-nome-ug").value = c.nomeUg || "";
+      document.getElementById("inp-orcamento").value = c.orcamento || "";
+      document.getElementById("inp-sigla").value = c.sigla || "";
+      document.getElementById("inp-cnpj").value = c.cnpj || "";
+      document.getElementById("inp-favorecido").value = c.favorecido || "";
+      document.getElementById("inp-modalidade").value = c.modalidade || "";
+      document.getElementById("inp-atividade").value = c.atividade || "";
+      document.getElementById("inp-natureza").value = c.natureza || "";
+      document.getElementById("inp-formalizacao").value = c.formalizacao || "";
+      document.getElementById("inp-contrato-num").value = c.contratoNum || "";
+      document.getElementById("inp-inicio-vigencia").value = c.inicioVigencia || "";
+      document.getElementById("inp-fim-vigencia").value = c.fimVigencia || "";
+      document.getElementById("inp-valor-total").value = c.valorTotal ? formatarMoeda(c.valorTotal) : "";
+      document.getElementById("inp-valor-repasse").value = c.valorRepasse ? formatarMoeda(c.valorRepasse) : "";
+      document.getElementById("inp-endereco").value = c.endereco || "";
+      document.getElementById("inp-regiao").value = c.regiao || "";
+      document.getElementById("inp-uf").value = c.uf || "";
+      document.getElementById("inp-objeto").value = c.objeto || "";
+      document.getElementById("inp-data-cad").value = c.dataCad || "";
+      document.getElementById("inp-data-alt").value = c.dataAlt || "";
+      document.getElementById("inp-justificativa").value = c.justificativa || "";
 
-        calcularDiasVencer();
-        calcularMediaMensal();
-        verificarFormalizacao();
-      }
+      ajustarAlturaObjeto(document.getElementById("inp-objeto"));
+      montarGradeEmpenhos(c.empenhos || []);
+      montarTabelasLaterais(c.ddo || [], c.despesas || []);
+      calcularDiasVencer();
+      recalcularTudo();
     }
 
     function buscarProcessoInput() {
       const termo = document.getElementById("inp-processo").value.trim().toUpperCase();
+      if (!termo) {
+        alert("Digite o número do Processo SEI ou selecione na caixa Buscar Processo.");
+        return;
+      }
       const c = contratosSalvos.find(x => x.processo.toUpperCase().includes(termo));
       if (c) {
         document.getElementById("select-busca-processo").value = c.processo;
         carregarContratoSelecionado();
       } else {
-        alert("Processo não encontrado.");
+        alert("Processo não encontrado nos cadastros.");
       }
     }
 
     function excluirContrato() {
       const proc = document.getElementById("inp-processo").value.trim();
       if (!proc) return;
-      if (confirm(`Deseja realmente excluir o processo ${proc}?`)) {
+      if (confirm(`Confirma a exclusão definitiva do processo ${proc}?`)) {
         contratosSalvos = contratosSalvos.filter(x => x.processo !== proc);
-        localStorage.setItem("sdr_contratos_oficiais", JSON.stringify(contratosSalvos));
-        atualizarSelectBusca();
+        localStorage.setItem("sdr_contratos_2027", JSON.stringify(contratosSalvos));
         limparFormulario();
-        alert("Registro excluído com sucesso.");
+        atualizarSelectsEConsolidado();
       }
     }
 
+    // Limpa absolutamente todos os campos deixando a tela em branco
     function limparFormulario() {
       document.getElementById("select-busca-processo").value = "";
-      document.querySelectorAll("input:not([type='button']), select").forEach(el => {
-        if(el.id !== 'inp-data-cad' && el.id !== 'inp-data-alt') el.value = "";
+      const idsLimpar = [
+        "inp-data-cad", "inp-data-alt", "inp-justificativa", "inp-orcamento", "inp-ug", "inp-nome-ug",
+        "inp-sigla", "inp-cnpj", "inp-favorecido", "inp-processo", "inp-modalidade", "inp-atividade",
+        "inp-natureza", "inp-formalizacao", "inp-contrato-num", "inp-inicio-vigencia", "inp-fim-vigencia",
+        "inp-dias-vencer", "inp-valor-total", "inp-valor-repasse", "inp-media-mensal", "inp-endereco",
+        "inp-regiao", "inp-uf", "inp-objeto"
+      ];
+      idsLimpar.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
       });
-      document.getElementById("tabela-empenhos-inferior").innerHTML = "";
-      adicionarLinhaEmpenho();
-      montarTabelasLaterais();
+      ajustarAlturaObjeto(document.getElementById("inp-objeto"));
+      montarGradeEmpenhos([]);
+      montarTabelasLaterais([], []);
+      recalcularTudo();
     }
 
-    carregarBasesTesouro();
-    atualizarSelectBusca();
-    montarTabelasLaterais();
-    if (document.getElementById("tabela-empenhos-inferior").children.length === 0) {
-      adicionarLinhaEmpenho();
+    function popularFiltroUnico(idSelect, valores, labelPadrao) {
+      const sel = document.getElementById(idSelect);
+      const valAtual = sel.value;
+      const unicos = [...new Set(valores.filter(Boolean))];
+      sel.innerHTML = `<option value="">${labelPadrao}</option>` + unicos.map(u => `<option value="${u}">${u}</option>`).join("");
+      sel.value = valAtual;
     }
+
+    function atualizarSelectsEConsolidado() {
+      const selBusca = document.getElementById("select-busca-processo");
+      selBusca.innerHTML = `<option value="">Selecione o processo (${contratosSalvos.length} cadastrados)...</option>` +
+        contratosSalvos.map(c => `<option value="${c.processo}">${c.processo} — ${c.favorecido || c.orcamento || 'Sem nome'}</option>`).join("");
+
+      popularFiltroUnico("f-orcamento", contratosSalvos.map(c => c.orcamento), "Todos");
+      popularFiltroUnico("f-ug", contratosSalvos.map(c => c.ug), "Todas");
+      popularFiltroUnico("f-sigla", contratosSalvos.map(c => c.sigla), "Todas");
+      popularFiltroUnico("f-processo", contratosSalvos.map(c => c.processo), "Todos");
+      popularFiltroUnico("f-atividade", contratosSalvos.map(c => c.atividade), "Todas");
+      popularFiltroUnico("f-formalizacao", contratosSalvos.map(c => c.formalizacao), "Todas");
+      popularFiltroUnico("f-natureza", contratosSalvos.map(c => c.natureza), "Todas");
+      popularFiltroUnico("f-favorecido", contratosSalvos.map(c => c.favorecido), "Todos");
+
+      renderizarResumoMensal();
+    }
+
+    function filtrarRapExe(tipo) {
+      filtroRapExeAtivo = (filtroRapExeAtivo === tipo) ? "" : tipo;
+      renderizarResumoMensal();
+    }
+
+    function limparFiltrosResumo() {
+      filtroRapExeAtivo = "";
+      ["f-orcamento", "f-ug", "f-sigla", "f-processo", "f-atividade", "f-formalizacao", "f-natureza", "f-favorecido"].forEach(id => {
+        document.getElementById(id).value = "";
+      });
+      renderizarResumoMensal();
+    }
+
+    // Renderiza a Tabela Amarela Inferior somando cada mês (dez/26 a dez/27) a partir das Despesas Contratuais
+    function renderizarResumoMensal() {
+      const tbody = document.getElementById("tbody-resumo-mensal");
+      const fOrc = document.getElementById("f-orcamento").value;
+      const fUg = document.getElementById("f-ug").value;
+      const fSigla = document.getElementById("f-sigla").value;
+      const fProc = document.getElementById("f-processo").value;
+      const fAtiv = document.getElementById("f-atividade").value;
+      const fForm = document.getElementById("f-formalizacao").value;
+      const fNat = document.getElementById("f-natureza").value;
+      const fFav = document.getElementById("f-favorecido").value;
+
+      const listaFiltrada = contratosSalvos.filter(c => {
+        if (fOrc && c.orcamento !== fOrc) return false;
+        if (fUg && c.ug !== fUg) return false;
+        if (fSigla && c.sigla !== fSigla) return false;
+        if (fProc && c.processo !== fProc) return false;
+        if (fAtiv && c.atividade !== fAtiv) return false;
+        if (fForm && c.formalizacao !== fForm) return false;
+        if (fNat && c.natureza !== fNat) return false;
+        if (fFav && c.favorecido !== fFav) return false;
+        return true;
+      });
+
+      if (listaFiltrada.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="19" class="p-3 text-center text-zinc-500 italic bg-white">Nenhum processo cadastrado ou encontrado para o filtro selecionado.</td></tr>`;
+        document.getElementById("card-deficit-topo").textContent = "R$ 0,00";
+        return;
+      }
+
+      let deficitGeralAcumulado = 0;
+
+      tbody.innerHTML = listaFiltrada.map(c => {
+        // Soma valores por competência (dez/26 a dez/27) lançados em Despesas Contratuais / Eventuais
+        const mapaMeses = {};
+        COMPETENCIAS_2027.forEach(comp => mapaMeses[comp.label] = 0);
+
+        let totalExecutadoMeses = 0;
+        (c.despesas || []).forEach(d => {
+          if (filtroRapExeAtivo && d.orcamento !== filtroRapExeAtivo) return;
+          if (mapaMeses[d.competencia] !== undefined) {
+            mapaMeses[d.competencia] += Number(d.valor || 0);
+            totalExecutadoMeses += Number(d.valor || 0);
+          }
+        });
+
+        const totalEmpenhadoProc = (c.empenhos || []).reduce((acc, e) => acc + Number(e.totalEmp || 0), 0);
+        const baseContrato = c.valorTotal > 0 ? c.valorTotal : (c.valorRepasse || 0);
+        const ajustarValor = baseContrato - totalExecutadoMeses;
+        const deficitProc = totalEmpenhadoProc - baseContrato;
+        deficitGeralAcumulado += deficitProc;
+
+        const colunasMesesHtml = COMPETENCIAS_2027.map(comp => {
+          const valMes = mapaMeses[comp.label] || 0;
+          return `<td class="bg-[#fde68a] text-right px-1 font-mono text-[10px] ${valMes > 0 ? 'font-bold text-slate-900' : 'text-zinc-600'}">${formatarMoeda(valMes)}</td>`;
+        }).join("");
+
+        return `
+          <tr onclick="selecionarProcessoDaTabela('${c.processo}')" class="hover:bg-amber-100 cursor-pointer">
+            <td class="bg-white px-1 font-semibold truncate text-[9px]" title="${c.nomeUg || c.sigla}">${c.sigla || c.nomeUg || c.ug}</td>
+            <td class="bg-white px-1 font-mono font-bold text-[10px]">${c.processo} (${c.atividade || c.formalizacao || 'GERAL'})</td>
+            <td class="bg-white px-1 truncate text-[10px]">${c.favorecido || '-'}</td>
+            <td class="bg-white px-1 text-center font-mono text-[10px]">${c.contratoNum || c.formalizacao || '-'}</td>
+            <td class="bg-white px-1 text-right font-mono text-[10px]">${ajustarValor === 0 ? 'R$ -' : formatarMoeda(ajustarValor)}</td>
+            ${colunasMesesHtml}
+            <td class="bg-black text-amber-300 text-right px-1 font-mono font-bold text-[10px]">${formatarMoeda(deficitProc)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      document.getElementById("card-deficit-topo").textContent = formatarMoeda(deficitGeralAcumulado);
+    }
+
+    function selecionarProcessoDaTabela(proc) {
+      document.getElementById("select-busca-processo").value = proc;
+      carregarContratoSelecionado();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Inicialização limpa em branco
+    limparFormulario();
+    atualizarSelectsEConsolidado();
+    carregarBasesTesouro();
   </script>
 </body>
 </html>
