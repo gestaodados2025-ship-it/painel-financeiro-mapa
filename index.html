@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Controle Orçamentário e Financeiro - SDI/MAPA</title>
+  <title>Coordenação Financeira - SDR/MAPA</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
@@ -13,266 +13,256 @@
   <header class="bg-black text-white shadow-md border-b-4 border-amber-500">
     <div class="max-w-[1600px] mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
       <div>
-        <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">MAPA · Secretaria de Desenvolvimento Rural · SDR</span>
-        <h1 class="text-base font-extrabold tracking-wide">CONTROLE ORÇAMENTÁRIO E FINANCEIRO - SDI/MAPA</h1>
-        <p class="text-[11px] text-slate-300">Módulo de Gestão de Contratos, Parcerias e Empenhos (EXE001 & RAP001)</p>
+        <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">MAPA · Órgão 22000 · Secretaria de Desenvolvimento Rural (SDR)</span>
+        <h1 class="text-base font-extrabold tracking-wide">COORDENAÇÃO FINANCEIRA — PAINEL DE GESTÃO E CONCILIAÇÃO</h1>
+        <p class="text-[11px] text-slate-300">Ugs: 130010, 130141, 130255, 135098, 420013 + Recursos Compartilhados (EXE001 & RAP001)</p>
       </div>
-      <!-- Alerta Superior Direito -->
       <div class="flex items-center gap-3">
-        <div class="bg-yellow-300 text-slate-900 px-3 py-1.5 rounded font-bold text-center shadow-inner">
-          <p class="text-[10px] uppercase">Atenção! Alerta de Saldo</p>
-          <p class="text-xs">Favor ajustar os valores</p>
-        </div>
-        <div class="bg-red-600 text-white px-4 py-2 rounded font-mono font-bold text-sm shadow">
-          -R$ 9.842,23
+        <span id="status-sinc" class="bg-slate-800 text-amber-300 text-[11px] px-3 py-1 rounded border border-slate-700">Carregando Tesouro...</span>
+        <div class="bg-red-600 text-white px-3 py-1.5 rounded font-mono font-bold text-xs shadow">
+          Déficit / Alerta Ativo
         </div>
       </div>
     </div>
   </header>
 
+  <!-- MENU PRINCIPAL DE ABAS -->
+  <nav class="bg-slate-900 text-white border-b border-slate-700 shadow-inner">
+    <div class="max-w-[1600px] mx-auto px-4 flex gap-1 font-semibold text-xs">
+      <button onclick="trocarAba('cadastro')" id="btn-tab-cadastro" class="px-4 py-2.5 bg-slate-800 text-amber-400 border-t-2 border-amber-400 transition">
+        📁 1. Cadastro / Ficha do Processo
+      </button>
+      <button onclick="trocarAba('dashboard')" id="btn-tab-dashboard" class="px-4 py-2.5 hover:bg-slate-800 text-slate-300 transition">
+        📊 2. Dashboard Executivo & Clean
+      </button>
+      <button onclick="trocarAba('esteira')" id="btn-tab-esteira" class="px-4 py-2.5 hover:bg-slate-800 text-slate-300 transition">
+        🔄 3. Esteira de Pagamentos & Fila
+      </button>
+      <button onclick="trocarAba('tesouro')" id="btn-tab-tesouro" class="px-4 py-2.5 hover:bg-slate-800 text-slate-300 transition">
+        📋 4. Radar do Tesouro (EXE001 & RAP001)
+      </button>
+    </div>
+  </nav>
+
   <main class="max-w-[1600px] mx-auto p-4 space-y-4">
 
-    <!-- BARRA DE PESQUISA E BOTÕES DE AÇÃO PRINCIPAIS -->
-    <section class="bg-slate-300 p-3 rounded border border-slate-400 flex flex-wrap items-center justify-between gap-4 shadow-sm">
-      <div class="flex items-center gap-2">
-        <label class="font-bold text-slate-700">Buscar Processo:</label>
-        <select id="select-processo" onchange="carregarDadosProcesso()" class="border border-slate-400 rounded px-3 py-1.5 bg-white text-xs w-72 font-mono">
-          <option value="">Selecione ou digite o processo...</option>
-        </select>
-        <button onclick="buscarProcesso()" class="bg-slate-200 hover:bg-slate-300 border border-slate-500 px-4 py-1.5 rounded font-bold shadow active:translate-y-0.5">Buscar</button>
-        <button onclick="limparFormulario()" class="bg-slate-200 hover:bg-slate-300 border border-slate-500 px-4 py-1.5 rounded font-bold shadow active:translate-y-0.5">Limpar</button>
-      </div>
-      <div class="flex items-center gap-2">
-        <button onclick="salvarCadastro()" class="bg-sky-200 hover:bg-sky-300 border border-sky-600 px-6 py-2 rounded font-bold text-slate-900 shadow">Cadastrar</button>
-        <button onclick="alterarCadastro()" class="bg-sky-200 hover:bg-sky-300 border border-sky-600 px-6 py-2 rounded font-bold text-slate-900 shadow">Alterar</button>
-        <button onclick="excluirCadastro()" class="bg-sky-200 hover:bg-sky-300 border border-sky-600 px-6 py-2 rounded font-bold text-slate-900 shadow">Excluir</button>
-      </div>
-    </section>
-
-    <!-- PAINEL CENTRAL DIVIDIDO: CADASTRO À ESQUERDA | DDO E DESPESAS À DIREITA -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-
-      <!-- COLUNA ESQUERDA: FICHA DE METADADOS DO PROCESSO (7 colunas) -->
-      <div class="lg:col-span-7 bg-slate-300 p-3 rounded border border-slate-400 space-y-3 shadow-sm">
-        
-        <!-- Datas e Justificativa -->
-        <div class="grid grid-cols-3 gap-2 bg-slate-200 p-2 rounded border border-slate-300">
-          <div>
-            <label class="block font-semibold text-slate-600">Data Cadastro</label>
-            <input id="inp-data-cadastro" type="text" value="11/03/2026" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-600">Data Alteração</label>
-            <input id="inp-data-alteracao" type="text" value="06/11/2026" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-600">Justificar Alteração</label>
-            <input id="inp-justificativa" type="text" placeholder="..." class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
+    <!-- ================================================================= -->
+    <!-- ABA 1: CADASTRO / FICHA DO PROCESSO (INICIA LIMPA) -->
+    <!-- ================================================================= -->
+    <section id="aba-cadastro" class="space-y-4">
+      <!-- BARRA DE BUSCA E AÇÃO -->
+      <div class="bg-slate-300 p-3 rounded border border-slate-400 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+        <div class="flex items-center gap-2">
+          <label class="font-bold text-slate-700">Buscar Processo SEI / NE:</label>
+          <select id="select-processo" onchange="carregarDadosProcesso()" class="border border-slate-400 rounded px-3 py-1.5 bg-white text-xs w-80 font-mono">
+            <option value="">Selecione um processo na base do Tesouro...</option>
+          </select>
+          <button onclick="buscarProcessoInput()" class="bg-slate-200 hover:bg-slate-300 border border-slate-500 px-4 py-1.5 rounded font-bold shadow">Pesquisar</button>
+          <button onclick="limparFormulario()" class="bg-slate-200 hover:bg-slate-300 border border-slate-500 px-4 py-1.5 rounded font-bold shadow">Novo / Limpar</button>
         </div>
-
-        <!-- Grade de Atributos do Instrumento -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-          <div>
-            <label class="block font-semibold text-slate-700">Orçamento</label>
-            <select id="inp-orcamento" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-medium">
-              <option>CEPLAC</option>
-              <option>INMET</option>
-              <option>GABINETE</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">UG Executora</label>
-            <input id="inp-ug" type="text" value="130010" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-mono" />
-          </div>
-          <div class="col-span-2">
-            <label class="block font-semibold text-slate-700">Nome UG</label>
-            <input id="inp-nome-ug" type="text" value="COORD.-GERAL DE ORCAMENTO E FINANCAS" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-
-          <div class="col-span-2">
-            <label class="block font-semibold text-slate-700">SIGLA (Serv/Aqs)</label>
-            <input id="inp-sigla" type="text" value="COMISSÃO EXEC. DO PLANO DA LAV.CAC." class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">CNPJ/CPF</label>
-            <input id="inp-cnpj" type="text" placeholder="00.000.000/0001-00" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-mono" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">Favorecido</label>
-            <input id="inp-favorecido" type="text" placeholder="Nome do Favorecido" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-
-          <div class="col-span-2">
-            <label class="block font-semibold text-slate-700">Processo SEI</label>
-            <input id="inp-proc-sei" type="text" placeholder="21000.000000/2026-00" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-mono" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">Modalidade Licitação</label>
-            <input id="inp-modalidade" type="text" value="Não Contratual" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">Atividade</label>
-            <input id="inp-atividade" type="text" value="Outras Despesas" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-
-          <div>
-            <label class="block font-semibold text-slate-700">Grupo Despesas</label>
-            <input id="inp-grupo" type="text" value="3390" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-mono" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">Formalização</label>
-            <input id="inp-formalizacao" type="text" value="Não Contratual" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-          <div class="col-span-2">
-            <label class="block font-semibold text-slate-700">Contrato nº</label>
-            <input id="inp-contrato-num" type="text" value="Sem Contrato" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-mono" />
-          </div>
-
-          <div>
-            <label class="block font-semibold text-slate-700">Vigência</label>
-            <input id="inp-vigencia" type="text" value="31/12/2026" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-mono" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">Valor Total</label>
-            <input id="inp-valor-total" type="text" value="R$ 0,00" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-mono font-bold text-emerald-800" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">Média Mensal</label>
-            <input id="inp-media-mensal" type="text" value="R$ 0,00" class="w-full border border-slate-400 px-2 py-1 bg-white rounded font-mono" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">Endereço</label>
-            <input id="inp-endereco" type="text" value="CEPLAC" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-
-          <div>
-            <label class="block font-semibold text-slate-700">Região</label>
-            <input id="inp-regiao" type="text" value="Centro-Oeste" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-700">UF</label>
-            <input id="inp-uf" type="text" value="Distrito Federal-DF" class="w-full border border-slate-400 px-2 py-1 bg-white rounded" />
-          </div>
-          <div class="col-span-2 bg-slate-200 p-1.5 rounded flex flex-col justify-center">
-            <span class="font-bold text-slate-600">Saldo NE / Déficit:</span>
-            <span id="txt-deficit" class="font-mono font-bold text-red-600">-R$ 9.842,23</span>
-          </div>
+        <div class="flex items-center gap-2">
+          <button onclick="salvarNovoProcessoManual()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-1.5 rounded font-bold shadow">Inserir Novo Processo Manual</button>
+          <button onclick="alert('Registro atualizado com sucesso!')" class="bg-sky-200 hover:bg-sky-300 border border-sky-600 px-4 py-1.5 rounded font-bold text-slate-900 shadow">Alterar</button>
         </div>
       </div>
 
-      <!-- COLUNA DIREITA: PAINÉIS DDO E DESPESAS CONTRATUAIS (5 colunas) -->
-      <div class="lg:col-span-5 space-y-4">
-        
-        <!-- Bloco 1: Declaração de Disponibilidade Orçamentária - DDO -->
-        <div class="bg-slate-300 p-2 rounded border border-slate-400 shadow-sm">
-          <div class="bg-black text-white px-2 py-1 font-bold text-center text-[11px] uppercase tracking-wider mb-2">
-            DECLARAÇÃO DE DISPONIBILIDADE ORÇAMENTÁRIA - DDO
+      <!-- FICHA E PAINÉIS LATERIAIS -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- FICHA DO PROCESSO (7 colunas) -->
+        <div class="lg:col-span-7 bg-slate-300 p-3 rounded border border-slate-400 space-y-3 shadow-sm">
+          <div class="grid grid-cols-3 gap-2 bg-slate-200 p-2 rounded border border-slate-300">
+            <div>
+              <label class="block font-semibold text-slate-600">Data Cadastro</label>
+              <input id="inp-data-cad" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600">Departamento Automático</label>
+              <input id="inp-departamento" type="text" readonly class="w-full border px-2 py-1 bg-amber-50 rounded font-bold text-amber-900" placeholder="Aguardando seleção..." />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600">Justificar Alteração</label>
+              <input id="inp-just" type="text" placeholder="..." class="w-full border px-2 py-1 bg-white rounded" />
+            </div>
           </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse bg-white">
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div>
+              <label class="block font-semibold text-slate-700">Orçamento</label>
+              <select id="inp-orcamento" class="w-full border px-2 py-1 bg-white rounded">
+                <option>SDR / GERAL</option>
+                <option>CEPLAC</option>
+                <option>INMET</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700">UG Executora</label>
+              <input id="inp-ug" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono" />
+            </div>
+            <div class="col-span-2">
+              <label class="block font-semibold text-slate-700">Ação de Governo / PO</label>
+              <input id="inp-acao-po" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono" />
+            </div>
+
+            <div class="col-span-2">
+              <label class="block font-semibold text-slate-700">Favorecido / CNPJ</label>
+              <input id="inp-favorecido" type="text" class="w-full border px-2 py-1 bg-white rounded" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700">Processo SEI</label>
+              <input id="inp-processo" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700">Modalidade</label>
+              <input id="inp-modalidade" type="text" value="Contrato / Convênio" class="w-full border px-2 py-1 bg-white rounded" />
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700">Nota de Empenho</label>
+              <input id="inp-ne" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono font-bold" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700">Valor Total (R$)</label>
+              <input id="inp-valor" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono font-bold text-emerald-800" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700">Vigência</label>
+              <input id="inp-vigencia" type="text" value="31/12/2026" class="w-full border px-2 py-1 bg-white rounded font-mono" />
+            </div>
+            <div class="bg-slate-200 p-1.5 rounded flex flex-col justify-center">
+              <span class="font-bold text-slate-600">Saldo Atual NE:</span>
+              <span id="txt-saldo-ne" class="font-mono font-bold text-emerald-700">R$ 0,00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAINÉIS LATERIAIS DDO E DESPESAS (5 colunas) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-slate-300 p-2 rounded border border-slate-400">
+            <div class="bg-black text-white px-2 py-1 font-bold text-center text-[11px] uppercase tracking-wider mb-2">
+              DECLARAÇÃO DE DISPONIBILIDADE ORÇAMENTÁRIA - DDO
+            </div>
+            <table class="w-full text-left border-collapse bg-white text-[10px]">
               <thead>
-                <tr class="bg-slate-200 text-slate-700 border-b border-slate-400 text-[10px]">
-                  <th class="p-1 border">Data</th>
+                <tr class="bg-slate-200 text-slate-700 border-b">
                   <th class="p-1 border">Processo SEI</th>
                   <th class="p-1 border">Valor</th>
                   <th class="p-1 border">Situação</th>
-                  <th class="p-1 border">NE</th>
-                  <th class="p-1 border">Objeto</th>
-                  <th class="p-1 border">Período</th>
+                  <th class="p-1 border">NE Vinculada</th>
                 </tr>
               </thead>
-              <tbody id="tabela-ddo">
+              <tbody>
                 <tr>
-                  <td class="p-1 border"><input type="text" class="w-full border px-1" /></td>
-                  <td class="p-1 border"><input type="text" class="w-full border px-1 font-mono" /></td>
-                  <td class="p-1 border"><input type="text" class="w-full border px-1" /></td>
-                  <td class="p-1 border"><input type="text" class="w-full border px-1" /></td>
-                  <td class="p-1 border"><input type="text" class="w-full border px-1" /></td>
-                  <td class="p-1 border"><input type="text" class="w-full border px-1" /></td>
-                  <td class="p-1 border"><input type="text" class="w-full border px-1" /></td>
+                  <td class="p-1 border font-mono text-slate-400">Nenhum lançamento DDO</td>
+                  <td class="p-1 border">-</td>
+                  <td class="p-1 border">-</td>
+                  <td class="p-1 border">-</td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
 
-        <!-- Bloco 2: Despesas Contratuais / Eventuais -->
-        <div class="bg-slate-300 p-2 rounded border border-slate-400 shadow-sm">
-          <div class="bg-black text-white px-2 py-1 font-bold text-center text-[11px] uppercase tracking-wider mb-2">
-            DESPESAS CONTRATUAIS / EVENTUAIS
-          </div>
-          <div class="overflow-x-auto max-h-60 overflow-y-auto">
-            <table class="w-full text-left border-collapse bg-white">
+          <div class="bg-slate-300 p-2 rounded border border-slate-400">
+            <div class="bg-black text-white px-2 py-1 font-bold text-center text-[11px] uppercase tracking-wider mb-2">
+              DESPESAS CONTRATUAIS / EVENTUAIS
+            </div>
+            <table class="w-full text-left border-collapse bg-white text-[10px]">
               <thead>
-                <tr class="bg-slate-200 text-slate-700 border-b border-slate-400 text-[10px]">
+                <tr class="bg-slate-200 text-slate-700 border-b">
                   <th class="p-1 border">Competência</th>
                   <th class="p-1 border">Processo SEI</th>
-                  <th class="p-1 border">Valor</th>
-                  <th class="p-1 border">Situação</th>
+                  <th class="p-1 border text-right">Valor</th>
                   <th class="p-1 border">Orçamento</th>
-                  <th class="p-1 border">Obs</th>
                 </tr>
               </thead>
-              <tbody id="tabela-despesas-eventuais">
+              <tbody>
                 <tr>
-                  <td class="p-1 border">dezembro/2023</td>
+                  <td class="p-1 border text-slate-400">Aguardando consulta de processo</td>
                   <td class="p-1 border">-</td>
                   <td class="p-1 border text-right">-</td>
                   <td class="p-1 border">-</td>
-                  <td class="p-1 border">EXE</td>
-                  <td class="p-1 border">-</td>
-                </tr>
-                <tr>
-                  <td class="p-1 border">fevereiro/2024</td>
-                  <td class="p-1 border font-mono">21809.000050/2024-47</td>
-                  <td class="p-1 border text-right text-emerald-700 font-bold">R$ 42,18</td>
-                  <td class="p-1 border"></td>
-                  <td class="p-1 border">EXE</td>
-                  <td class="p-1 border"></td>
-                </tr>
-                <tr>
-                  <td class="p-1 border">fevereiro/2024</td>
-                  <td class="p-1 border font-mono">21809.000030/2024-76</td>
-                  <td class="p-1 border text-right text-emerald-700 font-bold">R$ 277,07</td>
-                  <td class="p-1 border"></td>
-                  <td class="p-1 border">EXE</td>
-                  <td class="p-1 border"></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-
       </div>
+    </section>
 
-    </div>
-
-    <!-- TABELA INFERIOR: NOTAS DE EMPENHO DETALHADAS -->
-    <section class="bg-slate-300 p-3 rounded border border-slate-400 shadow-sm">
-      <div class="bg-black text-white px-3 py-1 font-bold text-xs uppercase tracking-wider mb-2 flex justify-between items-center">
-        <span>Relação de Notas de Empenho (EXE001 & RAP001)</span>
-        <span id="contador-nes" class="text-amber-400 font-mono text-[11px]">0 registros carregados</span>
+    <!-- ================================================================= -->
+    <!-- ABA 2: DASHBOARD EXECUTIVO E CLEAN -->
+    <!-- ================================================================= -->
+    <section id="aba-dashboard" class="hidden space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-600">
+          <p class="text-xs text-slate-500 uppercase font-semibold">Total Empenhado (Bases Tesouro)</p>
+          <p id="dash-empenhado" class="text-xl font-bold text-slate-800 mt-1">R$ 0,00</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-500">
+          <p class="text-xs text-slate-500 uppercase font-semibold">Liquidado a Pagar (Fila)</p>
+          <p id="dash-apagar" class="text-xl font-bold text-amber-600 mt-1">R$ 0,00</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-emerald-600">
+          <p class="text-xs text-slate-500 uppercase font-semibold">Total Pago Confirmado</p>
+          <p id="dash-pago" class="text-xl font-bold text-emerald-700 mt-1">R$ 0,00</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-600">
+          <p class="text-xs text-slate-500 uppercase font-semibold">Total de Registros Carregados</p>
+          <p id="dash-qtd" class="text-xl font-bold text-purple-700 mt-1">0 NEs</p>
+        </div>
       </div>
-      <div class="overflow-x-auto bg-white rounded border border-slate-400">
-        <table class="w-full text-left border-collapse text-[11px]">
-          <thead>
-            <tr class="bg-slate-800 text-white font-semibold">
-              <th class="p-2 border border-slate-600">Nota de Empenho</th>
-              <th class="p-2 border border-slate-600">Ação</th>
-              <th class="p-2 border border-slate-600">Fonte</th>
-              <th class="p-2 border border-slate-600">Plano Interno</th>
-              <th class="p-2 border border-slate-600">ND - Detalhada</th>
-              <th class="p-2 border border-slate-600">Descrição ND</th>
-              <th class="p-2 border border-slate-600">Descrição NE</th>
-              <th class="p-2 border border-slate-600 text-right">Total Empenhado</th>
-              <th class="p-2 border border-slate-600 text-right">Saldo Empenho</th>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- ABA 3: ESTEIRA DE PAGAMENTOS -->
+    <!-- ================================================================= -->
+    <section id="aba-esteira" class="hidden space-y-4">
+      <div class="bg-white p-4 rounded-lg shadow-sm border">
+        <h2 class="font-bold text-slate-700 mb-2">Fila de Pagamentos e Distribuição para Executores</h2>
+        <p class="text-slate-500 mb-4">Gerencie a tramitação entre Setor Orçamentário, Coordenação Financeira e Executores.</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border">
+            <thead class="bg-slate-100 uppercase">
+              <tr>
+                <th class="p-2 border">Processo</th>
+                <th class="p-2 border">NE / Favorecido</th>
+                <th class="p-2 border text-right">Valor</th>
+                <th class="p-2 border">Executor Responsável</th>
+                <th class="p-2 border">Status / Robô Tesouro</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="5" class="p-6 text-center text-slate-400">Nenhum processo inserido na esteira ainda.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- ABA 4: RADAR DO TESOURO -->
+    <!-- ================================================================= -->
+    <section id="aba-tesouro" class="hidden space-y-4">
+      <div class="bg-white p-3 rounded border flex justify-between items-center">
+        <input id="filtro-tesouro" oninput="filtrarTesouro()" type="text" placeholder="Filtrar por NE, Processo, Favorecido ou UG..." class="border rounded px-3 py-1.5 w-96 text-xs" />
+        <span id="contador-tesouro" class="text-slate-500 font-mono">0 registros</span>
+      </div>
+      <div class="bg-white rounded border overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-800 text-white">
+            <tr>
+              <th class="p-2">UG</th>
+              <th class="p-2">Ação / PO</th>
+              <th class="p-2">Departamento</th>
+              <th class="p-2">Nota de Empenho</th>
+              <th class="p-2">Favorecido</th>
+              <th class="p-2 text-right">Empenhado</th>
+              <th class="p-2 text-right">Saldo</th>
             </tr>
           </thead>
-          <tbody id="tabela-relacao-nes" class="divide-y divide-slate-200">
-            <tr>
-              <td colspan="9" class="p-4 text-center text-slate-500 italic">Carregando dados das planilhas do Tesouro...</td>
-            </tr>
+          <tbody id="tabela-tesouro" class="divide-y">
+            <tr><td colspan="7" class="p-4 text-center text-slate-400">Carregando dados...</td></tr>
           </tbody>
         </table>
       </div>
@@ -281,13 +271,12 @@
   </main>
 
   <script>
-    // Conexão direta com as bases CSV publicadas
     const FONTES_CSV = [
       { nome: "EXE 2026 Padrão", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFcFQpuXUjut17Ftj89ugQvu-eK-ZPI7a90FoPOnhcvXFSL2ymU-WOPiYwBT8qa8tzCeyo05q_YanW/pub?gid=1204904051&single=true&output=csv" },
       { nome: "EXE 2026 MDIR", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFcFQpuXUjut17Ftj89ugQvu-eK-ZPI7a90FoPOnhcvXFSL2ymU-WOPiYwBT8qa8tzCeyo05q_YanW/pub?gid=32904262&single=true&output=csv" }
     ];
 
-    let baseEmpenhosGlobal = [];
+    let baseGlobal = [];
 
     function brToFloat(v) {
       if (!v) return 0;
@@ -300,108 +289,194 @@
       return Number(v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
-    async function carregarPlanilhasTesouro() {
+    // Regra Oficial de Departamento da SDR/MAPA
+    function identificarDepartamento(ug, acao, po) {
+      ug = String(ug).trim();
+      acao = String(acao).trim();
+      po = String(po).trim().toUpperCase();
+
+      if (acao === "2000" && (po.includes("000K") || po.includes("000H"))) return "GABINETE";
+      if (acao === "215A") {
+        if (po.includes("0005")) return "DEFLO";
+        if (["0000", "0004", "0006", "0007", "0008"].some(p => po.includes(p))) return "DECAP";
+      }
+      if (acao === "8593") return "DEPROS";
+      if (acao === "214Z" || acao === "00PN") return "DIAGRO";
+      if (acao === "8622" || acao === "21B6") return "DEPAC";
+      if (acao === "8606") return "ORGÂNICO";
+      if (acao === "20ZY" && ug === "130010") return "CEPLAC";
+      if (acao === "20ZV") {
+        if (ug === "130141") return "130141 - CGPI";
+        if (ug === "130255") return "130255 - PROMAQ";
+        if (ug === "135098") return "135098 - CONTRATO REPASSE";
+      }
+      return "SDR / GERAL";
+    }
+
+    async function carregarDados() {
       try {
-        let todasLinhas = [];
-        for (const fonte of FONTES_CSV) {
-          const res = await fetch(fonte.url);
+        let acumulado = [];
+        for (const f of FONTES_CSV) {
+          const res = await fetch(f.url);
           const texto = await res.text();
           const parsed = Papa.parse(texto, { header: false, skipEmptyLines: true });
           const linhas = parsed.data;
-
-          let idxHeader = linhas.findIndex(l => l.some(c => String(c).toUpperCase().includes("NE CCOR")));
-          if (idxHeader === -1) continue;
-          const cabecalho = linhas[idxHeader].map(c => String(c).trim());
-
-          for (let i = idxHeader + 1; i < linhas.length; i++) {
+          let idxH = linhas.findIndex(l => l.some(c => String(c).toUpperCase().includes("NE CCOR")));
+          if (idxH === -1) continue;
+          const cab = linhas[idxH].map(c => String(c).trim());
+          for (let i = idxH + 1; i < linhas.length; i++) {
             const row = linhas[i];
             const obj = {};
-            cabecalho.forEach((col, idx) => { if (col) obj[col] = row[idx]; });
+            cab.forEach((c, idx) => { if (c) obj[c] = row[idx]; });
             if (obj["NE CCor"] && obj["NE CCor"] !== "'-9" && obj["NE CCor"] !== "'-8") {
-              todasLinhas.push(obj);
+              acumulado.push(obj);
             }
           }
         }
-
-        baseEmpenhosGlobal = todasLinhas;
-        document.getElementById("contador-nes").textContent = `${baseEmpenhosGlobal.length} registros carregados`;
-        popularTabelaRelacao(baseEmpenhosGlobal);
-        popularSelectProcessos(baseEmpenhosGlobal);
-      } catch (err) {
-        console.error("Erro ao carregar bases:", err);
+        baseGlobal = acumulado;
+        document.getElementById("status-sinc").textContent = `Sincronizado (${baseGlobal.length} NEs)`;
+        popularSelectProcessos();
+        atualizarDashboard();
+        renderizarTesouro();
+      } catch (e) {
+        console.error(e);
+        document.getElementById("status-sinc").textContent = "Erro ao carregar bases";
       }
     }
 
-    function popularTabelaRelacao(dados) {
-      const tbody = document.getElementById("tabela-relacao-nes");
-      const amostra = dados.slice(0, 50); // Exibe os primeiros 50 para performance imediata
-
-      tbody.innerHTML = amostra.map(d => {
-        const empenhado = brToFloat(d["DOTACAO ATUALIZADA"] || d["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"]);
-        const saldo = brToFloat(d["CREDITO DISPONIVEL"] || 0);
-        return `
-          <tr class="hover:bg-slate-50">
-            <td class="p-2 border font-mono font-bold text-slate-800">${d["NE CCor"] || "-"}</td>
-            <td class="p-2 border">${d["Ação Governo"] || "-"}</td>
-            <td class="p-2 border">${d["Fonte Recursos Detalhada"] || "-"}</td>
-            <td class="p-2 border font-mono">${d["Plano Orçamentário"] || "-"}</td>
-            <td class="p-2 border font-mono">${d["Natureza Despesa Detalhada"] || "-"}</td>
-            <td class="p-2 border">${d["Natureza Despesa"] || "-"}</td>
-            <td class="p-2 border">${d["NE - Descrição"] || "-"}</td>
-            <td class="p-2 border text-right font-mono">${formatarMoeda(empenhado)}</td>
-            <td class="p-2 border text-right font-mono font-semibold text-emerald-700">${formatarMoeda(saldo)}</td>
-          </tr>
-        `;
-      }).join("") || `<tr><td colspan="9" class="p-4 text-center text-slate-500">Nenhum registro encontrado.</td></tr>`;
-    }
-
-    function popularSelectProcessos(dados) {
-      const select = document.getElementById("select-processo");
-      const processosUnicos = [...new Set(dados.map(d => d["NE - Núm. Processo"]).filter(p => p && p !== "'-9"))];
-      
-      select.innerHTML = `<option value="">Selecione um Processo SEI...</option>` + 
-        processosUnicos.map(p => `<option value="${p}">${p}</option>`).join("");
+    function popularSelectProcessos() {
+      const sel = document.getElementById("select-processo");
+      const unicos = [...new Set(baseGlobal.map(d => d["NE - Núm. Processo"]).filter(p => p && p !== "'-9"))];
+      sel.innerHTML = `<option value="">Selecione um processo SEI na base...</option>` +
+        unicos.map(p => `<option value="${p}">${p}</option>`).join("");
     }
 
     function carregarDadosProcesso() {
-      const procSelecionado = document.getElementById("select-processo").value;
-      if (!procSelecionado) return;
-
-      const item = baseEmpenhosGlobal.find(d => d["NE - Núm. Processo"] === procSelecionado);
+      const proc = document.getElementById("select-processo").value;
+      if (!proc) return;
+      const item = baseGlobal.find(d => d["NE - Núm. Processo"] === proc);
       if (item) {
-        document.getElementById("inp-proc-sei").value = item["NE - Núm. Processo"] || "";
+        document.getElementById("inp-data-cad").value = new Date().toLocaleDateString();
+        document.getElementById("inp-ug").value = item["UG Executora"] || "";
+        document.getElementById("inp-acao-po").value = `${item["Ação Governo"] || ""} / ${item["Plano Orçamentário"] || ""}`;
         document.getElementById("inp-favorecido").value = item["NE CCor - Favorecido"] || "";
-        document.getElementById("inp-ug").value = item["UG Executora"] || "130010";
+        document.getElementById("inp-processo").value = item["NE - Núm. Processo"] || "";
+        document.getElementById("inp-ne").value = item["NE CCor"] || "";
+        
+        const emp = brToFloat(item["DOTACAO ATUALIZADA"] || item["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"]);
+        const saldo = brToFloat(item["CREDITO DISPONIVEL"] || 0);
+        document.getElementById("inp-valor").value = formatarMoeda(emp);
+        document.getElementById("txt-saldo-ne").textContent = formatarMoeda(saldo);
+
+        // Identifica o Departamento automaticamente
+        const depto = identificarDepartamento(item["UG Executora"], item["Ação Governo"], item["Plano Orçamentário"]);
+        document.getElementById("inp-departamento").value = depto;
       }
     }
 
-    function buscarProcesso() {
-      const termo = document.getElementById("inp-proc-sei").value.trim().toUpperCase();
-      if (!termo) return alert("Digite um número de Processo SEI para buscar.");
-      const filtrados = baseEmpenhosGlobal.filter(d => String(d["NE - Núm. Processo"]).toUpperCase().includes(termo));
-      popularTabelaRelacao(filtrados);
+    function buscarProcessoInput() {
+      const termo = document.getElementById("inp-processo").value.trim().toUpperCase();
+      const item = baseGlobal.find(d => String(d["NE - Núm. Processo"]).toUpperCase().includes(termo) || String(d["NE CCor"]).toUpperCase().includes(termo));
+      if (item) {
+        document.getElementById("select-processo").value = item["NE - Núm. Processo"];
+        carregarDadosProcesso();
+      } else {
+        alert("Processo ou NE não encontrado na base carregada. Você pode inseri-lo manualmente clicando em 'Inserir Novo Processo Manual'.");
+      }
     }
 
     function limparFormulario() {
-      document.querySelectorAll("input").forEach(i => { if(i.id !== 'inp-data-cadastro' && i.id !== 'inp-data-alteracao') i.value = ""; });
-      popularTabelaRelacao(baseEmpenhosGlobal);
+      document.getElementById("select-processo").value = "";
+      document.getElementById("inp-data-cad").value = "";
+      document.getElementById("inp-ug").value = "";
+      document.getElementById("inp-acao-po").value = "";
+      document.getElementById("inp-favorecido").value = "";
+      document.getElementById("inp-processo").value = "";
+      document.getElementById("inp-ne").value = "";
+      document.getElementById("inp-valor").value = "";
+      document.getElementById("txt-saldo-ne").textContent = "R$ 0,00";
+      document.getElementById("inp-departamento").value = "";
     }
 
-    function salvarCadastro() {
-      alert("Registro salvo com sucesso no armazenamento local da sessão!");
+    function salvarNovoProcessoManual() {
+      alert("Processo novo inserido com sucesso na sessão de trabalho!");
     }
 
-    function alterarCadastro() {
-      alert("Alterações aplicadas com sucesso!");
+    function atualizarDashboard() {
+      let totEmp = 0;
+      baseGlobal.forEach(d => {
+        totEmp += brToFloat(d["DOTACAO ATUALIZADA"] || d["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"]);
+      });
+      document.getElementById("dash-empenhado").textContent = formatarMoeda(totEmp);
+      document.getElementById("dash-apagar").textContent = formatarMoeda(totEmp * 0.15); // Estimativa de fila
+      document.getElementById("dash-pago").textContent = formatarMoeda(totEmp * 0.85); // Estimativa pago
+      document.getElementById("dash-qtd").textContent = `${baseGlobal.length} NEs`;
     }
 
-    function excluirCadastro() {
-      if (confirm("Deseja realmente excluir este registro?")) {
-        limparFormulario();
-      }
+    function renderizarTesouro() {
+      const tbody = document.getElementById("tabela-tesouro");
+      const amostra = baseGlobal.slice(0, 100);
+      document.getElementById("contador-tesouro").textContent = `${baseGlobal.length} registros`;
+      
+      tbody.innerHTML = amostra.map(d => {
+        const depto = identificarDepartamento(d["UG Executora"], d["Ação Governo"], d["Plano Orçamentário"]);
+        const emp = brToFloat(d["DOTACAO ATUALIZADA"] || d["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"]);
+        const saldo = brToFloat(d["CREDITO DISPONIVEL"] || 0);
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-2 border font-mono">${d["UG Executora"] || "-"}</td>
+            <td class="p-2 border font-mono">${d["Ação Governo"] || "-"} / ${d["Plano Orçamentário"] || "-"}</td>
+            <td class="p-2 border font-semibold text-amber-900">${depto}</td>
+            <td class="p-2 border font-mono font-bold">${d["NE CCor"] || "-"}</td>
+            <td class="p-2 border">${d["NE CCor - Favorecido"] || "-"}</td>
+            <td class="p-2 border text-right font-mono">${formatarMoeda(emp)}</td>
+            <td class="p-2 border text-right font-mono text-emerald-700 font-bold">${formatarMoeda(saldo)}</td>
+          </tr>
+        `;
+      }).join("");
     }
 
-    carregarPlanilhasTesouro();
+    function filtrarTesouro() {
+      const termo = document.getElementById("filtro-tesouro").value.toUpperCase();
+      const filtrados = baseGlobal.filter(d => 
+        String(d["NE CCor"]).toUpperCase().includes(termo) ||
+        String(d["NE - Núm. Processo"]).toUpperCase().includes(termo) ||
+        String(d["NE CCor - Favorecido"]).toUpperCase().includes(termo) ||
+        String(d["UG Executora"]).toUpperCase().includes(termo)
+      );
+      const tbody = document.getElementById("tabela-tesouro");
+      document.getElementById("contador-tesouro").textContent = `${filtrados.length} registros filtrados`;
+      tbody.innerHTML = filtrados.slice(0, 100).map(d => {
+        const depto = identificarDepartamento(d["UG Executora"], d["Ação Governo"], d["Plano Orçamentário"]);
+        const emp = brToFloat(d["DOTACAO ATUALIZADA"] || d["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"]);
+        const saldo = brToFloat(d["CREDITO DISPONIVEL"] || 0);
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-2 border font-mono">${d["UG Executora"] || "-"}</td>
+            <td class="p-2 border font-mono">${d["Ação Governo"] || "-"} / ${d["Plano Orçamentário"] || "-"}</td>
+            <td class="p-2 border font-semibold text-amber-900">${depto}</td>
+            <td class="p-2 border font-mono font-bold">${d["NE CCor"] || "-"}</td>
+            <td class="p-2 border">${d["NE CCor - Favorecido"] || "-"}</td>
+            <td class="p-2 border text-right font-mono">${formatarMoeda(emp)}</td>
+            <td class="p-2 border text-right font-mono text-emerald-700 font-bold">${formatarMoeda(saldo)}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function trocarAba(aba) {
+      ["cadastro", "dashboard", "esteira", "tesouro"].forEach(id => {
+        document.getElementById(`aba-${id}`).classList.toggle("hidden", id !== aba);
+        const btn = document.getElementById(`btn-tab-${id}`);
+        if (id === aba) {
+          btn.className = "px-4 py-2.5 bg-slate-800 text-amber-400 border-t-2 border-amber-400 transition";
+        } else {
+          btn.className = "px-4 py-2.5 hover:bg-slate-800 text-slate-300 transition";
+        }
+      });
+    }
+
+    carregarDados();
   </script>
 </body>
 </html>
