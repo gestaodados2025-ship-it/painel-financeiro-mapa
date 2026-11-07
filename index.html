@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Controle Orçamentário e Financeiro - SDI/MAPA</title>
+  <title>Controle Orçamentário e Financeiro - SDR/MAPA</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body class="bg-slate-300 text-slate-900 font-sans text-[11px]">
 
-  <!-- CABEÇALHO SUPERIOR (Estilo Excel) -->
+  <!-- CABEÇALHO SUPERIOR -->
   <header class="bg-black text-white border-b-2 border-amber-400 px-4 py-2 flex flex-wrap justify-between items-center">
     <div>
       <span class="text-[9px] text-amber-300 font-bold uppercase">MAPA · Órgão 22000 · Secretaria de Desenvolvimento Rural (SDR)</span>
       <h1 class="text-sm font-extrabold tracking-wide">CONTROLE ORÇAMENTÁRIO E FINANCEIRO - SDI/MAPA</h1>
-      <p class="text-[10px] text-slate-300">INMET e CEPLAC — Ugs: 130010, 130141, 130255, 135098, 420013</p>
+      <p class="text-[10px] text-slate-300">CEPLAC e Unidades da SDR — Ugs: 130010, 130141, 130255, 135098, 420013</p>
     </div>
-    <!-- Alertas de Déficit (Cantinho Superior Direito) -->
     <div class="flex items-center gap-2">
       <div class="bg-yellow-300 text-black px-3 py-1 font-bold text-center border border-black text-[10px]">
         Atenção! Favor ajustar os<br>valores da Col T.
@@ -45,12 +44,8 @@
 
   <main class="p-3 space-y-3 max-w-[1700px] mx-auto">
 
-    <!-- ================================================================= -->
-    <!-- ABA 1: CADASTRO / FICHA E PAINÉIS LATERIAIS (Estilo Planilha) -->
-    <!-- ================================================================= -->
+    <!-- ABA 1: CADASTRO / FICHA -->
     <section id="aba-cadastro" class="space-y-3">
-
-      <!-- BARRA DE BUSCA E BOTÕES SUPERIORES -->
       <div class="bg-slate-400 p-2 rounded border border-slate-500 flex flex-wrap items-center justify-between gap-3 shadow-inner">
         <div class="flex items-center gap-2">
           <label class="font-bold text-slate-900">Buscar Processo:</label>
@@ -67,10 +62,7 @@
         </div>
       </div>
 
-      <!-- BLOCO CENTRAL: FICHA À ESQUERDA | DDO E DESPESAS À DIREITA -->
       <div class="grid grid-cols-1 xl:grid-cols-12 gap-3">
-
-        <!-- FICHA DE IDENTIFICAÇÃO DO PROCESSO (7 colunas) -->
         <div class="xl:col-span-7 bg-slate-400 p-2.5 rounded border border-slate-500 space-y-2 shadow-inner">
           <div class="grid grid-cols-3 gap-2 bg-slate-300 p-1.5 rounded border border-slate-400">
             <div>
@@ -92,8 +84,8 @@
               <label class="block font-semibold text-slate-800">Orçamento</label>
               <select id="inp-orcamento" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs">
                 <option>CEPLAC</option>
-                <option>INMET</option>
                 <option>GABINETE</option>
+                <option>SDR / GERAL</option>
               </select>
             </div>
             <div>
@@ -133,9 +125,7 @@
           </div>
         </div>
 
-        <!-- PAINÉIS DDO E DESPESAS CONTRATUAIS À DIREITA (5 colunas) -->
         <div class="xl:col-span-5 space-y-2">
-          <!-- DDO -->
           <div class="bg-slate-400 p-2 rounded border border-slate-500">
             <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
               DECLARAÇÃO DE DISPONIBILIDADE ORÇAMENTÁRIA - DDO
@@ -151,39 +141,32 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="p-1 border text-slate-400" colspan="5">Nenhum registro DDO</td>
-                </tr>
+                <tr><td class="p-1 border text-slate-400" colspan="5">Nenhum registro DDO</td></tr>
               </tbody>
             </table>
           </div>
 
-          <!-- DESPESAS CONTRATUAIS / EVENTUAIS -->
           <div class="bg-slate-400 p-2 rounded border border-slate-500">
             <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
               DESPESAS CONTRATUAIS / EVENTUAIS
             </div>
-            <table class="w-full text-left border-collapse bg-white text-[10px] max-h-36 overflow-y-auto block">
+            <table class="w-full text-left border-collapse bg-white text-[10px]">
               <thead>
                 <tr class="bg-slate-300 text-slate-900 border border-slate-500">
-                  <th class="p-1 border w-28">Competência</th>
-                  <th class="p-1 border w-44">Processo SEI</th>
-                  <th class="p-1 border w-20 text-right">Valor</th>
-                  <th class="p-1 border w-16">Orçamento</th>
+                  <th class="p-1 border">Competência</th>
+                  <th class="p-1 border">Processo SEI</th>
+                  <th class="p-1 border text-right">Valor</th>
+                  <th class="p-1 border">Orçamento</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="p-1 border text-slate-400" colspan="4">Aguardando seleção de processo</td>
-                </tr>
+                <tr><td class="p-1 border text-slate-400" colspan="4">Aguardando seleção de processo</td></tr>
               </tbody>
             </table>
           </div>
         </div>
-
       </div>
 
-      <!-- BARRA DE FILTRO DA TABELA MENSAL -->
       <div class="bg-slate-500 p-2 rounded border border-slate-600 flex flex-wrap items-center gap-2 text-xs">
         <span class="font-bold text-white">FILTRO:</span>
         <input type="text" placeholder="Orçamento" class="border px-2 py-0.5 rounded w-28 bg-white" />
@@ -193,7 +176,6 @@
         <button class="bg-slate-200 border border-black px-3 py-0.5 rounded font-bold shadow-sm">CORRIGIR / AJUSTAR</button>
       </div>
 
-      <!-- TABELA MENSAL INFERIOR (Estilo Exato da Planilha com Fundo Amarelo Claro) -->
       <div class="bg-slate-400 p-2 rounded border border-slate-500 shadow-sm">
         <div class="overflow-x-auto bg-white rounded border border-slate-600">
           <table class="w-full text-left border-collapse text-[10px]">
@@ -221,9 +203,7 @@
               </tr>
             </thead>
             <tbody id="tabela-mensal-corpo" class="divide-y divide-slate-400 bg-yellow-50">
-              <tr>
-                <td colspan="19" class="p-4 text-center text-slate-500 italic bg-white">Nenhum processo selecionado. Utilize a busca superior para carregar os dados.</td>
-              </tr>
+              <tr><td colspan="19" class="p-4 text-center text-slate-500 italic bg-white">Nenhum processo selecionado. Utilize a busca superior para carregar os dados.</td></tr>
             </tbody>
           </table>
         </div>
