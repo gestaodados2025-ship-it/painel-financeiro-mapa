@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Controle Orçamentário e Financeiro - SDR/MAPA</title>
+  <title>Controle Orçamentário e Financeiro - SDI/MAPA</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
@@ -46,23 +46,28 @@
 
     <!-- ABA 1: CADASTRO / FICHA -->
     <section id="aba-cadastro" class="space-y-3">
+      
+      <!-- BARRA DE BUSCA E BOTÕES DE AÇÃO SUPERIORES -->
       <div class="bg-slate-400 p-2 rounded border border-slate-500 flex flex-wrap items-center justify-between gap-3 shadow-inner">
         <div class="flex items-center gap-2">
           <label class="font-bold text-slate-900">Buscar Processo:</label>
-          <select id="select-processo" onchange="carregarDadosProcesso()" class="border border-slate-600 rounded px-2 py-1 bg-white text-xs w-64 font-mono">
+          <select id="select-processo" onchange="carregarDadosProcesso()" class="border border-slate-600 rounded px-2 py-1 bg-white text-xs w-72 font-mono">
             <option value="">Selecione na base...</option>
           </select>
           <button onclick="buscarProcessoInput()" class="bg-slate-200 hover:bg-slate-300 border border-slate-600 px-3 py-1 rounded font-bold shadow-sm">Buscar</button>
           <button onclick="limparFormulario()" class="bg-slate-200 hover:bg-slate-300 border border-slate-600 px-3 py-1 rounded font-bold shadow-sm">Limpar</button>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="alert('Cadastrado com sucesso!')" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-5 py-1.5 rounded font-bold text-slate-900 shadow">Cadastrar</button>
-          <button onclick="alert('Alterado com sucesso!')" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-5 py-1.5 rounded font-bold text-slate-900 shadow">Alterar</button>
-          <button onclick="limparFormulario()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-5 py-1.5 rounded font-bold text-slate-900 shadow">Excluir</button>
+          <button onclick="alert('Cadastrado com sucesso!')" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-6 py-1.5 rounded font-bold text-slate-900 shadow">Cadastrar</button>
+          <button onclick="alert('Alterado com sucesso!')" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-6 py-1.5 rounded font-bold text-slate-900 shadow">Alterar</button>
+          <button onclick="limparFormulario()" class="bg-sky-200 hover:bg-sky-300 border border-slate-600 px-6 py-1.5 rounded font-bold text-slate-900 shadow">Excluir</button>
         </div>
       </div>
 
+      <!-- BLOCO CENTRAL: FICHA À ESQUERDA | DDO E DESPESAS À DIREITA -->
       <div class="grid grid-cols-1 xl:grid-cols-12 gap-3">
+
+        <!-- FICHA DE IDENTIFICAÇÃO (7 colunas) -->
         <div class="xl:col-span-7 bg-slate-400 p-2.5 rounded border border-slate-500 space-y-2 shadow-inner">
           <div class="grid grid-cols-3 gap-2 bg-slate-300 p-1.5 rounded border border-slate-400">
             <div>
@@ -79,10 +84,11 @@
             </div>
           </div>
 
+          <!-- Grade idêntica à planilha do Excel -->
           <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
             <div>
               <label class="block font-semibold text-slate-800">Orçamento</label>
-              <select id="inp-orcamento" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs">
+              <select id="inp-orcamento" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs font-bold text-slate-900">
                 <option>CEPLAC</option>
                 <option>GABINETE</option>
                 <option>SDR / GERAL</option>
@@ -97,12 +103,25 @@
               <input id="inp-depto" type="text" readonly class="w-full border border-slate-500 px-1.5 py-0.5 bg-amber-50 rounded font-bold text-amber-900 text-xs" />
             </div>
 
+            <div>
+              <label class="block font-semibold text-slate-800">SIGLA (Serv/Aqs)</label>
+              <input id="inp-sigla" type="text" value="SDR/MAPA" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-800">CNPJ/CPF</label>
+              <input id="inp-cnpj" type="text" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded font-mono text-xs" />
+            </div>
+            <div class="col-span-2">
+              <label class="block font-semibold text-slate-800">Favorecido</label>
+              <input id="inp-favorecido" type="text" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
+            </div>
+
             <div class="col-span-2">
               <label class="block font-semibold text-slate-800">Processo SEI</label>
               <input id="inp-processo" type="text" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded font-mono text-xs" />
             </div>
             <div>
-              <label class="block font-semibold text-slate-800">Modalidade</label>
+              <label class="block font-semibold text-slate-800">Modalidade Licitação</label>
               <input id="inp-modalidade" type="text" value="Contrato" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
             </div>
             <div>
@@ -110,9 +129,13 @@
               <input id="inp-atividade" type="text" value="Outras Despesas" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
             </div>
 
-            <div class="col-span-2">
-              <label class="block font-semibold text-slate-800">Favorecido</label>
-              <input id="inp-favorecido" type="text" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
+            <div>
+              <label class="block font-semibold text-slate-800">Formalização</label>
+              <input id="inp-formalizacao" type="text" value="Contratual" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded text-xs" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-800">Contrato nº</label>
+              <input id="inp-contrato" type="text" value="Sem Contrato" class="w-full border border-slate-500 px-1.5 py-0.5 bg-white rounded font-mono text-xs" />
             </div>
             <div>
               <label class="block font-semibold text-slate-800">Vigência</label>
@@ -125,6 +148,7 @@
           </div>
         </div>
 
+        <!-- PAINÉIS DDO E DESPESAS CONTRATUAIS À DIREITA (5 colunas) -->
         <div class="xl:col-span-5 space-y-2">
           <div class="bg-slate-400 p-2 rounded border border-slate-500">
             <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
@@ -165,8 +189,10 @@
             </table>
           </div>
         </div>
+
       </div>
 
+      <!-- BARRA DE FILTRO DA TABELA MENSAL -->
       <div class="bg-slate-500 p-2 rounded border border-slate-600 flex flex-wrap items-center gap-2 text-xs">
         <span class="font-bold text-white">FILTRO:</span>
         <input type="text" placeholder="Orçamento" class="border px-2 py-0.5 rounded w-28 bg-white" />
@@ -176,6 +202,7 @@
         <button class="bg-slate-200 border border-black px-3 py-0.5 rounded font-bold shadow-sm">CORRIGIR / AJUSTAR</button>
       </div>
 
+      <!-- TABELA MENSAL INFERIOR (Estilo Excel com fundo amarelo claro) -->
       <div class="bg-slate-400 p-2 rounded border border-slate-500 shadow-sm">
         <div class="overflow-x-auto bg-white rounded border border-slate-600">
           <table class="w-full text-left border-collapse text-[10px]">
