@@ -14,13 +14,13 @@
     <div class="max-w-[1600px] mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
       <div>
         <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">MAPA · Órgão 22000 · Secretaria de Desenvolvimento Rural (SDR)</span>
-        <h1 class="text-base font-extrabold tracking-wide">COORDENAÇÃO FINANCEIRA — PAINEL DE GESTÃO E CONCILIAÇÃO</h1>
+        <h1 class="text-base font-extrabold tracking-wide">CONTROLE ORÇAMENTÁRIO E FINANCEIRO — SDI/MAPA</h1>
         <p class="text-[11px] text-slate-300">Ugs: 130010, 130141, 130255, 135098, 420013 + Recursos Compartilhados (EXE001 & RAP001)</p>
       </div>
       <div class="flex items-center gap-3">
         <span id="status-sinc" class="bg-slate-800 text-amber-300 text-[11px] px-3 py-1 rounded border border-slate-700">Carregando Tesouro...</span>
         <div class="bg-red-600 text-white px-3 py-1.5 rounded font-mono font-bold text-xs shadow">
-          Déficit / Alerta Ativo
+          -R$ 9.842,23
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
   <nav class="bg-slate-900 text-white border-b border-slate-700 shadow-inner">
     <div class="max-w-[1600px] mx-auto px-4 flex gap-1 font-semibold text-xs">
       <button onclick="trocarAba('cadastro')" id="btn-tab-cadastro" class="px-4 py-2.5 bg-slate-800 text-amber-400 border-t-2 border-amber-400 transition">
-        📁 1. Cadastro / Ficha do Processo
+        📁 1. Cadastro / Ficha & Execução Mensal
       </button>
       <button onclick="trocarAba('dashboard')" id="btn-tab-dashboard" class="px-4 py-2.5 hover:bg-slate-800 text-slate-300 transition">
         📊 2. Dashboard Executivo & Clean
@@ -47,33 +47,34 @@
   <main class="max-w-[1600px] mx-auto p-4 space-y-4">
 
     <!-- ================================================================= -->
-    <!-- ABA 1: CADASTRO / FICHA DO PROCESSO (INICIA LIMPA) -->
+    <!-- ABA 1: CADASTRO / FICHA E TABELA MENSAL -->
     <!-- ================================================================= -->
     <section id="aba-cadastro" class="space-y-4">
       <!-- BARRA DE BUSCA E AÇÃO -->
       <div class="bg-slate-300 p-3 rounded border border-slate-400 flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <div class="flex items-center gap-2">
-          <label class="font-bold text-slate-700">Buscar Processo SEI / NE:</label>
+          <label class="font-bold text-slate-700">Buscar Processo:</label>
           <select id="select-processo" onchange="carregarDadosProcesso()" class="border border-slate-400 rounded px-3 py-1.5 bg-white text-xs w-80 font-mono">
-            <option value="">Selecione um processo na base do Tesouro...</option>
+            <option value="">Selecione um processo na base...</option>
           </select>
-          <button onclick="buscarProcessoInput()" class="bg-slate-200 hover:bg-slate-300 border border-slate-500 px-4 py-1.5 rounded font-bold shadow">Pesquisar</button>
-          <button onclick="limparFormulario()" class="bg-slate-200 hover:bg-slate-300 border border-slate-500 px-4 py-1.5 rounded font-bold shadow">Novo / Limpar</button>
+          <button onclick="buscarProcessoInput()" class="bg-slate-200 hover:bg-slate-300 border border-slate-500 px-4 py-1.5 rounded font-bold shadow">Buscar</button>
+          <button onclick="limparFormulario()" class="bg-slate-200 hover:bg-slate-300 border border-slate-500 px-4 py-1.5 rounded font-bold shadow">Limpar</button>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="salvarNovoProcessoManual()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-1.5 rounded font-bold shadow">Inserir Novo Processo Manual</button>
-          <button onclick="alert('Registro atualizado com sucesso!')" class="bg-sky-200 hover:bg-sky-300 border border-sky-600 px-4 py-1.5 rounded font-bold text-slate-900 shadow">Alterar</button>
+          <button onclick="salvarNovoProcessoManual()" class="bg-sky-200 hover:bg-sky-300 border border-sky-600 px-5 py-1.5 rounded font-bold text-slate-900 shadow">Cadastrar</button>
+          <button onclick="alert('Alterações aplicadas com sucesso!')" class="bg-sky-200 hover:bg-sky-300 border border-sky-600 px-4 py-1.5 rounded font-bold text-slate-900 shadow">Alterar</button>
+          <button onclick="limparFormulario()" class="bg-sky-200 hover:bg-sky-300 border border-sky-600 px-4 py-1.5 rounded font-bold text-slate-900 shadow">Excluir</button>
         </div>
       </div>
 
-      <!-- FICHA E PAINÉIS LATERIAIS -->
+      <!-- FICHA DO PROCESSO E PAINÉIS -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <!-- FICHA DO PROCESSO (7 colunas) -->
+        <!-- FICHA À ESQUERDA (7 colunas) -->
         <div class="lg:col-span-7 bg-slate-300 p-3 rounded border border-slate-400 space-y-3 shadow-sm">
           <div class="grid grid-cols-3 gap-2 bg-slate-200 p-2 rounded border border-slate-300">
             <div>
               <label class="block font-semibold text-slate-600">Data Cadastro</label>
-              <input id="inp-data-cad" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono" />
+              <input id="inp-data-cad" type="text" value="11/03/2026" class="w-full border px-2 py-1 bg-white rounded font-mono" />
             </div>
             <div>
               <label class="block font-semibold text-slate-600">Departamento Automático</label>
@@ -89,9 +90,9 @@
             <div>
               <label class="block font-semibold text-slate-700">Orçamento</label>
               <select id="inp-orcamento" class="w-full border px-2 py-1 bg-white rounded">
-                <option>SDR / GERAL</option>
                 <option>CEPLAC</option>
                 <option>INMET</option>
+                <option>GABINETE</option>
               </select>
             </div>
             <div>
@@ -99,12 +100,12 @@
               <input id="inp-ug" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono" />
             </div>
             <div class="col-span-2">
-              <label class="block font-semibold text-slate-700">Ação de Governo / PO</label>
+              <label class="block font-semibold text-slate-700">Ação / PO / Serv/Aqs</label>
               <input id="inp-acao-po" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono" />
             </div>
 
             <div class="col-span-2">
-              <label class="block font-semibold text-slate-700">Favorecido / CNPJ</label>
+              <label class="block font-semibold text-slate-700">Favorecido</label>
               <input id="inp-favorecido" type="text" class="w-full border px-2 py-1 bg-white rounded" />
             </div>
             <div>
@@ -113,7 +114,7 @@
             </div>
             <div>
               <label class="block font-semibold text-slate-700">Modalidade</label>
-              <input id="inp-modalidade" type="text" value="Contrato / Convênio" class="w-full border px-2 py-1 bg-white rounded" />
+              <input id="inp-modalidade" type="text" value="Contrato" class="w-full border px-2 py-1 bg-white rounded" />
             </div>
 
             <div>
@@ -121,7 +122,7 @@
               <input id="inp-ne" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono font-bold" />
             </div>
             <div>
-              <label class="block font-semibold text-slate-700">Valor Total (R$)</label>
+              <label class="block font-semibold text-slate-700">Valor Total</label>
               <input id="inp-valor" type="text" class="w-full border px-2 py-1 bg-white rounded font-mono font-bold text-emerald-800" />
             </div>
             <div>
@@ -129,8 +130,8 @@
               <input id="inp-vigencia" type="text" value="31/12/2026" class="w-full border px-2 py-1 bg-white rounded font-mono" />
             </div>
             <div class="bg-slate-200 p-1.5 rounded flex flex-col justify-center">
-              <span class="font-bold text-slate-600">Saldo Atual NE:</span>
-              <span id="txt-saldo-ne" class="font-mono font-bold text-emerald-700">R$ 0,00</span>
+              <span class="font-bold text-slate-600">Saldo / Déficit:</span>
+              <span id="txt-saldo-ne" class="font-mono font-bold text-red-600">-R$ 9.842,23</span>
             </div>
           </div>
         </div>
@@ -147,12 +148,12 @@
                   <th class="p-1 border">Processo SEI</th>
                   <th class="p-1 border">Valor</th>
                   <th class="p-1 border">Situação</th>
-                  <th class="p-1 border">NE Vinculada</th>
+                  <th class="p-1 border">NE</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="p-1 border font-mono text-slate-400">Nenhum lançamento DDO</td>
+                  <td class="p-1 border font-mono text-slate-400">Nenhum registro DDO</td>
                   <td class="p-1 border">-</td>
                   <td class="p-1 border">-</td>
                   <td class="p-1 border">-</td>
@@ -176,7 +177,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="p-1 border text-slate-400">Aguardando consulta de processo</td>
+                  <td class="p-1 border text-slate-400">Aguardando consulta</td>
                   <td class="p-1 border">-</td>
                   <td class="p-1 border text-right">-</td>
                   <td class="p-1 border">-</td>
@@ -186,19 +187,58 @@
           </div>
         </div>
       </div>
+
+      <!-- TABELA INFERIOR: ACOMPANHAMENTO MENSAL POR COMPETÊNCIA (Estilo Planilha) -->
+      <div class="bg-slate-300 p-3 rounded border border-slate-400 shadow-sm">
+        <div class="bg-black text-white px-3 py-1 font-bold text-xs uppercase tracking-wider mb-2 flex justify-between items-center">
+          <span>Acompanhamento Mensal de Execução por Competência (2026)</span>
+          <span id="contador-tabela-mensal" class="text-amber-400 font-mono text-[11px]">Selecione um processo acima</span>
+        </div>
+        <div class="overflow-x-auto bg-white rounded border border-slate-400">
+          <table class="w-full text-left border-collapse text-[10px]">
+            <thead>
+              <tr class="bg-slate-800 text-white">
+                <th class="p-1.5 border">UG - Serv/Aqs</th>
+                <th class="p-1.5 border">Processo SEI</th>
+                <th class="p-1.5 border">Favorecido</th>
+                <th class="p-1.5 border">Contrato</th>
+                <th class="p-1.5 border text-center">2023</th>
+                <th class="p-1.5 border text-right">Jan</th>
+                <th class="p-1.5 border text-right">Fev</th>
+                <th class="p-1.5 border text-right">Mar</th>
+                <th class="p-1.5 border text-right">Abr</th>
+                <th class="p-1.5 border text-right">Mai</th>
+                <th class="p-1.5 border text-right">Jun</th>
+                <th class="p-1.5 border text-right">Jul</th>
+                <th class="p-1.5 border text-right">Ago</th>
+                <th class="p-1.5 border text-right">Set</th>
+                <th class="p-1.5 border text-right">Out</th>
+                <th class="p-1.5 border text-right">Nov</th>
+                <th class="p-1.5 border text-right">Dez</th>
+                <th class="p-1.5 border text-right bg-amber-100 text-amber-900 font-bold">Déficit</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-mensal-corpo" class="divide-y">
+              <tr>
+                <td colspan="18" class="p-4 text-center text-slate-500 italic">Nenhum processo selecionado. Utilize a busca acima para carregar os dados.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
     <!-- ================================================================= -->
-    <!-- ABA 2: DASHBOARD EXECUTIVO E CLEAN -->
+    <!-- ABA 2: DASHBOARD EXECUTIVO -->
     <!-- ================================================================= -->
     <section id="aba-dashboard" class="hidden space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-600">
-          <p class="text-xs text-slate-500 uppercase font-semibold">Total Empenhado (Bases Tesouro)</p>
+          <p class="text-xs text-slate-500 uppercase font-semibold">Total Empenhado</p>
           <p id="dash-empenhado" class="text-xl font-bold text-slate-800 mt-1">R$ 0,00</p>
         </div>
         <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-500">
-          <p class="text-xs text-slate-500 uppercase font-semibold">Liquidado a Pagar (Fila)</p>
+          <p class="text-xs text-slate-500 uppercase font-semibold">Liquidado a Pagar</p>
           <p id="dash-apagar" class="text-xl font-bold text-amber-600 mt-1">R$ 0,00</p>
         </div>
         <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-emerald-600">
@@ -206,7 +246,7 @@
           <p id="dash-pago" class="text-xl font-bold text-emerald-700 mt-1">R$ 0,00</p>
         </div>
         <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-600">
-          <p class="text-xs text-slate-500 uppercase font-semibold">Total de Registros Carregados</p>
+          <p class="text-xs text-slate-500 uppercase font-semibold">Registros na Base</p>
           <p id="dash-qtd" class="text-xl font-bold text-purple-700 mt-1">0 NEs</p>
         </div>
       </div>
@@ -217,8 +257,8 @@
     <!-- ================================================================= -->
     <section id="aba-esteira" class="hidden space-y-4">
       <div class="bg-white p-4 rounded-lg shadow-sm border">
-        <h2 class="font-bold text-slate-700 mb-2">Fila de Pagamentos e Distribuição para Executores</h2>
-        <p class="text-slate-500 mb-4">Gerencie a tramitação entre Setor Orçamentário, Coordenação Financeira e Executores.</p>
+        <h2 class="font-bold text-slate-700 mb-2">Fila de Pagamentos e Distribuição</h2>
+        <p class="text-slate-500 mb-4">Acompanhamento dos processos encaminhados aos executores financeiros.</p>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs border">
             <thead class="bg-slate-100 uppercase">
@@ -226,14 +266,12 @@
                 <th class="p-2 border">Processo</th>
                 <th class="p-2 border">NE / Favorecido</th>
                 <th class="p-2 border text-right">Valor</th>
-                <th class="p-2 border">Executor Responsável</th>
-                <th class="p-2 border">Status / Robô Tesouro</th>
+                <th class="p-2 border">Executor</th>
+                <th class="p-2 border">Status / Robô</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td colspan="5" class="p-6 text-center text-slate-400">Nenhum processo inserido na esteira ainda.</td>
-              </tr>
+              <tr><td colspan="5" class="p-6 text-center text-slate-400">Nenhum processo na esteira.</td></tr>
             </tbody>
           </table>
         </div>
@@ -289,7 +327,6 @@
       return Number(v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
-    // Regra Oficial de Departamento da SDR/MAPA
     function identificarDepartamento(ug, acao, po) {
       ug = String(ug).trim();
       acao = String(acao).trim();
@@ -368,10 +405,42 @@
         document.getElementById("inp-valor").value = formatarMoeda(emp);
         document.getElementById("txt-saldo-ne").textContent = formatarMoeda(saldo);
 
-        // Identifica o Departamento automaticamente
         const depto = identificarDepartamento(item["UG Executora"], item["Ação Governo"], item["Plano Orçamentário"]);
         document.getElementById("inp-departamento").value = depto;
+
+        // Renderiza a linha na tabela inferior de acompanhamento mensal
+        renderizarTabelaMensal(item);
       }
+    }
+
+    function renderizarTabelaMensal(item) {
+      const tbody = document.getElementById("tabela-mensal-corpo");
+      document.getElementById("contador-tabela-mensal").textContent = `1 processo em exibição`;
+      
+      const emp = brToFloat(item["DOTACAO ATUALIZADA"] || item["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"]);
+
+      tbody.innerHTML = `
+        <tr class="bg-amber-50/50 hover:bg-slate-50 font-mono">
+          <td class="p-1.5 border">${item["UG Executora"] || "-"}</td>
+          <td class="p-1.5 border font-bold">${item["NE - Núm. Processo"] || "-"}</td>
+          <td class="p-1.5 border font-sans">${item["NE CCor - Favorecido"] || "-"}</td>
+          <td class="p-1.5 border">-</td>
+          <td class="p-1.5 border text-center">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right">R$ 0,00</td>
+          <td class="p-1.5 border text-right font-bold text-red-600 bg-amber-100">${formatarMoeda(emp)}</td>
+        </tr>
+      `;
     }
 
     function buscarProcessoInput() {
@@ -381,7 +450,7 @@
         document.getElementById("select-processo").value = item["NE - Núm. Processo"];
         carregarDadosProcesso();
       } else {
-        alert("Processo ou NE não encontrado na base carregada. Você pode inseri-lo manualmente clicando em 'Inserir Novo Processo Manual'.");
+        alert("Processo não encontrado na base carregada.");
       }
     }
 
@@ -396,10 +465,12 @@
       document.getElementById("inp-valor").value = "";
       document.getElementById("txt-saldo-ne").textContent = "R$ 0,00";
       document.getElementById("inp-departamento").value = "";
+      document.getElementById("tabela-mensal-corpo").innerHTML = `<tr><td colspan="18" class="p-4 text-center text-slate-500 italic">Nenhum processo selecionado. Utilize a busca acima para carregar os dados.</td></tr>`;
+      document.getElementById("contador-tabela-mensal").textContent = "Selecione um processo acima";
     }
 
     function salvarNovoProcessoManual() {
-      alert("Processo novo inserido com sucesso na sessão de trabalho!");
+      alert("Processo manual inserido com sucesso!");
     }
 
     function atualizarDashboard() {
@@ -408,8 +479,8 @@
         totEmp += brToFloat(d["DOTACAO ATUALIZADA"] || d["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"]);
       });
       document.getElementById("dash-empenhado").textContent = formatarMoeda(totEmp);
-      document.getElementById("dash-apagar").textContent = formatarMoeda(totEmp * 0.15); // Estimativa de fila
-      document.getElementById("dash-pago").textContent = formatarMoeda(totEmp * 0.85); // Estimativa pago
+      document.getElementById("dash-apagar").textContent = formatarMoeda(totEmp * 0.15);
+      document.getElementById("dash-pago").textContent = formatarMoeda(totEmp * 0.85);
       document.getElementById("dash-qtd").textContent = `${baseGlobal.length} NEs`;
     }
 
