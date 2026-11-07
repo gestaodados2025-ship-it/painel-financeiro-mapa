@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Controle Orçamentário e Financeiro - SDI/MAPA</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body class="bg-slate-300 text-slate-900 font-sans text-[11px]">
 
@@ -13,11 +14,11 @@
     <div>
       <span class="text-[9px] text-amber-300 font-bold uppercase">MAPA · Órgão 22000 · Secretaria de Desenvolvimento Rural (SDR)</span>
       <h1 class="text-sm font-extrabold tracking-wide">CONTROLE ORÇAMENTÁRIO E FINANCEIRO - SDI/MAPA</h1>
-      <p class="text-[10px] text-slate-300">Módulo de Gestão de Contratos, Parcerias e Execução (Conformidade LGPD Aplicada)</p>
+      <p class="text-[10px] text-slate-300">Módulo de Gestão de Contratos, Parcerias e Empenhos (LGPD Ativa)</p>
     </div>
     <div class="flex items-center gap-2">
       <div class="bg-yellow-300 text-black px-3 py-1 font-bold text-center border border-black text-[10px]">
-        LGPD Ativa<br>CPFs/CNPJs Mascarados
+        Sincronizado com Bases EXE & RAP
       </div>
       <div id="topo-deficit" class="bg-red-600 text-white px-4 py-2 font-mono font-bold text-sm border border-black shadow">
         Déficit: R$ 0,00
@@ -27,19 +28,15 @@
 
   <main class="p-3 space-y-3 max-w-[1750px] mx-auto">
 
-    <!-- BLOCO SUPERIOR: BUSCA E BOTÕES DE AÇÃO (Idêntico à Imagem do Excel) -->
+    <!-- BLOCO SUPERIOR: BUSCA E BOTÕES DE AÇÃO -->
     <section class="bg-slate-400 p-2.5 rounded border border-slate-500 shadow-inner space-y-2">
       <div class="grid grid-cols-1 xl:grid-cols-12 gap-3 items-center">
-        
-        <!-- Campo Buscar Processo -->
         <div class="xl:col-span-3 flex items-center gap-2">
           <label class="bg-black text-white px-3 py-1.5 font-bold uppercase w-28 text-center border border-black">Buscar Processo</label>
           <select id="select-busca-processo" onchange="carregarContratoSelecionado()" class="border border-slate-600 px-2 py-1 bg-white rounded font-mono text-xs w-full">
             <option value="">Selecione o processo...</option>
           </select>
         </div>
-
-        <!-- Botões de Ação (Buscar, Limpar, Cadastrar, Alterar, Excluir) -->
         <div class="xl:col-span-9 flex flex-wrap items-center gap-2 justify-end">
           <button onclick="buscarProcessoInput()" class="bg-slate-200 hover:bg-slate-300 border border-slate-600 px-4 py-1.5 rounded font-bold shadow-sm">Buscar</button>
           <button onclick="limparFormulario()" class="bg-slate-200 hover:bg-slate-300 border border-slate-600 px-4 py-1.5 rounded font-bold shadow-sm">Limpar</button>
@@ -49,7 +46,6 @@
         </div>
       </div>
 
-      <!-- Datas de Cadastro e Alteração -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-2 bg-slate-300 p-1.5 rounded border border-slate-400">
         <div class="flex items-center gap-2">
           <span class="bg-black text-white px-2 py-0.5 font-bold w-28 text-center">Data Cadastro</span>
@@ -66,47 +62,52 @@
       </div>
     </section>
 
-    <!-- FICHA DE CADASTRO PRINCIPAL (Estrutura Exata com 4 Colunas + Bloco Financeiro) -->
+    <!-- FICHA DE CADASTRO SUPERIOR (Editável) -->
     <section class="bg-slate-400 p-3 rounded border border-slate-500 shadow-inner">
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-2">
 
         <!-- COLUNA 1 -->
         <div class="space-y-1.5">
           <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Orçamento</span>
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Orçamento</span>
             <select id="inp-orcamento" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-bold">
-              <option value="CEPLAC">CEPLAC</option>
+              <option value="CEPLAC">CEPLAC (Ação 20ZY)</option>
+              <option value="DECAP">DECAP</option>
+              <option value="DEPROS">DEPROS</option>
+              <option value="DIAGRO">DIAGRO</option>
+              <option value="DEPAC">DEPAC</option>
+              <option value="ORGÂNICO">ORGÂNICO</option>
               <option value="GABINETE">GABINETE</option>
-              <option value="SDR / GERAL">SDR / GERAL</option>
+              <option value="CGPI">130141 - CGPI</option>
+              <option value="PROMAQ">130255 - PROMAQ</option>
+              <option value="CONTRATO REPASSE">135098 - CONTRATO REPASSE</option>
             </select>
           </div>
           <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">UG Executora</span>
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">UG Executora</span>
             <select id="inp-ug" onchange="atualizarNomeUg()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono">
               <option value="">Selecione a UG...</option>
-              <option value="130005">130005 - CGEOF/DA/MAPA</option>
               <option value="130010">130010 - CEPLAC</option>
-              <option value="130101">130101 - CGOF</option>
+              <option value="420013">420013 - SDR</option>
               <option value="130141">130141 - CGPI</option>
               <option value="130255">130255 - PROMAQ</option>
               <option value="135098">135098 - CONTRATO REPASSE</option>
-              <option value="420013">420013 - SDR</option>
             </select>
           </div>
           <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Nome UG</span>
+            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Nome UG</span>
             <input id="inp-nome-ug" type="text" readonly class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-bold text-amber-900" />
           </div>
           <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">SIGLA (Serv/Aqs)</span>
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">SIGLA (Serv/Aqs)</span>
             <input id="inp-sigla" type="text" value="SDR/MAPA" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
           </div>
           <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">CNPJ/CPF</span>
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">CNPJ/CPF</span>
             <input id="inp-cnpj" type="text" onblur="aplicarMascaraLGPD(this)" placeholder="00.000.000/0001-00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
           </div>
           <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Favorecido</span>
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Favorecido</span>
             <input id="inp-favorecido" type="text" placeholder="Nome do Favorecido" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
           </div>
         </div>
@@ -118,20 +119,24 @@
             <input id="inp-processo" type="text" placeholder="21000.000000/2026-00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
           </div>
           <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Modalidade Licitação</span>
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Modalidade Licitação</span>
             <input id="inp-modalidade" type="text" value="Pregão Eletrônico" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
           </div>
           <div class="flex items-center">
             <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Atividade</span>
-            <input id="inp-atividade" type="text" value="Outras Despesas" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
+            <select id="inp-atividade" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
+              <option value="Deslocamento">Deslocamento</option>
+              <option value="Funcionamento">Funcionamento</option>
+              <option value="Outras Despesas">Outras Despesas</option>
+            </select>
           </div>
           <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Grupo Despesas</span>
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Grupo de Despesas</span>
             <input id="inp-grupo" type="text" value="3390" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
           </div>
           <div class="flex items-center">
             <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Formalização</span>
-            <select id="inp-formalizacao" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
+            <select id="inp-formalizacao" onchange="verificarFormalizacao()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
               <option value="Contrato">Contrato</option>
               <option value="Ata">Ata</option>
               <option value="Não contratual">Não contratual</option>
@@ -151,60 +156,78 @@
         <!-- COLUNA 3 -->
         <div class="space-y-1.5">
           <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Vigência</span>
-            <input id="inp-vigencia" type="text" value="31/12/2026" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Início Vigência</span>
+            <input id="inp-inicio-vigencia" type="date" onchange="calcularDiasVencer()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
           </div>
           <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Valor Total</span>
-            <input id="inp-valor-total" type="number" step="0.01" oninput="calcularFinanceiro()" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono font-bold text-emerald-800" />
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Fim Vigência</span>
+            <input id="inp-fim-vigencia" type="date" onchange="calcularDiasVencer()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
           </div>
           <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Média Mensal</span>
-            <input id="inp-media-mensal" type="text" readonly class="border border-slate-500 px-2 py-1 bg-slate-200 w-full text-xs font-mono" />
+            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Dias a Vencer</span>
+            <input id="inp-dias-vencer" type="text" readonly class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-mono font-bold text-amber-900" placeholder="= Fim Vigência - Hoje" />
           </div>
           <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Endereço</span>
-            <input id="inp-endereco" type="text" value="Brasília-DF" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
+            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Valor Total</span>
+            <input id="inp-valor-total" type="number" step="0.01" oninput="calcularMediaMensal()" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono font-bold text-emerald-800" />
+          </div>
+          <div id="bloco-repasse" class="flex items-center hidden">
+            <span class="bg-amber-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Valor Repasse</span>
+            <input id="inp-valor-repasse" type="number" step="0.01" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-mono font-bold text-amber-900" />
           </div>
           <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Região</span>
-            <input id="inp-regiao" type="text" value="Centro-Oeste" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">UF</span>
-            <select id="inp-uf" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
-              <option value="Distrito Federal-DF">Distrito Federal-DF</option>
-              <option value="Goiás-GO">Goiás-GO</option>
-              <option value="Bahia-BA">Bahia-BA</option>
-            </select>
+            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Média Mensal</span>
+            <input id="inp-media-mensal" type="text" readonly class="border border-slate-500 px-2 py-1 bg-slate-200 w-full text-xs font-mono" placeholder="Apenas Contrato" />
           </div>
         </div>
 
-        <!-- COLUNA 4: INDICADORES FINANCEIROS À DIREITA -->
+        <!-- COLUNA 4 -->
         <div class="space-y-1.5">
           <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Empenhado</span>
-            <input id="inp-empenhado" type="number" step="0.01" oninput="calcularFinanceiro()" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            <span class="bg-black text-white font-bold px-2 py-1 w-28 text-center border border-black">Endereço</span>
+            <input id="inp-endereco" type="text" value="Brasília-DF" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
           </div>
           <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Liquidado</span>
-            <input id="inp-liquidado" type="number" step="0.01" oninput="calcularFinanceiro()" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            <span class="bg-black text-white font-bold px-2 py-1 w-28 text-center border border-black">Região</span>
+            <select id="inp-regiao" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
+              <option value="Norte">Norte</option>
+              <option value="Sul">Sul</option>
+              <option value="Leste">Leste</option>
+              <option value="Oeste">Oeste</option>
+              <option value="Centro-Oeste" selected>Centro-Oeste</option>
+            </select>
           </div>
           <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Em Liquidação</span>
-            <input id="inp-em-liquidacao" type="number" step="0.01" oninput="calcularFinanceiro()" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Pago</span>
-            <input id="inp-pago" type="number" step="0.01" oninput="calcularFinanceiro()" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Saldo NE</span>
-            <input id="inp-saldo-ne" type="text" readonly class="border border-slate-500 px-2 py-1 bg-slate-200 w-full text-xs font-mono font-bold text-emerald-700" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-red-900 text-white font-bold px-2 py-1 w-32 text-center border border-black">Déficit</span>
-            <input id="inp-deficit" type="text" readonly class="border border-slate-500 px-2 py-1 bg-red-100 w-full text-xs font-mono font-bold text-red-700" />
+            <span class="bg-black text-white font-bold px-2 py-1 w-28 text-center border border-black">UF</span>
+            <select id="inp-uf" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
+              <option value="DF" selected>Distrito Federal - DF</option>
+              <option value="AC">Acre - AC</option>
+              <option value="AL">Alagoas - AL</option>
+              <option value="AP">Amapá - AP</option>
+              <option value="AM">Amazonas - AM</option>
+              <option value="BA">Bahia - BA</option>
+              <option value="CE">Ceará - CE</option>
+              <option value="ES">Espírito Santo - ES</option>
+              <option value="GO">Goiás - GO</option>
+              <option value="MA">Maranhão - MA</option>
+              <option value="MT">Mato Grosso - MT</option>
+              <option value="MS">Mato Grosso do Sul - MS</option>
+              <option value="MG">Minas Gerais - MG</option>
+              <option value="PA">Pará - PA</option>
+              <option value="PB">Paraíba - PB</option>
+              <option value="PR">Paraná - PR</option>
+              <option value="PE">Pernambuco - PE</option>
+              <option value="PI">Piauí - PI</option>
+              <option value="RJ">Rio de Janeiro - RJ</option>
+              <option value="RN">Rio Grande do Norte - RN</option>
+              <option value="RS">Rio Grande do Sul - RS</option>
+              <option value="RO">Rondônia - RO</option>
+              <option value="RR">Roraima - RR</option>
+              <option value="SC">Santa Catarina - SC</option>
+              <option value="SP">São Paulo - SP</option>
+              <option value="SE">Sergipe - SE</option>
+              <option value="TO">Tocantins - TO</option>
+            </select>
           </div>
         </div>
 
@@ -221,7 +244,47 @@
       <button class="bg-slate-200 border border-black px-3 py-0.5 rounded font-bold shadow-sm">CORRIGIR / AJUSTAR</button>
     </section>
 
-    <!-- TABELA MENSAL INFERIOR (Estilo Exato com Meses e Déficit) -->
+    <!-- BLOCO INFERIOR (Linha 17 em diante): CADASTRO DE EMPENHOS INTEGRADO COM EXE E RAP -->
+    <section class="bg-slate-400 p-2 rounded border border-slate-500 shadow-sm space-y-2">
+      <div class="bg-black text-white px-3 py-1 font-bold text-xs uppercase tracking-wider flex justify-between items-center">
+        <span>Relação de Notas de Empenho (Vínculo Automático com Bases EXE & RAP)</span>
+        <button onclick="adicionarLinhaEmpenho()" class="bg-amber-400 text-slate-900 px-3 py-0.5 rounded font-bold text-[10px]">＋ Adicionar Empenho</button>
+      </div>
+
+      <div class="overflow-x-auto bg-white rounded border border-slate-600">
+        <table class="w-full text-left border-collapse text-[10px]">
+          <thead>
+            <tr class="bg-slate-800 text-white text-center">
+              <th class="p-1.5 border border-slate-600 w-36">Nota de Empenho</th>
+              <th class="p-1.5 border border-slate-600">Ação</th>
+              <th class="p-1.5 border border-slate-600">Fonte</th>
+              <th class="p-1.5 border border-slate-600">Plano Interno</th>
+              <th class="p-1.5 border border-slate-600">ND - Detalhada</th>
+              <th class="p-1.5 border border-slate-600">Descrição ND</th>
+              <th class="p-1.5 border border-slate-600">Descrição NE</th>
+              <th class="p-1.5 border border-slate-600 text-right">Total Empenhado</th>
+              <th class="p-1.5 border border-slate-600 text-right">Saldo Empenho</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-empenhos-inferior" class="divide-y divide-slate-300">
+            <!-- Linha 17 inicial editável -->
+            <tr>
+              <td class="p-1 border"><input type="text" placeholder="Ex: 2026NE000001" onblur="buscarEmpenhoNasBases(this)" class="w-full border px-1 font-mono uppercase bg-yellow-50" /></td>
+              <td class="p-1 border text-center text-slate-500">-</td>
+              <td class="p-1 border text-center text-slate-500">-</td>
+              <td class="p-1 border text-center text-slate-500">-</td>
+              <td class="p-1 border text-center text-slate-500">-</td>
+              <td class="p-1 border text-center text-slate-500">-</td>
+              <td class="p-1 border text-center text-slate-500">-</td>
+              <td class="p-1 border text-right font-mono text-slate-500">R$ 0,00</td>
+              <td class="p-1 border text-right font-mono text-slate-500">R$ 0,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TABELA MENSAL DE ACOMPANHAMENTO -->
     <section class="bg-slate-400 p-2 rounded border border-slate-500 shadow-sm">
       <div class="overflow-x-auto bg-white rounded border border-slate-600">
         <table class="w-full text-left border-collapse text-[10px]">
@@ -249,7 +312,7 @@
             </tr>
           </thead>
           <tbody id="tabela-mensal-corpo" class="divide-y divide-slate-400 bg-yellow-50">
-            <tr><td colspan="19" class="p-4 text-center text-slate-500 italic bg-white">Nenhum contrato cadastrado. Preencha os campos acima e clique em 'Cadastrar'.</td></tr>
+            <tr><td colspan="19" class="p-4 text-center text-slate-500 italic bg-white">Nenhum contrato cadastrado.</td></tr>
           </tbody>
         </table>
       </div>
@@ -258,16 +321,20 @@
   </main>
 
   <script>
+    const FONTES_CSV = [
+      { nome: "EXE 2026 Padrão", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFcFQpuXUjut17Ftj89ugQvu-eK-ZPI7a90FoPOnhcvXFSL2ymU-WOPiYwBT8qa8tzCeyo05q_YanW/pub?gid=1204904051&single=true&output=csv" },
+      { nome: "EXE 2026 MDIR", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFcFQpuXUjut17Ftj89ugQvu-eK-ZPI7a90FoPOnhcvXFSL2ymU-WOPiYwBT8qa8tzCeyo05q_YanW/pub?gid=32904262&single=true&output=csv" }
+    ];
+
+    let baseTesouroGlobal = [];
     let contratosSalvos = JSON.parse(localStorage.getItem("sdr_contratos_oficiais") || "[]");
 
     const mapNomesUg = {
-      "130005": "COORD.-GERAL DE EXECUCAO ORC.E FIN./DA/MAPA",
       "130010": "COMISSÃO EXECUTIVA DO PLANO DA LAVOURA CACAUEIRA",
-      "130101": "COORD.-GERAL DE ORCAMENTO E FINANCAS-MAPA",
+      "420013": "SECRETARIA DE DESENVOLVIMENTO RURAL",
       "130141": "COORDENACAO-GERAL DE PLANEJAMENTO E INVESTIMENTOS",
       "130255": "UNIDADE DE GERENCIAMENTO DE PROGRAMAS",
-      "135098": "GESTAO DE CONTRATOS DE REPASSE",
-      "420013": "SECRETARIA DE DESENVOLVIMENTO RURAL"
+      "135098": "GESTAO DE CONTRATOS DE REPASSE"
     };
 
     function formatarMoeda(v) {
@@ -288,17 +355,108 @@
       }
     }
 
-    function calcularFinanceiro() {
-      const total = parseFloat(document.getElementById("inp-valor-total").value || 0);
-      const empenhado = parseFloat(document.getElementById("inp-empenhado").value || 0);
-      const pago = parseFloat(document.getElementById("inp-pago").value || 0);
-
-      document.getElementById("inp-media-mensal").value = formatarMoeda(total / 12);
-      document.getElementById("inp-saldo-ne").value = formatarMoeda(empenhado - pago);
+    function verificarFormalizacao() {
+      const form = document.getElementById("inp-formalizacao").value;
+      const blocoRepasse = document.getElementById("bloco-repasse");
+      const tiposRepasse = ["Convenio", "TED", "Contrato de Repasse", "Termo de fomento"];
       
-      const deficit = total - pago;
-      document.getElementById("inp-deficit").value = formatarMoeda(deficit);
-      document.getElementById("topo-deficit").textContent = `Déficit: ${formatarMoeda(deficit)}`;
+      if (tiposRepasse.includes(form)) {
+        blocoRepasse.classList.remove("hidden");
+      } else {
+        blocoRepasse.classList.add("hidden");
+      }
+      calcularMediaMensal();
+    }
+
+    function calcularDiasVencer() {
+      const fimStr = document.getElementById("inp-fim-vigencia").value;
+      if (!fimStr) {
+        document.getElementById("inp-dias-vencer").value = "";
+        return;
+      }
+      const hoje = new Date();
+      const fim = new Date(fimStr);
+      const diffTime = fim - hoje;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      document.getElementById("inp-dias-vencer").value = diffDays >= 0 ? `${diffDays} dias` : `Vencido há ${Math.abs(diffDays)} dias`;
+    }
+
+    function calcularMediaMensal() {
+      const total = parseFloat(document.getElementById("inp-valor-total").value || 0);
+      const form = document.getElementById("inp-formalizacao").value;
+      
+      if (form === "Contrato" && total > 0) {
+        document.getElementById("inp-media-mensal").value = formatarMoeda(total / 12);
+      } else {
+        document.getElementById("inp-media-mensal").value = "N/A (Não é Contrato)";
+      }
+    }
+
+    async function carregarBasesTesouro() {
+      try {
+        let acumulado = [];
+        for (const f of FONTES_CSV) {
+          const res = await fetch(f.url);
+          const texto = await res.text();
+          const parsed = Papa.parse(texto, { header: false, skipEmptyLines: true });
+          const linhas = parsed.data;
+          let idxH = linhas.findIndex(l => l.some(c => String(c).toUpperCase().includes("NE CCOR")));
+          if (idxH === -1) continue;
+          const cab = linhas[idxH].map(c => String(c).trim());
+          for (let i = idxH + 1; i < linhas.length; i++) {
+            const row = linhas[i];
+            const obj = {};
+            cab.forEach((c, idx) => { if (c) obj[c] = row[idx]; });
+            if (obj["NE CCor"] && obj["NE CCor"] !== "'-9" && obj["NE CCor"] !== "'-8") {
+              acumulado.push(obj);
+            }
+          }
+        }
+        baseTesouroGlobal = acumulado;
+      } catch (e) {
+        console.error("Erro ao carregar Tesouro:", e);
+      }
+    }
+
+    function buscarEmpenhoNasBases(input) {
+      const neDigitada = input.value.trim().toUpperCase();
+      if (!neDigitada) return;
+
+      const encontrada = baseTesouroGlobal.find(d => String(d["NE CCor"]).toUpperCase().includes(neDigitada));
+      const tr = input.closest("tr");
+
+      if (encontrada) {
+        const emp = parseFloat(String(encontrada["DOTACAO ATUALIZADA"] ||encontrada["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"] || "0").replace(/\./g, "").replace(",", ".")) || 0;
+        const saldo = parseFloat(String(encontrada["CREDITO DISPONIVEL"] || "0").replace(/\./g, "").replace(",", ".")) || 0;
+
+        tr.cells[1].textContent = encontrada["Ação Governo"] || "-";
+        tr.cells[2].textContent = encontrada["Fonte Recursos Detalhada"] || "-";
+        tr.cells[3].textContent = encontrada["Plano Orçamentário"] || "-";
+        tr.cells[4].textContent = encontrada["Natureza Despesa Detalhada"] || "-";
+        tr.cells[5].textContent = encontrada["Natureza Despesa"] || "-";
+        tr.cells[6].textContent = encontrada["NE - Descrição"] || "-";
+        tr.cells[7].textContent = formatarMoeda(emp);
+        tr.cells[8].textContent = formatarMoeda(saldo);
+      } else {
+        alert("Nota de empenho não encontrada nas bases EXE/RAP carregadas. Verifique se o número está correto.");
+      }
+    }
+
+    function adicionarLinhaEmpenho() {
+      const tbody = document.getElementById("tabela-empenhos-inferior");
+      const novaLinha = document.createElement("tr");
+      novaLinha.innerHTML = `
+        <td class="p-1 border"><input type="text" placeholder="Ex: 2026NE000001" onblur="buscarEmpenhoNasBases(this)" class="w-full border px-1 font-mono uppercase bg-yellow-50" /></td>
+        <td class="p-1 border text-center text-slate-500">-</td>
+        <td class="p-1 border text-center text-slate-500">-</td>
+        <td class="p-1 border text-center text-slate-500">-</td>
+        <td class="p-1 border text-center text-slate-500">-</td>
+        <td class="p-1 border text-center text-slate-500">-</td>
+        <td class="p-1 border text-center text-slate-500">-</td>
+        <td class="p-1 border text-right font-mono text-slate-500">R$ 0,00</td>
+        <td class="p-1 border text-right font-mono text-slate-500">R$ 0,00</td>
+      `;
+      tbody.appendChild(novaLinha);
     }
 
     function salvarOuAtualizarContrato() {
@@ -323,13 +481,12 @@
         grupo: document.getElementById("inp-grupo").value,
         formalizacao: document.getElementById("inp-formalizacao").value,
         contratoNum: document.getElementById("inp-contrato-num").value,
-        vigencia: document.getElementById("inp-vigencia").value,
+        inicioVigencia: document.getElementById("inp-inicio-vigencia").value,
+        fimVigencia: document.getElementById("inp-fim-vigencia").value,
         valorTotal: parseFloat(document.getElementById("inp-valor-total").value || 0),
-        empenhado: parseFloat(document.getElementById("inp-empenhado").value || 0),
-        pago: parseFloat(document.getElementById("inp-pago").value || 0)
+        valorRepasse: parseFloat(document.getElementById("inp-valor-repasse")?.value || 0)
       };
 
-      // Verifica se já existe para atualizar ou criar novo
       const idx = contratosSalvos.findIndex(c => c.processo === processo);
       if (idx >= 0) {
         contratosSalvos[idx] = dados;
@@ -337,7 +494,7 @@
         contratosSalvos.push(dados);
       }
 
-      localStorage.setItem("sdr_contratos_oficiais", JSON.stringifycontratosSalvos ? JSON.stringify(contratosSalvos) : "[]");
+      localStorage.setItem("sdr_contratos_oficiais", JSON.stringify(contratosSalvos));
       atualizarSelectBusca();
       renderizarTabelaMensal();
       alert("Contrato/Parceria salvo com sucesso!");
@@ -366,11 +523,13 @@
         document.getElementById("inp-grupo").value = c.grupo;
         document.getElementById("inp-formalizacao").value = c.formalizacao;
         document.getElementById("inp-contrato-num").value = c.contratoNum;
-        document.getElementById("inp-vigencia").value = c.vigencia;
+        document.getElementById("inp-inicio-vigencia").value = c.inicioVigencia || "";
+        document.getElementById("inp-fim-vigencia").value = c.fimVigencia || "";
         document.getElementById("inp-valor-total").value = c.valorTotal;
-        document.getElementById("inp-empenhado").value = c.empenhado;
-        document.getElementById("inp-pago").value = c.pago;
-        calcularFinanceiro();
+        document.getElementById("inp-valor-repasse").value = c.valorRepasse || 0;
+        calcularDiasVencer();
+        calcularMediaMensal();
+        verificarFormalizacao();
       }
     }
 
@@ -381,7 +540,7 @@
         document.getElementById("select-busca-processo").value = c.processo;
         carregarContratoSelecionado();
       } else {
-        alert("Processo não encontrado na base de dados locais.");
+        alert("Processo não encontrado.");
       }
     }
 
@@ -405,16 +564,17 @@
       document.getElementById("inp-cnpj").value = "";
       document.getElementById("inp-contrato-num").value = "";
       document.getElementById("inp-valor-total").value = "";
-      document.getElementById("inp-empenhado").value = "";
-      document.getElementById("inp-pago").value = "";
       document.getElementById("inp-nome-ug").value = "";
-      calcularFinanceiro();
+      document.getElementById("inp-inicio-vigencia").value = "";
+      document.getElementById("inp-fim-vigencia").value = "";
+      document.getElementById("inp-dias-vencer").value = "";
+      document.getElementById("inp-media-mensal").value = "";
     }
 
     function renderizarTabelaMensal() {
       const tbody = document.getElementById("tabela-mensal-corpo");
       if (contratosSalvos.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="19" class="p-4 text-center text-slate-500 italic bg-white">Nenhum contrato cadastrado. Preencha os campos acima e clique em 'Cadastrar'.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="19" class="p-4 text-center text-slate-500 italic bg-white">Nenhum contrato cadastrado.</td></tr>`;
         return;
       }
 
@@ -423,7 +583,7 @@
           <td class="p-1 border">${c.ug}</td>
           <td class="p-1 border font-bold">${c.processo}</td>
           <td class="p-1 border font-sans">${c.favorecido}</td>
-          <td class="p-1 border">${c.contratoNum}</td>
+          <td class="p-1 border">${c.contratoNum || '-'}</td>
           <td class="p-1 border text-center">-</td>
           <td class="p-1 border text-center">R$ 0,00</td>
           <td class="p-1 border text-right">R$ 0,00</td>
@@ -438,11 +598,12 @@
           <td class="p-1 border text-right">R$ 0,00</td>
           <td class="p-1 border text-right">R$ 0,00</td>
           <td class="p-1 border text-right">R$ 0,00</td>
-          <td class="p-1 border text-right font-bold text-red-600 bg-black text-amber-300">${formatarMoeda(c.valorTotal - c.pago)}</td>
+          <td class="p-1 border text-right font-bold text-red-600 bg-black text-amber-300">${formatarMoeda(c.valorTotal)}</td>
         </tr>
       `).join("");
     }
 
+    carregarBasesTesouro();
     atualizarSelectBusca();
     renderizarTabelaMensal();
   </script>
