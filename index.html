@@ -62,181 +62,204 @@
       </div>
     </section>
 
-    <!-- FICHA DE CADASTRO SUPERIOR (Em Branco Inicialmente) -->
-    <section class="bg-slate-400 p-3 rounded border border-slate-500 shadow-inner">
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-2">
+    <!-- BLOCO PRINCIPAL: FICHA DO PROCESSO RAIZ (ESQUERDA) | DDO E DESPESAS (DIREITA) -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-3">
 
-        <!-- COLUNA 1 -->
-        <div class="space-y-1.5">
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Orçamento</span>
-            <select id="inp-orcamento" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-bold">
-              <option value="">Selecione...</option>
-              <option value="CEPLAC">CEPLAC</option>
-              <option value="DECAP">DECAP</option>
-              <option value="DEPROS">DEPROS</option>
-              <option value="DIAGRO">DIAGRO</option>
-              <option value="DEPAC">DEPAC</option>
-              <option value="ORGÂNICO">ORGÂNICO</option>
-              <option value="GABINETE">GABINETE</option>
-              <option value="CGPI">CGPI</option>
-              <option value="PROMAQ">PROMAQ</option>
-              <option value="CONTRATO REPASSE">CONTRATO REPASSE</option>
-            </select>
+      <!-- FICHA DE CADASTRO DO PROCESSO (8 colunas) -->
+      <section class="xl:col-span-8 bg-slate-400 p-3 rounded border border-slate-500 shadow-inner">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
+
+          <!-- COLUNA 1 DA FICHA -->
+          <div class="space-y-1.5">
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Orçamento</span>
+              <select id="inp-orcamento" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-bold">
+                <option value="">Selecione...</option>
+                <option value="CEPLAC">CEPLAC</option>
+                <option value="DECAP">DECAP</option>
+                <option value="DEPROS">DEPROS</option>
+                <option value="DIAGRO">DIAGRO</option>
+                <option value="DEPAC">DEPAC</option>
+                <option value="ORGÂNICO">ORGÂNICO</option>
+                <option value="GABINETE">GABINETE</option>
+                <option value="CGPI">CGPI</option>
+                <option value="PROMAQ">PROMAQ</option>
+                <option value="CONTRATO REPASSE">CONTRATO REPASSE</option>
+              </select>
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">UG Executora</span>
+              <select id="inp-ug" onchange="atualizarNomeUg()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono">
+                <option value="">Selecione...</option>
+                <option value="130010">130010</option>
+                <option value="420013">420013</option>
+                <option value="130141">130141</option>
+                <option value="130255">130255</option>
+                <option value="135098">135098</option>
+              </select>
+            </div>
+            <div class="flex items-center">
+              <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Nome UG</span>
+              <input id="inp-nome-ug" type="text" readonly class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-bold text-amber-900" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">SIGLA (Serv/Aqs)</span>
+              <input id="inp-sigla" type="text" placeholder="Ex: SDR/MAPA" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">CNPJ/CPF</span>
+              <input id="inp-cnpj" type="text" onblur="aplicarMascaraLGPD(this)" placeholder="00.000.000/0001-00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Favorecido</span>
+              <input id="inp-favorecido" type="text" placeholder="Nome do Favorecido" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
+            </div>
           </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">UG Executora</span>
-            <select id="inp-ug" onchange="atualizarNomeUg()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono">
-              <option value="">Selecione a UG...</option>
-              <option value="130010">130010</option>
-              <option value="420013">420013</option>
-              <option value="130141">130141</option>
-              <option value="130255">130255</option>
-              <option value="135098">135098</option>
-            </select>
+
+          <!-- COLUNA 2 DA FICHA -->
+          <div class="space-y-1.5">
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Processo SEI</span>
+              <input id="inp-processo" type="text" placeholder="21000.000000/2026-00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Modalidade</span>
+              <input id="inp-modalidade" type="text" placeholder="Ex: Pregão" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Atividade</span>
+              <select id="inp-atividade" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
+                <option value="">Selecione...</option>
+                <option value="Deslocamento">Deslocamento</option>
+                <option value="Funcionamento">Funcionamento</option>
+                <option value="Outras Despesas">Outras Despesas</option>
+              </select>
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Natureza Despesa</span>
+              <input id="inp-grupo" type="text" placeholder="Ex: 3390" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Formalização</span>
+              <select id="inp-formalizacao" onchange="verificarFormalizacao()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
+                <option value="Contrato">Contrato</option>
+                <option value="Ata">Ata</option>
+                <option value="Não contratual">Não contratual</option>
+                <option value="Suprimento de fundos">Suprimento de fundos</option>
+                <option value="TED">TED</option>
+                <option value="Convenio">Convênio</option>
+                <option value="Contrato de Repasse">Contrato de Repasse</option>
+                <option value="Termo de fomento">Termo de fomento</option>
+              </select>
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Contrato nº</span>
+              <input id="inp-contrato-num" type="text" placeholder="Ex: 01/2026" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            </div>
           </div>
-          <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Nome UG</span>
-            <input id="inp-nome-ug" type="text" readonly class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-bold text-amber-900" />
+
+          <!-- COLUNA 3 DA FICHA -->
+          <div class="space-y-1.5">
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Início Vigência</span>
+              <input id="inp-inicio-vigencia" type="date" onchange="calcularDiasVencer()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Fim Vigência</span>
+              <input id="inp-fim-vigencia" type="date" onchange="calcularDiasVencer()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Dias a Vencer</span>
+              <input id="inp-dias-vencer" type="text" readonly class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-mono font-bold text-amber-900" placeholder="= Fim - Hoje" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-32 text-center border border-black">Valor Total</span>
+              <input id="inp-valor-total" type="number" step="0.01" oninput="calcularMediaMensal()" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono font-bold text-emerald-800" />
+            </div>
+            <div id="bloco-repasse" class="flex items-center hidden">
+              <span class="bg-amber-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Valor Repasse</span>
+              <input id="inp-valor-repasse" type="number" step="0.01" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-mono font-bold text-amber-900" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-slate-600 text-white font-bold px-2 py-1 w-32 text-center border border-black">Média Mensal</span>
+              <input id="inp-media-mensal" type="text" readonly class="border border-slate-500 px-2 py-1 bg-slate-200 w-full text-xs font-mono" placeholder="Apenas Contrato" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-24 text-center border border-black">Endereço</span>
+              <input id="inp-endereco" type="text" placeholder="Esplanada..." class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-24 text-center border border-black">Região</span>
+              <select id="inp-regiao" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
+                <option value="">Selecione...</option>
+                <option value="Norte">Norte</option>
+                <option value="Sul">Sul</option>
+                <option value="Leste">Leste</option>
+                <option value="Oeste">Oeste</option>
+                <option value="Centro-Oeste">Centro-Oeste</option>
+              </select>
+            </div>
+            <div class="flex items-center">
+              <span class="bg-black text-white font-bold px-2 py-1 w-24 text-center border border-black">UF</span>
+              <select id="inp-uf" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
+                <option value="">Selecione...</option>
+                <option value="DF">Distrito Federal - DF</option>
+                <option value="GO">Goiás - GO</option>
+                <option value="BA">Bahia - BA</option>
+                <option value="SP">São Paulo - SP</option>
+              </select>
+            </div>
           </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">SIGLA (Serv/Aqs)</span>
-            <input id="inp-sigla" type="text" placeholder="Ex: SDR/MAPA" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
+
+        </div>
+      </section>
+
+      <!-- PAINÉIS LATERIAIS (DIREITA - 4 colunas): DDO E DESPESAS CONTRATUAIS -->
+      <section class="xl:col-span-4 space-y-2">
+        <!-- DDO -->
+        <div class="bg-slate-400 p-2 rounded border border-slate-500">
+          <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
+            DECLARAÇÃO DE DISPONIBILIDADE ORÇAMENTÁRIA - DDO
           </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">CNPJ/CPF</span>
-            <input id="inp-cnpj" type="text" onblur="aplicarMascaraLGPD(this)" placeholder="00.000.000/0001-00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Favorecido</span>
-            <input id="inp-favorecido" type="text" placeholder="Nome do Favorecido" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
-          </div>
+          <table class="w-full text-left border-collapse bg-white text-[10px]">
+            <thead>
+              <tr class="bg-slate-300 text-slate-900 border border-slate-500">
+                <th class="p-1 border">Data</th>
+                <th class="p-1 border">Processo SEI</th>
+                <th class="p-1 border">Valor</th>
+                <th class="p-1 border">Situação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="p-1 border text-slate-400 text-center" colspan="4">Nenhum registro DDO</td></tr>
+            </tbody>
+          </table>
         </div>
 
-        <!-- COLUNA 2 -->
-        <div class="space-y-1.5">
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Processo SEI</span>
-            <input id="inp-processo" type="text" placeholder="21000.000000/2026-00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+        <!-- Despesas Contratuais / Eventuais (Por Competência) -->
+        <div class="bg-slate-400 p-2 rounded border border-slate-500">
+          <div class="bg-black text-white px-2 py-1 font-bold text-center text-[10px] uppercase tracking-wider mb-1 border border-black">
+            DESPESAS CONTRATUAIS / EVENTUAIS
           </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Modalidade</span>
-            <input id="inp-modalidade" type="text" placeholder="Ex: Pregão Eletrônico" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Atividade</span>
-            <select id="inp-atividade" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
-              <option value="">Selecione...</option>
-              <option value="Deslocamento">Deslocamento</option>
-              <option value="Funcionamento">Funcionamento</option>
-              <option value="Outras Despesas">Outras Despesas</option>
-            </select>
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Natureza de Despesa</span>
-            <input id="inp-grupo" type="text" placeholder="Ex: 3390" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Formalização</span>
-            <select id="inp-formalizacao" onchange="verificarFormalizacao()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
-              <option value="Contrato">Contrato</option>
-              <option value="Ata">Ata</option>
-              <option value="Não contratual">Não contratual</option>
-              <option value="Suprimento de fundos">Suprimento de fundos</option>
-              <option value="TED">TED</option>
-              <option value="Convenio">Convênio</option>
-              <option value="Contrato de Repasse">Contrato de Repasse</option>
-              <option value="Termo de fomento">Termo de fomento</option>
-            </select>
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Contrato nº</span>
-            <input id="inp-contrato-num" type="text" placeholder="Ex: 01/2026" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
+          <div class="max-h-64 overflow-y-auto">
+            <table class="w-full text-left border-collapse bg-white text-[10px]">
+              <thead>
+                <tr class="bg-slate-300 text-slate-900 border border-slate-500">
+                  <th class="p-1 border">Competência</th>
+                  <th class="p-1 border">Processo SEI</th>
+                  <th class="p-1 border text-right">Valor</th>
+                  <th class="p-1 border">Orçamento</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-despesas-eventuais">
+                <tr><td class="p-1 border text-slate-400 text-center" colspan="4">Aguardando seleção</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
+      </section>
 
-        <!-- COLUNA 3 -->
-        <div class="space-y-1.5">
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Início Vigência</span>
-            <input id="inp-inicio-vigencia" type="date" onchange="calcularDiasVencer()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Fim Vigência</span>
-            <input id="inp-fim-vigencia" type="date" onchange="calcularDiasVencer()" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Dias a Vencer</span>
-            <input id="inp-dias-vencer" type="text" readonly class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-mono font-bold text-amber-900" placeholder="= Fim Vigência - Hoje" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-36 text-center border border-black">Valor Total</span>
-            <input id="inp-valor-total" type="number" step="0.01" oninput="calcularMediaMensal()" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs font-mono font-bold text-emerald-800" />
-          </div>
-          <div id="bloco-repasse" class="flex items-center hidden">
-            <span class="bg-amber-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Valor Repasse</span>
-            <input id="inp-valor-repasse" type="number" step="0.01" placeholder="0,00" class="border border-slate-500 px-2 py-1 bg-amber-50 w-full text-xs font-mono font-bold text-amber-900" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-slate-600 text-white font-bold px-2 py-1 w-36 text-center border border-black">Média Mensal</span>
-            <input id="inp-media-mensal" type="text" readonly class="border border-slate-500 px-2 py-1 bg-slate-200 w-full text-xs font-mono" placeholder="Apenas Contrato" />
-          </div>
-        </div>
-
-        <!-- COLUNA 4 -->
-        <div class="space-y-1.5">
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-28 text-center border border-black">Endereço</span>
-            <input id="inp-endereco" type="text" placeholder="Ex: Esplanada..." class="border border-slate-500 px-2 py-1 bg-white w-full text-xs" />
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-28 text-center border border-black">Região</span>
-            <select id="inp-regiao" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
-              <option value="">Selecione...</option>
-              <option value="Norte">Norte</option>
-              <option value="Sul">Sul</option>
-              <option value="Leste">Leste</option>
-              <option value="Oeste">Oeste</option>
-              <option value="Centro-Oeste">Centro-Oeste</option>
-            </select>
-          </div>
-          <div class="flex items-center">
-            <span class="bg-black text-white font-bold px-2 py-1 w-28 text-center border border-black">UF</span>
-            <select id="inp-uf" class="border border-slate-500 px-2 py-1 bg-white w-full text-xs">
-              <option value="">Selecione...</option>
-              <option value="AC">Acre - AC</option>
-              <option value="AL">Alagoas - AL</option>
-              <option value="AP">Amapá - AP</option>
-              <option value="AM">Amazonas - AM</option>
-              <option value="BA">Bahia - BA</option>
-              <option value="CE">Ceará - CE</option>
-              <option value="DF">Distrito Federal - DF</option>
-              <option value="ES">Espírito Santo - ES</option>
-              <option value="GO">Goiás - GO</option>
-              <option value="MA">Maranhão - MA</option>
-              <option value="MT">Mato Grosso - MT</option>
-              <option value="MS">Mato Grosso do Sul - MS</option>
-              <option value="MG">Minas Gerais - MG</option>
-              <option value="PA">Pará - PA</option>
-              <option value="PB">Paraíba - PB</option>
-              <option value="PR">Paraná - PR</option>
-              <option value="PE">Pernambuco - PE</option>
-              <option value="PI">Piauí - PI</option>
-              <option value="RJ">Rio de Janeiro - RJ</option>
-              <option value="RN">Rio Grande do Norte - RN</option>
-              <option value="RS">Rio Grande do Sul - RS</option>
-              <option value="RO">Rondônia - RO</option>
-              <option value="RR">Roraima - RR</option>
-              <option value="SC">Santa Catarina - SC</option>
-              <option value="SP">São Paulo - SP</option>
-              <option value="SE">Sergipe - SE</option>
-              <option value="TO">Tocantins - TO</option>
-            </select>
-          </div>
-        </div>
-
-      </div>
-    </section>
+    </div>
 
     <!-- BARRA DE FILTRO -->
     <section class="bg-slate-500 p-2 rounded border border-slate-600 flex flex-wrap items-center gap-2 text-xs">
@@ -248,7 +271,7 @@
       <button class="bg-slate-200 border border-black px-3 py-0.5 rounded font-bold shadow-sm">CORRIGIR / AJUSTAR</button>
     </section>
 
-    <!-- BLOCO INFERIOR (Linha 17 em diante): CADASTRO DE EMPENHOS E EXECUÇÃO FINANCEIRA MENSAL -->
+    <!-- BLOCO INFERIOR (LINHA 17 EM DIANTE): RELAÇÃO DE EMPENHOS & EXECUÇÃO MENSAL (SETOR FINANCEIRO) -->
     <section class="bg-slate-400 p-2 rounded border border-slate-500 shadow-sm space-y-2">
       <div class="bg-black text-white px-3 py-1 font-bold text-xs uppercase tracking-wider flex justify-between items-center">
         <span>Relação de Notas de Empenho & Execução por Competência (Setor Financeiro)</span>
@@ -264,24 +287,24 @@
               <th class="p-1.5 border border-slate-600">Fonte</th>
               <th class="p-1.5 border border-slate-600">Plano Interno</th>
               <th class="p-1.5 border border-slate-600">ND - Detalhada</th>
-              <th class="p-1.5 border border-slate-600">Total Empenhado</th>
-              <th class="p-1.5 border border-slate-600">Saldo Empenho</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Jan (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Fev (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Mar (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Abr (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Mai (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Jun (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Jul (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Ago (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Set (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Out (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Nov (Pago)</th>
-              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black">Dez (Pago)</th>
+              <th class="p-1.5 border border-slate-600 text-right">Total Empenhado</th>
+              <th class="p-1.5 border border-slate-600 text-right">Saldo Empenho</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jan (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Fev (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Mar (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Abr (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Mai (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jun (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Jul (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Ago (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Set (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Out (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Nov (Pago)</th>
+              <th class="p-1.5 border border-slate-600 bg-yellow-200 text-black text-right">Dez (Pago)</th>
             </tr>
           </thead>
           <tbody id="tabela-empenhos-inferior" class="divide-y divide-slate-300">
-            <!-- Linha 17 inicial preenchida dinamicamente -->
+            <!-- Preenchido via script -->
           </tbody>
         </table>
       </div>
@@ -439,7 +462,6 @@
         return;
       }
 
-      // Captura as linhas de empenhos da tabela inferior
       const linhasEmp = [];
       document.querySelectorAll("#tabela-empenhos-inferior tr").forEach(tr => {
         const inputs = tr.querySelectorAll("input");
@@ -529,7 +551,6 @@
         document.getElementById("inp-valor-total").value = c.valorTotal;
         document.getElementById("inp-valor-repasse").value = c.valorRepasse || 0;
         
-        // Carrega empenhos na tabela inferior
         const tbody = document.getElementById("tabela-empenhos-inferior");
         tbody.innerHTML = "";
         if (c.empenhos && c.empenhos.length > 0) {
@@ -583,6 +604,12 @@
       document.getElementById("inp-fim-vigencia").value = "";
       document.getElementById("inp-dias-vencer").value = "";
       document.getElementById("inp-media-mensal").value = "";
+      document.getElementById("inp-orcamento").value = "";
+      document.getElementById("inp-atividade").value = "";
+      document.getElementById("inp-formalizacao").value = "Contrato";
+      document.getElementById("inp-endereco").value = "";
+      document.getElementById("inp-regiao").value = "";
+      document.getElementById("inp-uf").value = "";
       document.getElementById("tabela-empenhos-inferior").innerHTML = "";
       adicionarLinhaEmpenho();
     }
