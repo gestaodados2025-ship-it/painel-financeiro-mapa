@@ -571,7 +571,6 @@
     function atualizarNomeUg() {
       const ug = document.getElementById("inp-ug").value;
       document.getElementById("inp-nome-ug").value = MAP_NOMES_UG[ug] || "";
-      // Recarrega os empenhos caso já tenham sido digitados para amarrar à nova UG
       document.querySelectorAll("#tbody-empenhos tr input:first-child").forEach(inp => {
         if (inp.value.trim()) buscarEmpenhoNasBases(inp);
       });
@@ -780,8 +779,8 @@
       document.querySelectorAll("#tbody-despesas tr").forEach(tr => {
         const inputs = tr.querySelectorAll("input");
         const v = brToFloat(inputs[1].value);
-        if (v > 0) {
-          somaDespesasMensais += v;
+        if (v !== 0) {
+          somaDespesasMensais += Math.abs(v);
         }
       });
 
@@ -844,7 +843,7 @@
       }
     }
 
-    // Busca Nota de Empenho amarrada estritamente à UG Executora da Ficha
+    // Busca Nota de Empenho blindada e amarrada estritamente à UG Executora numérica da Ficha
     function buscarEmpenhoNasBases(input) {
       const neDigitada = input.value.trim().toUpperCase();
       const tr = input.closest("tr");
@@ -862,11 +861,11 @@
         return;
       }
 
-      // Filtro rigoroso: NE digitada E UG Executora correspondente
+      // Filtro rigoroso: NE digitada E UG Executora correspondente numérica (ignora se input estiver com texto de moeda)
       const registrosNe = baseTesouroGlobal.filter(d => {
         const matchNe = d.ne.toUpperCase().includes(neDigitada);
         if (!matchNe) return false;
-        if (ugInformada) {
+        if (ugInformada && /^\d{6}$/.test(ugInformada)) {
           return d.ug.includes(ugInformada);
         }
         return true;
@@ -920,7 +919,7 @@
       const encontrados = baseTesouroGlobal.filter(d => {
         const matchProc = d.proc && d.proc.includes(procDigitado);
         if (!matchProc) return false;
-        if (ugInformada) return d.ug.includes(ugInformada);
+        if (ugInformada && /^\d{6}$/.test(ugInformada)) return d.ug.includes(ugInformada);
         return true;
       });
 
@@ -1229,28 +1228,28 @@
         const mapaMeses = {};
         COMPETENCIAS_2027.forEach(comp => mapaMeses[comp.label] = 0);
 
-        let totalExecutadoMeses = 0;
+        let totalExecutadoMesesAbs = 0;
         (c.despesas || []).forEach(d => {
           if (filtroRapExeAtivo && d.orcamento !== filtroRapExeAtivo) return;
           if (mapaMeses[d.competencia] !== undefined) {
-            // Considera para o somatório mensal apenas valores positivos ou reais lançados
             const valD = Number(d.valor || 0);
             mapaMeses[d.competencia] += valD;
-            totalExecutadoMeses += valD;
+            // Para o cálculo do Ajustar, utiliza sempre o valor absoluto para abater corretamente do contrato
+            totalExecutadoMesesAbs += Math.abs(valD);
           }
         });
 
         const totalEmpenhadoProc = (c.empenhos || []).reduce((acc, e) => acc + Number(e.totalEmp || 0), 0);
         const baseContrato = c.valorTotal > 0 ? c.valorTotal : (c.valorRepasse || 0);
         
-        // Ajustar: Total do Contrato menos o somatório executado nos meses
-        const ajustarValor = baseContrato - totalExecutadoMeses;
+        // Ajustar: Valor Total do Contrato menos a soma dos valores absolutos dos meses lançados
+        const ajustarValor = baseContrato - totalExecutadoMesesAbs;
         const deficitProc = totalEmpenhadoProc - baseContrato;
         if (baseContrato > 0 || totalEmpenhadoProc > 0) {
           deficitGeralAcumulado += deficitProc;
         }
 
-        if (modoCorrigir === "AJUSTAR" && ajustarValor === 0) return;
+        if (modoCorrigir === "AJUSTAR" && Math.abs(ajustarValor) < 0.01) return;
         if (modoCorrigir === "DEFICIT" && deficitProc >= 0) return;
 
         const colunasMesesHtml = COMPETENCIAS_2027.map(comp => {
@@ -1264,7 +1263,7 @@
             <td class="bg-white px-1 font-mono font-bold text-[10px]">${c.processo} (${c.atividade || c.formalizacao || 'GERAL'})</td>
             <td class="bg-white px-1 truncate text-[10px]">${c.favorecido || '-'}</td>
             <td class="bg-white px-1 text-center font-mono text-[10px]">${c.contratoNum || c.formalizacao || '-'}</td>
-            <td class="bg-white px-1 text-right font-mono text-[10px]">${ajustarValor === 0 ? 'R$ -' : formatarMoeda(ajustarValor)}</td>
+            <td class="bg-white px-1 text-right font-mono text-[10px]">${Math.abs(ajustarValor) < 0.01 ? 'R$ -' : formatarMoeda(ajustarValor)}</td>
             ${colunasMesesHtml}
             <td class="bg-black text-amber-300 text-right px-1 font-mono font-bold text-[10px]">${formatarMoeda(deficitProc)}</td>
           </tr>
