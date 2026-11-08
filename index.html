@@ -355,12 +355,13 @@
           <div class="scroll-box overflow-y-auto max-h-[455px] bg-white border border-zinc-700 flex-1">
             <table class="excel-table">
               <colgroup>
-                <col style="width: 95px;" />
-                <col style="width: 120px;" />
+                <col style="width: 85px;" />
+                <col style="width: 110px;" />
+                <col style="width: 85px;" />
                 <col style="width: 90px;" />
                 <col style="width: 75px;" />
                 <col style="width: 70px;" />
-                <col style="width: 140px;" />
+                <col style="width: 115px;" />
               </colgroup>
               <thead class="sticky top-0 z-10">
                 <tr class="bg-black text-white text-[10px]">
@@ -368,6 +369,7 @@
                   <th class="text-center">Processo SEI</th>
                   <th class="text-center">Valor</th>
                   <th class="text-center">Situação</th>
+                  <th class="text-center">Unidade</th>
                   <th class="text-center">Orçamento</th>
                   <th class="text-center">Obs</th>
                 </tr>
@@ -569,6 +571,10 @@
     function atualizarNomeUg() {
       const ug = document.getElementById("inp-ug").value;
       document.getElementById("inp-nome-ug").value = MAP_NOMES_UG[ug] || "";
+      // Recarrega os empenhos caso já tenham sido digitados para amarrar à nova UG
+      document.querySelectorAll("#tbody-empenhos tr input:first-child").forEach(inp => {
+        if (inp.value.trim()) buscarEmpenhoNasBases(inp);
+      });
     }
 
     function aplicarMascaraLGPD(input) {
@@ -592,7 +598,6 @@
       document.getElementById("inp-dias-vencer").value = `${diffDays} dias`;
     }
 
-    // Extrai dados descritivos e financeiros de uma linha do CSV do Tesouro independentemente de variações nos títulos das colunas
     function extrairDadosLinhaTesouro(row) {
       let ne = "", proc = "", ug = "", acao = "", fonte = "", pi = "", ndDet = "", descNd = "", descNe = "", favorecido = "", cnpj = "";
       let empenhado = 0, liquidado = 0, emLiquidacao = 0, aLiquidar = 0, pago = 0;
@@ -605,7 +610,10 @@
 
         if ((kn === "NE CCOR" || kn === "NOTA DE EMPENHO" || kn.endsWith("NE CCOR")) && !ne) ne = String(val).trim();
         else if (kn.includes("NUM. PROCESSO") || kn.includes("PROCESSO")) proc = String(val).trim();
-        else if (kn.includes("UG EXECUTORA") && !ug) ug = String(val).trim();
+        else if ((kn.includes("UG") || kn.includes("UNIDADE GESTORA")) && !ug) {
+          const matchUg = String(val).match(/\d{6}/);
+          ug = matchUg ? matchUg[0] : String(val).trim();
+        }
         else if (kn.includes("ACAO GOVERNO") || kn === "ACAO") acao = String(val).trim();
         else if (kn.includes("FONTE RECURSOS") || kn === "FONTE") fonte = String(val).trim();
         else if (kn.includes("PLANO ORCAMENTARIO") || kn.includes("PLANO INTERNO") || kn === "PO") pi = String(val).trim();
@@ -620,7 +628,6 @@
           else favorecido = String(val).trim();
         }
 
-        // Colunas Financeiras do Tesouro Gerencial (EXE e RAP)
         const num = brToFloat(val);
         if (num !== 0) {
           if (kn.includes("A LIQUIDAR") || kn.includes("SALDO EMPENHO") || kn.includes("CREDITO DISPONIVEL")) {
@@ -637,9 +644,7 @@
         }
       }
 
-      // Se a planilha não tiver coluna explícita de Saldo a Liquidar, calcula Empenhado - Liquidado
       const saldoCalculado = aLiquidar > 0 ? aLiquidar : Math.max(0, empenhado - (liquidado || pago));
-
       return { ne, proc, ug, acao, fonte, pi, ndDet, descNd, descNe, favorecido, cnpj, empenhado, liquidado, emLiquidacao, pago, saldo: saldoCalculado };
     }
 
@@ -717,8 +722,17 @@
           <td>
             <select onchange="recalcularTudo()" class="cell-input">
               <option value=""></option>
-              <option value="COFEF" ${des.situacao === 'COFEF' ? 'selected' : ''}>COFEF</option>
-              <option value="DIEC" ${des.situacao === 'DIEC' ? 'selected' : ''}>DIEC</option>
+              <option value="LIQUIDADO" ${des.situacao === 'LIQUIDADO' ? 'selected' : ''}>LIQUIDADO</option>
+              <option value="PAGO" ${des.situacao === 'PAGO' ? 'selected' : ''}>PAGO</option>
+              <option value="ENCERRADO" ${des.situacao === 'ENCERRADO' ? 'selected' : ''}>ENCERRADO</option>
+              <option value="SEM PROCESSO" ${des.situacao === 'SEM PROCESSO' ? 'selected' : ''}>SEM PROCESSO</option>
+            </select>
+          </td>
+          <td>
+            <select onchange="recalcularTudo()" class="cell-input">
+              <option value=""></option>
+              <option value="COFEP" ${des.unidade === 'COFEP' ? 'selected' : ''}>COFEP</option>
+              <option value="DIEC" ${des.unidade === 'DIEC' ? 'selected' : ''}>DIEC</option>
             </select>
           </td>
           <td>
@@ -734,7 +748,6 @@
       }
     }
 
-    // Recalcula todos os saldos do quadro superior somando os Empenhos (EXE/RAP) e as Despesas Contratuais
     function recalcularTudo() {
       const valorTotal = brToFloat(document.getElementById("inp-valor-total").value);
       const valorRepasse = brToFloat(document.getElementById("inp-valor-repasse").value);
@@ -764,20 +777,16 @@
       });
 
       let somaDespesasMensais = 0;
-      let somaDespesasDiec = 0;
       document.querySelectorAll("#tbody-despesas tr").forEach(tr => {
-        const sels = tr.querySelectorAll("select");
         const inputs = tr.querySelectorAll("input");
         const v = brToFloat(inputs[1].value);
         if (v > 0) {
           somaDespesasMensais += v;
-          if (sels[1].value === "DIEC") somaDespesasDiec += v;
         }
       });
 
-      // Mostra o maior/melhor dado disponível entre o que veio do Tesouro e o que foi lançado nas Despesas Mensais
       const liquidadoFinal = somaDespesasMensais > 0 ? somaDespesasMensais : somaLiqTesouro;
-      const emLiquidacaoFinal = somaDespesasDiec > 0 ? somaDespesasDiec : somaEmLiqTesouro;
+      const emLiquidacaoFinal = somaEmLiqTesouro;
       const pagoFinal = somaDespesasMensais > 0 ? somaDespesasMensais : somaPagoTesouro;
       const saldoNeFinal = somaDespesasMensais > 0 && somaEmpenhado > 0 ? Math.max(0, somaEmpenhado - somaDespesasMensais) : somaSaldoNe;
 
@@ -792,7 +801,6 @@
       document.getElementById("inp-deficit").value = formatarMoeda(deficit);
     }
 
-    // Carrega CSVs do Tesouro tratando inclusive cabeçalhos duplos (métrica na linha abaixo do cabeçalho)
     async function carregarBasesTesouro() {
       try {
         let acumulado = [];
@@ -828,7 +836,6 @@
         baseTesouroGlobal = acumulado;
         document.getElementById("status-tesouro").textContent = `Base EXE/RAP ativa (${baseTesouroGlobal.length} registros)`;
 
-        // Se já houver empenhos na tela, atualiza os valores financeiros deles automaticamente
         document.querySelectorAll("#tbody-empenhos tr input:first-child").forEach(inp => {
           if (inp.value.trim()) buscarEmpenhoNasBases(inp);
         });
@@ -837,11 +844,12 @@
       }
     }
 
-    // Quando digita a Nota de Empenho na linha 17+, puxa todos os dados descritivos e financeiros da planilha EXE/RAP
+    // Busca Nota de Empenho amarrada estritamente à UG Executora da Ficha
     function buscarEmpenhoNasBases(input) {
       const neDigitada = input.value.trim().toUpperCase();
       const tr = input.closest("tr");
       const inputs = tr.querySelectorAll("input");
+      const ugInformada = document.getElementById("inp-ug").value.trim();
 
       if (!neDigitada) {
         for (let i = 1; i <= 6; i++) tr.cells[i].textContent = "";
@@ -854,8 +862,16 @@
         return;
       }
 
-      // Filtra todas as linhas daquela NE nas bases EXE e RAP para somar corretamente os saldos
-      const registrosNe = baseTesouroGlobal.filter(d => d.ne.toUpperCase().includes(neDigitada));
+      // Filtro rigoroso: NE digitada E UG Executora correspondente
+      const registrosNe = baseTesouroGlobal.filter(d => {
+        const matchNe = d.ne.toUpperCase().includes(neDigitada);
+        if (!matchNe) return false;
+        if (ugInformada) {
+          return d.ug.includes(ugInformada);
+        }
+        return true;
+      });
+
       if (registrosNe.length > 0) {
         const ref = registrosNe[0];
         const totEmp = registrosNe.reduce((acc, r) => acc + r.empenhado, 0);
@@ -877,7 +893,6 @@
         tr.dataset.emLiquidacao = totEmLiq;
         tr.dataset.pagoTesouro = totPago;
 
-        // Se os campos da Ficha Superior ainda estiverem em branco, já amarra os dados descritivos automaticamente
         if (!document.getElementById("inp-ug").value && ref.ug) {
           document.getElementById("inp-ug").value = ref.ug;
           atualizarNomeUg();
@@ -888,27 +903,27 @@
         if (!document.getElementById("inp-favorecido").value && ref.favorecido) {
           document.getElementById("inp-favorecido").value = ref.favorecido;
         }
-        if (!document.getElementById("inp-cnpj").value && ref.cnpj) {
-          document.getElementById("inp-cnpj").value = ref.cnpj;
-          aplicarMascaraLGPD(document.getElementById("inp-cnpj"));
-        }
         if (!document.getElementById("inp-natureza").value && ref.ndDet) {
           document.getElementById("inp-natureza").value = ref.ndDet;
         }
+      } else {
+        alert(`Nota de empenho ${neDigitada} não encontrada para a UG Executora ${ugInformada || 'informada'}. Verifique o número ou a UG.`);
       }
       recalcularTudo();
     }
 
-    // Se o usuário digitar o Processo SEI na Ficha e ele existir na planilha EXE/RAP, puxa automaticamente as NEs e dados amarrados
     function autoPreencherPorProcessoSEI() {
       const procDigitado = document.getElementById("inp-processo").value.trim();
+      const ugInformada = document.getElementById("inp-ug").value.trim();
       if (!procDigitado || baseTesouroGlobal.length === 0) return;
 
-      // Verifica se já há empenhos preenchidos na grade para não sobrescrever edição manual
-      const jaTemNe = Array.from(document.querySelectorAll("#tbody-empenhos tr input:first-child")).some(i => i.value.trim() !== "");
-      if (jaTemNe) return;
+      const encontrados = baseTesouroGlobal.filter(d => {
+        const matchProc = d.proc && d.proc.includes(procDigitado);
+        if (!matchProc) return false;
+        if (ugInformada) return d.ug.includes(ugInformada);
+        return true;
+      });
 
-      const encontrados = baseTesouroGlobal.filter(d => d.proc && d.proc.includes(procDigitado));
       if (encontrados.length === 0) return;
 
       const primeiro = encontrados[0];
@@ -1000,13 +1015,14 @@
       document.querySelectorAll("#tbody-despesas tr").forEach(tr => {
         const sels = tr.querySelectorAll("select");
         const inputs = tr.querySelectorAll("input");
-        if (sels[0].value || inputs[0].value || brToFloat(inputs[1].value) > 0) {
+        if (sels[0].value || inputs[0].value || brToFloat(inputs[1].value) !== 0) {
           despesas.push({
             competencia: sels[0].value,
             proc: inputs[0].value,
             valor: brToFloat(inputs[1].value),
             situacao: sels[1].value,
-            orcamento: sels[2].value,
+            unidade: sels[2].value,
+            orcamento: sels[3].value,
             obs: inputs[2].value
           });
         }
@@ -1090,7 +1106,6 @@
       montarGradeEmpenhos(c.empenhos || []);
       montarTabelasLaterais(c.ddo || [], c.despesas || []);
 
-      // Atualiza os empenhos com a base do Tesouro caso ela já esteja carregada
       if (baseTesouroGlobal.length > 0) {
         document.querySelectorAll("#tbody-empenhos tr input:first-child").forEach(inp => {
           if (inp.value.trim()) buscarEmpenhoNasBases(inp);
@@ -1218,24 +1233,29 @@
         (c.despesas || []).forEach(d => {
           if (filtroRapExeAtivo && d.orcamento !== filtroRapExeAtivo) return;
           if (mapaMeses[d.competencia] !== undefined) {
-            mapaMeses[d.competencia] += Number(d.valor || 0);
-            totalExecutadoMeses += Number(d.valor || 0);
+            // Considera para o somatório mensal apenas valores positivos ou reais lançados
+            const valD = Number(d.valor || 0);
+            mapaMeses[d.competencia] += valD;
+            totalExecutadoMeses += valD;
           }
         });
 
         const totalEmpenhadoProc = (c.empenhos || []).reduce((acc, e) => acc + Number(e.totalEmp || 0), 0);
         const baseContrato = c.valorTotal > 0 ? c.valorTotal : (c.valorRepasse || 0);
+        
+        // Ajustar: Total do Contrato menos o somatório executado nos meses
         const ajustarValor = baseContrato - totalExecutadoMeses;
         const deficitProc = totalEmpenhadoProc - baseContrato;
+        if (baseContrato > 0 || totalEmpenhadoProc > 0) {
+          deficitGeralAcumulado += deficitProc;
+        }
 
         if (modoCorrigir === "AJUSTAR" && ajustarValor === 0) return;
         if (modoCorrigir === "DEFICIT" && deficitProc >= 0) return;
 
-        deficitGeralAcumulado += deficitProc;
-
         const colunasMesesHtml = COMPETENCIAS_2027.map(comp => {
           const valMes = mapaMeses[comp.label] || 0;
-          return `<td class="bg-[#fde68a] text-right px-1 font-mono text-[10px] ${valMes > 0 ? 'font-bold text-slate-900' : 'text-zinc-600'}">${formatarMoeda(valMes)}</td>`;
+          return `<td class="bg-[#fde68a] text-right px-1 font-mono text-[10px] ${valMes !== 0 ? 'font-bold text-slate-900' : 'text-zinc-600'}">${formatarMoeda(valMes)}</td>`;
         }).join("");
 
         linhasHtml.push(`
