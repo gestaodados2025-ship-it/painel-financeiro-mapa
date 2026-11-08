@@ -861,7 +861,7 @@
         return;
       }
 
-      // Filtro rigoroso: NE digitada E UG Executora correspondente numérica (ignora se input estiver com texto de moeda)
+      // Filtro rigoroso: NE digitada E UG Executora correspondente numérica
       const registrosNe = baseTesouroGlobal.filter(d => {
         const matchNe = d.ne.toUpperCase().includes(neDigitada);
         if (!matchNe) return false;
@@ -1234,7 +1234,6 @@
           if (mapaMeses[d.competencia] !== undefined) {
             const valD = Number(d.valor || 0);
             mapaMeses[d.competencia] += valD;
-            // Para o cálculo do Ajustar, utiliza sempre o valor absoluto para abater corretamente do contrato
             totalExecutadoMesesAbs += Math.abs(valD);
           }
         });
@@ -1242,7 +1241,6 @@
         const totalEmpenhadoProc = (c.empenhos || []).reduce((acc, e) => acc + Number(e.totalEmp || 0), 0);
         const baseContrato = c.valorTotal > 0 ? c.valorTotal : (c.valorRepasse || 0);
         
-        // Ajustar: Valor Total do Contrato menos a soma dos valores absolutos dos meses lançados
         const ajustarValor = baseContrato - totalExecutadoMesesAbs;
         const deficitProc = totalEmpenhadoProc - baseContrato;
         if (baseContrato > 0 || totalEmpenhadoProc > 0) {
