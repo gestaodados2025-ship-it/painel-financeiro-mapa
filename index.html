@@ -50,7 +50,7 @@
       <!-- COLUNA ESQUERDA (7 COLUNAS) -->
       <div class="xl:col-span-7 flex flex-col justify-between space-y-1">
 
-        <!-- 1. TÍTULO PRETO + ALERTA COL T -->
+        <!-- 1. TÍTULO PRETO + INDICADOR DE SALDO GERAL -->
         <div class="flex gap-1 items-stretch h-11">
           <div class="bg-black text-white flex-1 flex flex-col justify-center items-center border border-zinc-700 px-2">
             <h1 class="text-xs font-extrabold tracking-wider uppercase">CONTROLE ORÇAMENTÁRIO E FINANCEIRO - SDR/MAPA</h1>
@@ -59,12 +59,12 @@
           <div class="bg-yellow-300 text-black px-2 flex items-center justify-center text-center font-bold text-[10px] border border-black leading-tight w-40">
             Atenção! Saldo Geral<br>de Execução
           </div>
-          <div id="card-deficit-topo" class="bg-red-800 text-amber-300 px-3 flex items-center justify-center font-mono font-bold text-xs border border-black w-36">
+          <div id="card-deficit-topo" class="bg-zinc-800 text-amber-300 px-3 flex items-center justify-center font-mono font-bold text-xs border border-black w-36">
             R$ 0,00
           </div>
         </div>
 
-        <!-- 2. CAIXA DE BUSCA E BOTÕES (Idêntica à Imagem) -->
+        <!-- 2. CAIXA DE BUSCA E BOTÕES -->
         <div class="bg-[#8e8e93] p-1.5 border border-zinc-600 grid grid-cols-12 gap-1.5 items-center">
           <div class="col-span-5 space-y-1">
             <table class="excel-table">
@@ -96,18 +96,18 @@
           <!-- Botões Buscar / Limpar + Cadastrar / Alterar / Excluir -->
           <div class="col-span-7 flex items-center gap-1.5 h-full">
             <div class="flex flex-col gap-1.5 w-24 h-full justify-center">
-              <button onclick="buscarProcessoInput()" class="btn-excel-gray py-1.5 rounded">Buscar</button>
-              <button onclick="limparFormulario()" class="btn-excel-gray py-1.5 rounded">Limpar</button>
+              <button type="button" onclick="buscarProcessoInput()" class="btn-excel-gray py-1.5 rounded">Buscar</button>
+              <button type="button" onclick="limparFormulario()" class="btn-excel-gray py-1.5 rounded">Limpar</button>
             </div>
             <div class="grid grid-cols-3 gap-1.5 flex-1 h-14">
-              <button onclick="salvarOuAtualizarContrato('cadastro')" class="btn-excel-blue h-full">Cadastrar</button>
-              <button onclick="salvarOuAtualizarContrato('alteracao')" class="btn-excel-blue h-full">Alterar</button>
-              <button onclick="excluirContrato()" class="btn-excel-blue h-full">Excluir</button>
+              <button type="button" onclick="salvarOuAtualizarContrato('cadastro')" class="btn-excel-blue h-full">Cadastrar</button>
+              <button type="button" onclick="salvarOuAtualizarContrato('alteracao')" class="btn-excel-blue h-full">Alterar</button>
+              <button type="button" onclick="excluirContrato()" class="btn-excel-blue h-full">Excluir</button>
             </div>
           </div>
         </div>
 
-        <!-- 3. FICHA DE CADASTRO EM GRADE COLADA (4 COLUNAS EXATAS + CARD INTELIGENTE DE OBJETO) -->
+        <!-- 3. FICHA DE CADASTRO EM GRADE COLADA -->
         <div class="bg-[#8e8e93] p-1 border border-zinc-600">
           <table class="excel-table">
             <colgroup>
@@ -127,7 +127,6 @@
                     <option value="DECAP">DECAP</option>
                     <option value="DEPROS">DEPROS</option>
                     <option value="DIAGRO">DIAGRO</option>
-                    <option value="DEPAC">DEPAC</option>
                     <option value="ORGÂNICO">ORGÂNICO</option>
                     <option value="GABINETE">GABINETE</option>
                     <option value="CGPI">CGPI</option>
@@ -137,7 +136,7 @@
                   </select>
                 </td>
                 <td class="lbl-black">Processo SEI</td>
-                <td><input id="inp-processo" type="text" class="cell-input font-mono" placeholder="21000.000000/2027-00" /></td>
+                <td><input id="inp-processo" type="text" onblur="autoPreencherPorProcessoSEI()" class="cell-input font-mono" placeholder="21000.000000/2027-00" /></td>
                 <td class="lbl-black">Início Vigência</td>
                 <td><input id="inp-inicio-vigencia" type="date" onchange="calcularDiasVencer()" class="cell-input font-mono" /></td>
                 <td class="lbl-black">Empenhado</td>
@@ -279,13 +278,13 @@
           <div class="scroll-box overflow-y-auto max-h-[340px] border border-zinc-700 bg-[#8e8e93]">
             <table class="excel-table">
               <colgroup>
-                <col style="width: 135px;" />
-                <col style="width: 55px;" />
+                <col style="width: 130px;" />
+                <col style="width: 50px;" />
                 <col style="width: 80px;" />
+                <col style="width: 75px;" />
                 <col style="width: 80px;" />
-                <col style="width: 85px;" />
-                <col style="width: 140px;" />
-                <col style="width: 140px;" />
+                <col style="width: 145px;" />
+                <col style="width: 145px;" />
                 <col style="width: 105px;" />
                 <col style="width: 105px;" />
               </colgroup>
@@ -419,18 +418,19 @@
       </div>
 
       <div class="xl:col-span-4 flex items-center gap-3">
-        <div class="w-36 border border-zinc-600 bg-[#8e8e93] p-0.5">
+        <div class="w-40 border border-zinc-600 bg-[#8e8e93] p-0.5">
           <div class="bg-black text-white text-center font-bold py-0.5 text-[10px]">CORRIGIR</div>
           <select id="sel-corrigir" onchange="renderizarResumoMensal()" class="cell-input font-bold text-center">
-            <option value="AJUSTAR">AJUSTAR</option>
-            <option value="ZERAR">OCULTAR ZERADOS</option>
+            <option value="TODOS">MOSTRAR TODOS</option>
+            <option value="AJUSTAR">COM SALDO A AJUSTAR</option>
+            <option value="DEFICIT">APENAS COM DÉFICIT</option>
           </select>
         </div>
 
         <div class="flex gap-1">
-          <button onclick="limparFiltrosResumo()" class="bg-black hover:bg-zinc-800 text-white font-bold px-4 py-2 text-[10px] border border-zinc-500">TODOS</button>
-          <button onclick="filtrarRapExe('RAP')" class="bg-black hover:bg-zinc-800 text-amber-300 font-bold px-4 py-2 text-[10px] border border-zinc-500">RAP</button>
-          <button onclick="filtrarRapExe('EXE')" class="bg-black hover:bg-zinc-800 text-emerald-300 font-bold px-4 py-2 text-[10px] border border-zinc-500">EXE</button>
+          <button type="button" onclick="limparFiltrosResumo()" class="bg-black hover:bg-zinc-800 text-white font-bold px-4 py-2 text-[10px] border border-zinc-500">UGE / TODOS</button>
+          <button type="button" onclick="filtrarRapExe('RAP')" class="bg-black hover:bg-zinc-800 text-amber-300 font-bold px-4 py-2 text-[10px] border border-zinc-500">RAP</button>
+          <button type="button" onclick="filtrarRapExe('EXE')" class="bg-black hover:bg-zinc-800 text-emerald-300 font-bold px-4 py-2 text-[10px] border border-zinc-500">EXE</button>
         </div>
       </div>
     </div>
@@ -447,7 +447,6 @@
             <col style="width: 140px;" />
             <col style="width: 95px;" />
             <col style="width: 85px;" />
-            <!-- 13 Colunas de Competência: dez/26 a dez/27 -->
             <col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" />
             <col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" />
             <col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" /><col style="width: 78px;" />
@@ -518,14 +517,30 @@
 
     let baseTesouroGlobal = [];
     let contratosSalvos = JSON.parse(localStorage.getItem("sdr_contratos_2027") || "[]");
+    let processoOriginalCarregado = "";
     let filtroRapExeAtivo = "";
 
-    // Utilitários de Moeda com R$ na frente
+    function normalizarChave(str) {
+      return String(str || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase()
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
     function brToFloat(v) {
       if (typeof v === "number") return v;
       if (!v) return 0;
-      const limpo = String(v).replace(/R\$|\s/g, "").replace(/\./g, "").replace(",", ".");
-      const num = parseFloat(limpo);
+      let str = String(v).trim();
+      if (str === "R$ -" || str === "-" || str === "") return 0;
+      str = str.replace(/R\$|\s/g, "");
+      if (str.includes(",") && str.includes(".")) {
+        str = str.replace(/\./g, "").replace(",", ".");
+      } else if (str.includes(",")) {
+        str = str.replace(",", ".");
+      }
+      const num = parseFloat(str);
       return isNaN(num) ? 0 : num;
     }
 
@@ -546,7 +561,6 @@
       input.value = formatarMoeda(brToFloat(input.value));
     }
 
-    // Card inteligente para Objeto
     function ajustarAlturaObjeto(textarea) {
       textarea.style.height = "auto";
       textarea.style.height = Math.max(22, textarea.scrollHeight) + "px";
@@ -557,13 +571,10 @@
       document.getElementById("inp-nome-ug").value = MAP_NOMES_UG[ug] || "";
     }
 
-    // Mascaramento LGPD Automático (CPF e CNPJ)
     function aplicarMascaraLGPD(input) {
       let v = input.value;
       if (!v) return;
-      // Mascara CPF (11 dígitos soltos ou formatados)
       v = v.replace(/\b(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})\b/g, "***.$2.$3-**");
-      // Mascara CNPJ (14 dígitos)
       v = v.replace(/\b(\d{2})\.?(\d{3})\.?(\d{3})\/?(\d{4})-?(\d{2})\b/g, "**.***.$3/$4-**");
       input.value = v;
     }
@@ -581,29 +592,82 @@
       document.getElementById("inp-dias-vencer").value = `${diffDays} dias`;
     }
 
-    // Monta as 20 linhas de Notas de Empenho na Esquerda
+    // Extrai dados descritivos e financeiros de uma linha do CSV do Tesouro independentemente de variações nos títulos das colunas
+    function extrairDadosLinhaTesouro(row) {
+      let ne = "", proc = "", ug = "", acao = "", fonte = "", pi = "", ndDet = "", descNd = "", descNe = "", favorecido = "", cnpj = "";
+      let empenhado = 0, liquidado = 0, emLiquidacao = 0, aLiquidar = 0, pago = 0;
+
+      const chaves = Object.keys(row);
+      for (const k of chaves) {
+        const kn = normalizarChave(k);
+        const val = row[k];
+        if (val === undefined || val === null || String(val).trim() === "" || String(val).trim() === "'-9" || String(val).trim() === "'-8") continue;
+
+        if ((kn === "NE CCOR" || kn === "NOTA DE EMPENHO" || kn.endsWith("NE CCOR")) && !ne) ne = String(val).trim();
+        else if (kn.includes("NUM. PROCESSO") || kn.includes("PROCESSO")) proc = String(val).trim();
+        else if (kn.includes("UG EXECUTORA") && !ug) ug = String(val).trim();
+        else if (kn.includes("ACAO GOVERNO") || kn === "ACAO") acao = String(val).trim();
+        else if (kn.includes("FONTE RECURSOS") || kn === "FONTE") fonte = String(val).trim();
+        else if (kn.includes("PLANO ORCAMENTARIO") || kn.includes("PLANO INTERNO") || kn === "PO") pi = String(val).trim();
+        else if (kn.includes("NATUREZA DESPESA DETALHADA") || kn.includes("ND DETALHADA")) {
+          if (!ndDet) ndDet = String(val).trim();
+          else if (!descNd) descNd = String(val).trim();
+        }
+        else if (kn === "NATUREZA DESPESA" && !descNd) descNd = String(val).trim();
+        else if (kn.includes("DESCRICAO") && kn.includes("NE")) descNe = String(val).trim();
+        else if (kn.includes("FAVORECIDO")) {
+          if (!cnpj && /\d{8,}/.test(String(val))) cnpj = String(val).trim();
+          else favorecido = String(val).trim();
+        }
+
+        // Colunas Financeiras do Tesouro Gerencial (EXE e RAP)
+        const num = brToFloat(val);
+        if (num !== 0) {
+          if (kn.includes("A LIQUIDAR") || kn.includes("SALDO EMPENHO") || kn.includes("CREDITO DISPONIVEL")) {
+            aLiquidar += num;
+          } else if (kn.includes("EM LIQUIDACAO")) {
+            emLiquidacao += num;
+          } else if (kn.includes("EMPENHADAS") || kn.includes("EMPENHADO") || kn.includes("DOTACAO ATUALIZADA") || kn.includes("INSCRITOS")) {
+            empenhado += num;
+          } else if (kn.includes("LIQUIDADAS") || kn.includes("LIQUIDADO")) {
+            if (!kn.includes("PAGAR")) liquidado += num;
+          } else if (kn.includes("PAGAS") || kn.includes("PAGO")) {
+            pago += num;
+          }
+        }
+      }
+
+      // Se a planilha não tiver coluna explícita de Saldo a Liquidar, calcula Empenhado - Liquidado
+      const saldoCalculado = aLiquidar > 0 ? aLiquidar : Math.max(0, empenhado - (liquidado || pago));
+
+      return { ne, proc, ug, acao, fonte, pi, ndDet, descNd, descNe, favorecido, cnpj, empenhado, liquidado, emLiquidacao, pago, saldo: saldoCalculado };
+    }
+
     function montarGradeEmpenhos(dados = []) {
       const tbody = document.getElementById("tbody-empenhos");
       tbody.innerHTML = "";
       for (let i = 0; i < 20; i++) {
         const d = dados[i] || {};
         const tr = document.createElement("tr");
+        tr.dataset.liquidado = d.liquidado || 0;
+        tr.dataset.emLiquidacao = d.emLiquidacao || 0;
+        tr.dataset.pagoTesouro = d.pagoTesouro || 0;
+
         tr.innerHTML = `
-          <td class="bg-white"><input type="text" value="${d.ne || ''}" onblur="buscarEmpenhoNasBases(this)" class="cell-input font-mono uppercase" /></td>
+          <td class="bg-white"><input type="text" value="${d.ne || ''}" onblur="buscarEmpenhoNasBases(this)" class="cell-input font-mono uppercase" placeholder="${i === 0 ? 'Digite a NE...' : ''}" /></td>
           <td class="bg-[#8e8e93] text-center font-mono text-[10px]">${d.acao || ''}</td>
           <td class="bg-[#8e8e93] text-center font-mono text-[10px]">${d.fonte || ''}</td>
           <td class="bg-[#8e8e93] text-center font-mono text-[10px]">${d.pi || ''}</td>
           <td class="bg-[#8e8e93] text-center font-mono text-[10px]">${d.nd || ''}</td>
-          <td class="bg-[#8e8e93] px-1 truncate text-[9px]">${d.descNd || ''}</td>
-          <td class="bg-[#8e8e93] px-1 truncate text-[9px]">${d.descNe || ''}</td>
+          <td class="bg-[#8e8e93] px-1 truncate text-[9px]" title="${d.descNd || ''}">${d.descNd || ''}</td>
+          <td class="bg-[#8e8e93] px-1 truncate text-[9px]" title="${d.descNe || ''}">${d.descNe || ''}</td>
           <td class="bg-[#8e8e93]"><input type="text" value="${d.totalEmp ? formatarMoeda(d.totalEmp) : 'R$ -'}" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this); recalcularTudo()" class="cell-readonly-light text-right font-mono" /></td>
-          <td class="bg-[#8e8e93]"><input type="text" value="${d.saldoEmp ? formatarMoeda(d.saldoEmp) : 'R$ -'}" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this); recalcularTudo()" class="cell-readonly-light text-right font-mono" /></td>
+          <td class="bg-[#8e8e93]"><input type="text" value="${d.saldoEmp !== undefined && d.ne ? formatarMoeda(d.saldoEmp) : 'R$ -'}" onfocus="limparFormatacaoMoeda(this)" onblur="formatarInputMoeda(this); recalcularTudo()" class="cell-readonly-light text-right font-mono" /></td>
         `;
         tbody.appendChild(tr);
       }
     }
 
-    // Monta as 10 linhas de DDO e 30 linhas de Despesas Contratuais na Direita
     function montarTabelasLaterais(dadosDdo = [], dadosDesp = []) {
       const tbodyDdo = document.getElementById("tbody-ddo");
       tbodyDdo.innerHTML = "";
@@ -670,55 +734,65 @@
       }
     }
 
-    // Recalcula automaticamente: Média Mensal, Empenhado, Saldo NE, Pago e Déficit
+    // Recalcula todos os saldos do quadro superior somando os Empenhos (EXE/RAP) e as Despesas Contratuais
     function recalcularTudo() {
       const valorTotal = brToFloat(document.getElementById("inp-valor-total").value);
       const valorRepasse = brToFloat(document.getElementById("inp-valor-repasse").value);
       const formalizacao = document.getElementById("inp-formalizacao").value;
 
-      // Item 16: Média Mensal calculada apenas quando for Contrato
       if (formalizacao === "Contrato" && valorTotal > 0) {
         document.getElementById("inp-media-mensal").value = formatarMoeda(valorTotal / 12);
       } else {
         document.getElementById("inp-media-mensal").value = "R$ -";
       }
 
-      // Soma Empenhos da Grade Esquerda
       let somaEmpenhado = 0;
       let somaSaldoNe = 0;
+      let somaLiqTesouro = 0;
+      let somaEmLiqTesouro = 0;
+      let somaPagoTesouro = 0;
+
       document.querySelectorAll("#tbody-empenhos tr").forEach(tr => {
         const inputs = tr.querySelectorAll("input");
         if (inputs[0].value.trim()) {
           somaEmpenhado += brToFloat(inputs[1].value);
           somaSaldoNe += brToFloat(inputs[2].value);
+          somaLiqTesouro += parseFloat(tr.dataset.liquidado || 0);
+          somaEmLiqTesouro += parseFloat(tr.dataset.emLiquidacao || 0);
+          somaPagoTesouro += parseFloat(tr.dataset.pagoTesouro || 0);
         }
       });
 
-      // Soma Pagamentos / Despesas Contratuais da Grade Direita
-      let somaPago = 0;
-      let somaEmLiquidacao = 0;
+      let somaDespesasMensais = 0;
+      let somaDespesasDiec = 0;
       document.querySelectorAll("#tbody-despesas tr").forEach(tr => {
         const sels = tr.querySelectorAll("select");
         const inputs = tr.querySelectorAll("input");
         const v = brToFloat(inputs[1].value);
         if (v > 0) {
-          somaPago += v;
-          if (sels[1].value === "DIEC") somaEmLiquidacao += v;
+          somaDespesasMensais += v;
+          if (sels[1].value === "DIEC") somaDespesasDiec += v;
         }
       });
+
+      // Mostra o maior/melhor dado disponível entre o que veio do Tesouro e o que foi lançado nas Despesas Mensais
+      const liquidadoFinal = somaDespesasMensais > 0 ? somaDespesasMensais : somaLiqTesouro;
+      const emLiquidacaoFinal = somaDespesasDiec > 0 ? somaDespesasDiec : somaEmLiqTesouro;
+      const pagoFinal = somaDespesasMensais > 0 ? somaDespesasMensais : somaPagoTesouro;
+      const saldoNeFinal = somaDespesasMensais > 0 && somaEmpenhado > 0 ? Math.max(0, somaEmpenhado - somaDespesasMensais) : somaSaldoNe;
 
       const baseReferencia = valorTotal > 0 ? valorTotal : valorRepasse;
       const deficit = somaEmpenhado - baseReferencia;
 
       document.getElementById("inp-empenhado").value = formatarMoeda(somaEmpenhado);
-      document.getElementById("inp-liquidado").value = formatarMoeda(somaPago);
-      document.getElementById("inp-em-liquidacao").value = formatarMoeda(somaEmLiquidacao);
-      document.getElementById("inp-pago").value = formatarMoeda(somaPago);
-      document.getElementById("inp-saldo-ne").value = formatarMoeda(somaSaldoNe);
+      document.getElementById("inp-liquidado").value = formatarMoeda(liquidadoFinal);
+      document.getElementById("inp-em-liquidacao").value = formatarMoeda(emLiquidacaoFinal);
+      document.getElementById("inp-pago").value = formatarMoeda(pagoFinal);
+      document.getElementById("inp-saldo-ne").value = formatarMoeda(saldoNeFinal);
       document.getElementById("inp-deficit").value = formatarMoeda(deficit);
     }
 
-    // Carrega CSVs do Tesouro para autopreencher a linha 17+ de Empenhos
+    // Carrega CSVs do Tesouro tratando inclusive cabeçalhos duplos (métrica na linha abaixo do cabeçalho)
     async function carregarBasesTesouro() {
       try {
         let acumulado = [];
@@ -727,25 +801,43 @@
           const texto = await res.text();
           const parsed = Papa.parse(texto, { header: false, skipEmptyLines: true });
           const linhas = parsed.data;
-          let idxH = linhas.findIndex(l => l.some(c => String(c).toUpperCase().includes("NE CCOR")));
+          let idxH = linhas.findIndex(l => l.some(c => normalizarChave(c).includes("NE CCOR")));
           if (idxH === -1) continue;
-          const cab = linhas[idxH].map(c => String(c).trim());
-          for (let i = idxH + 1; i < linhas.length; i++) {
+
+          const cab1 = linhas[idxH].map(c => String(c || "").trim());
+          const cab2 = (linhas[idxH + 1] || []).map(c => String(c || "").trim());
+          const isCabDuplo = cab2.some(c => normalizarChave(c).includes("EMPENHADA") || normalizarChave(c).includes("LIQUIDADA") || normalizarChave(c).includes("PAGA"));
+
+          const cabFinal = cab1.map((c, idx) => {
+            if (isCabDuplo && cab2[idx] && !c) return cab2[idx];
+            if (isCabDuplo && cab2[idx] && c !== cab2[idx] && !normalizarChave(cab2[idx]).includes("NE")) return `${c} ${cab2[idx]}`;
+            return c || `COL_${idx}`;
+          });
+
+          const inicioDados = isCabDuplo ? idxH + 2 : idxH + 1;
+          for (let i = inicioDados; i < linhas.length; i++) {
             const row = linhas[i];
             const obj = {};
-            cab.forEach((c, idx) => { if (c) obj[c] = row[idx]; });
-            if (obj["NE CCor"] && obj["NE CCor"] !== "'-9" && obj["NE CCor"] !== "'-8") {
-              acumulado.push(obj);
+            cabFinal.forEach((c, idx) => { if (c) obj[c] = row[idx]; });
+            const extraido = extrairDadosLinhaTesouro(obj);
+            if (extraido.ne && extraido.ne !== "'-9" && extraido.ne !== "'-8") {
+              acumulado.push(extraido);
             }
           }
         }
         baseTesouroGlobal = acumulado;
-        document.getElementById("status-tesouro").textContent = `Base EXE/RAP ativa (${baseTesouroGlobal.length} NEs)`;
+        document.getElementById("status-tesouro").textContent = `Base EXE/RAP ativa (${baseTesouroGlobal.length} registros)`;
+
+        // Se já houver empenhos na tela, atualiza os valores financeiros deles automaticamente
+        document.querySelectorAll("#tbody-empenhos tr input:first-child").forEach(inp => {
+          if (inp.value.trim()) buscarEmpenhoNasBases(inp);
+        });
       } catch (e) {
         document.getElementById("status-tesouro").textContent = "Modo Offline (Lançamento Manual)";
       }
     }
 
+    // Quando digita a Nota de Empenho na linha 17+, puxa todos os dados descritivos e financeiros da planilha EXE/RAP
     function buscarEmpenhoNasBases(input) {
       const neDigitada = input.value.trim().toUpperCase();
       const tr = input.closest("tr");
@@ -755,29 +847,94 @@
         for (let i = 1; i <= 6; i++) tr.cells[i].textContent = "";
         inputs[1].value = "R$ -";
         inputs[2].value = "R$ -";
+        tr.dataset.liquidado = 0;
+        tr.dataset.emLiquidacao = 0;
+        tr.dataset.pagoTesouro = 0;
         recalcularTudo();
         return;
       }
 
-      const encontrada = baseTesouroGlobal.find(d => String(d["NE CCor"]).toUpperCase().includes(neDigitada));
-      if (encontrada) {
-        const emp = brToFloat(encontrada["DESPESAS EMPENHADAS (CONTROLE EMPENHO)"] || encontrada["DOTACAO ATUALIZADA"] || 0);
-        const saldo = brToFloat(encontrada["DESPESAS EMPENHADAS A LIQUIDAR (CONTROLE EMPENHO)"] || encontrada["CREDITO DISPONIVEL"] || emp);
+      // Filtra todas as linhas daquela NE nas bases EXE e RAP para somar corretamente os saldos
+      const registrosNe = baseTesouroGlobal.filter(d => d.ne.toUpperCase().includes(neDigitada));
+      if (registrosNe.length > 0) {
+        const ref = registrosNe[0];
+        const totEmp = registrosNe.reduce((acc, r) => acc + r.empenhado, 0);
+        const totSaldo = registrosNe.reduce((acc, r) => acc + r.saldo, 0);
+        const totLiq = registrosNe.reduce((acc, r) => acc + r.liquidado, 0);
+        const totEmLiq = registrosNe.reduce((acc, r) => acc + r.emLiquidacao, 0);
+        const totPago = registrosNe.reduce((acc, r) => acc + r.pago, 0);
 
-        tr.cells[1].textContent = encontrada["Ação Governo"] || "";
-        tr.cells[2].textContent = encontrada["Fonte Recursos Detalhada"] || "";
-        tr.cells[3].textContent = encontrada["Plano Orçamentário"] || "";
-        tr.cells[4].textContent = encontrada["Natureza Despesa Detalhada"] || "";
-        tr.cells[5].textContent = encontrada["Natureza Despesa"] || "";
-        tr.cells[6].textContent = encontrada["NE - Descrição"] || encontrada["NE CCor - Favorecido"] || "";
-        inputs[1].value = formatarMoeda(emp);
-        inputs[2].value = formatarMoeda(saldo);
+        tr.cells[1].textContent = ref.acao || "";
+        tr.cells[2].textContent = ref.fonte || "";
+        tr.cells[3].textContent = ref.pi || "";
+        tr.cells[4].textContent = ref.ndDet || "";
+        tr.cells[5].textContent = ref.descNd || "";
+        tr.cells[6].textContent = ref.descNe || ref.favorecido || "";
+        inputs[1].value = formatarMoeda(totEmp);
+        inputs[2].value = formatarMoeda(totSaldo);
+
+        tr.dataset.liquidado = totLiq;
+        tr.dataset.emLiquidacao = totEmLiq;
+        tr.dataset.pagoTesouro = totPago;
+
+        // Se os campos da Ficha Superior ainda estiverem em branco, já amarra os dados descritivos automaticamente
+        if (!document.getElementById("inp-ug").value && ref.ug) {
+          document.getElementById("inp-ug").value = ref.ug;
+          atualizarNomeUg();
+        }
+        if (!document.getElementById("inp-processo").value && ref.proc) {
+          document.getElementById("inp-processo").value = ref.proc;
+        }
+        if (!document.getElementById("inp-favorecido").value && ref.favorecido) {
+          document.getElementById("inp-favorecido").value = ref.favorecido;
+        }
+        if (!document.getElementById("inp-cnpj").value && ref.cnpj) {
+          document.getElementById("inp-cnpj").value = ref.cnpj;
+          aplicarMascaraLGPD(document.getElementById("inp-cnpj"));
+        }
+        if (!document.getElementById("inp-natureza").value && ref.ndDet) {
+          document.getElementById("inp-natureza").value = ref.ndDet;
+        }
       }
       recalcularTudo();
     }
 
-    // Salvar / Alterar Contrato Completo
+    // Se o usuário digitar o Processo SEI na Ficha e ele existir na planilha EXE/RAP, puxa automaticamente as NEs e dados amarrados
+    function autoPreencherPorProcessoSEI() {
+      const procDigitado = document.getElementById("inp-processo").value.trim();
+      if (!procDigitado || baseTesouroGlobal.length === 0) return;
+
+      // Verifica se já há empenhos preenchidos na grade para não sobrescrever edição manual
+      const jaTemNe = Array.from(document.querySelectorAll("#tbody-empenhos tr input:first-child")).some(i => i.value.trim() !== "");
+      if (jaTemNe) return;
+
+      const encontrados = baseTesouroGlobal.filter(d => d.proc && d.proc.includes(procDigitado));
+      if (encontrados.length === 0) return;
+
+      const primeiro = encontrados[0];
+      if (!document.getElementById("inp-ug").value && primeiro.ug) {
+        document.getElementById("inp-ug").value = primeiro.ug;
+        atualizarNomeUg();
+      }
+      if (!document.getElementById("inp-favorecido").value && primeiro.favorecido) {
+        document.getElementById("inp-favorecido").value = primeiro.favorecido;
+      }
+      if (!document.getElementById("inp-natureza").value && primeiro.ndDet) {
+        document.getElementById("inp-natureza").value = primeiro.ndDet;
+      }
+
+      const nesUnicas = [...new Set(encontrados.map(e => e.ne))].slice(0, 20);
+      const inputsNe = document.querySelectorAll("#tbody-empenhos tr input:first-child");
+      nesUnicas.forEach((ne, idx) => {
+        if (inputsNe[idx]) {
+          inputsNe[idx].value = ne;
+          buscarEmpenhoNasBases(inputsNe[idx]);
+        }
+      });
+    }
+
     function salvarOuAtualizarContrato(modo) {
+      recalcularTudo();
       const processo = document.getElementById("inp-processo").value.trim();
       const ug = document.getElementById("inp-ug").value;
 
@@ -787,20 +944,20 @@
       }
 
       const agora = new Date().toLocaleDateString("pt-BR");
-      const idxExistente = contratosSalvos.findIndex(c => c.processo === processo);
-
-      if (modo === "alteracao" && idxExistente >= 0 && !document.getElementById("inp-justificativa").value.trim()) {
-        alert("Informe o motivo no campo 'Justificar Alteração' para atualizar o registro.");
-        return;
+      let idxExistente = -1;
+      if (processoOriginalCarregado) {
+        idxExistente = contratosSalvos.findIndex(c => c.processo === processoOriginalCarregado);
+      }
+      if (idxExistente === -1) {
+        idxExistente = contratosSalvos.findIndex(c => c.processo === processo);
       }
 
-      const dataCad = idxExistente >= 0 ? contratosSalvos[idxExistente].dataCad : agora;
+      const dataCad = idxExistente >= 0 ? (contratosSalvos[idxExistente].dataCad || agora) : agora;
       const dataAlt = idxExistente >= 0 ? agora : "";
 
       document.getElementById("inp-data-cad").value = dataCad;
       document.getElementById("inp-data-alt").value = dataAlt;
 
-      // Coleta Empenhos
       const empenhos = [];
       document.querySelectorAll("#tbody-empenhos tr").forEach(tr => {
         const inputs = tr.querySelectorAll("input");
@@ -814,17 +971,19 @@
             descNd: tr.cells[5].textContent,
             descNe: tr.cells[6].textContent,
             totalEmp: brToFloat(inputs[1].value),
-            saldoEmp: brToFloat(inputs[2].value)
+            saldoEmp: brToFloat(inputs[2].value),
+            liquidado: parseFloat(tr.dataset.liquidado || 0),
+            emLiquidacao: parseFloat(tr.dataset.emLiquidacao || 0),
+            pagoTesouro: parseFloat(tr.dataset.pagoTesouro || 0)
           });
         }
       });
 
-      // Coleta DDO
       const ddo = [];
       document.querySelectorAll("#tbody-ddo tr").forEach(tr => {
         const inputs = tr.querySelectorAll("input");
         const sels = tr.querySelectorAll("select");
-        if (inputs[0].value || inputs[1].value || inputs[2].value) {
+        if (inputs[0].value || inputs[1].value || inputs[2].value || inputs[3].value) {
           ddo.push({
             data: inputs[0].value,
             proc: inputs[1].value,
@@ -837,12 +996,11 @@
         }
       });
 
-      // Coleta Despesas Contratuais / Eventuais
       const despesas = [];
       document.querySelectorAll("#tbody-despesas tr").forEach(tr => {
         const sels = tr.querySelectorAll("select");
         const inputs = tr.querySelectorAll("input");
-        if (sels[0].value || inputs[0].value || inputs[1].value) {
+        if (sels[0].value || inputs[0].value || brToFloat(inputs[1].value) > 0) {
           despesas.push({
             competencia: sels[0].value,
             proc: inputs[0].value,
@@ -889,10 +1047,11 @@
         contratosSalvos.push(registro);
       }
 
+      processoOriginalCarregado = processo;
       localStorage.setItem("sdr_contratos_2027", JSON.stringify(contratosSalvos));
       atualizarSelectsEConsolidado();
       document.getElementById("select-busca-processo").value = processo;
-      alert("Registro gravado e consolidado na tabela mensal (dez/26 a dez/27)!");
+      alert(idxExistente >= 0 ? "Alteração gravada com sucesso!" : "Processo cadastrado com sucesso!");
     }
 
     function carregarContratoSelecionado() {
@@ -900,6 +1059,8 @@
       if (!proc) return;
       const c = contratosSalvos.find(x => x.processo === proc);
       if (!c) return;
+
+      processoOriginalCarregado = c.processo;
 
       document.getElementById("inp-processo").value = c.processo || "";
       document.getElementById("inp-ug").value = c.ug || "";
@@ -928,6 +1089,14 @@
       ajustarAlturaObjeto(document.getElementById("inp-objeto"));
       montarGradeEmpenhos(c.empenhos || []);
       montarTabelasLaterais(c.ddo || [], c.despesas || []);
+
+      // Atualiza os empenhos com a base do Tesouro caso ela já esteja carregada
+      if (baseTesouroGlobal.length > 0) {
+        document.querySelectorAll("#tbody-empenhos tr input:first-child").forEach(inp => {
+          if (inp.value.trim()) buscarEmpenhoNasBases(inp);
+        });
+      }
+
       calcularDiasVencer();
       recalcularTudo();
     }
@@ -943,12 +1112,12 @@
         document.getElementById("select-busca-processo").value = c.processo;
         carregarContratoSelecionado();
       } else {
-        alert("Processo não encontrado nos cadastros.");
+        autoPreencherPorProcessoSEI();
       }
     }
 
     function excluirContrato() {
-      const proc = document.getElementById("inp-processo").value.trim();
+      const proc = processoOriginalCarregado || document.getElementById("inp-processo").value.trim();
       if (!proc) return;
       if (confirm(`Confirma a exclusão definitiva do processo ${proc}?`)) {
         contratosSalvos = contratosSalvos.filter(x => x.processo !== proc);
@@ -958,8 +1127,8 @@
       }
     }
 
-    // Limpa absolutamente todos os campos deixando a tela em branco
     function limparFormulario() {
+      processoOriginalCarregado = "";
       document.getElementById("select-busca-processo").value = "";
       const idsLimpar = [
         "inp-data-cad", "inp-data-alt", "inp-justificativa", "inp-orcamento", "inp-ug", "inp-nome-ug",
@@ -1010,13 +1179,13 @@
 
     function limparFiltrosResumo() {
       filtroRapExeAtivo = "";
+      document.getElementById("sel-corrigir").value = "TODOS";
       ["f-orcamento", "f-ug", "f-sigla", "f-processo", "f-atividade", "f-formalizacao", "f-natureza", "f-favorecido"].forEach(id => {
         document.getElementById(id).value = "";
       });
       renderizarResumoMensal();
     }
 
-    // Renderiza a Tabela Amarela Inferior somando cada mês (dez/26 a dez/27) a partir das Despesas Contratuais
     function renderizarResumoMensal() {
       const tbody = document.getElementById("tbody-resumo-mensal");
       const fOrc = document.getElementById("f-orcamento").value;
@@ -1027,29 +1196,21 @@
       const fForm = document.getElementById("f-formalizacao").value;
       const fNat = document.getElementById("f-natureza").value;
       const fFav = document.getElementById("f-favorecido").value;
-
-      const listaFiltrada = contratosSalvos.filter(c => {
-        if (fOrc && c.orcamento !== fOrc) return false;
-        if (fUg && c.ug !== fUg) return false;
-        if (fSigla && c.sigla !== fSigla) return false;
-        if (fProc && c.processo !== fProc) return false;
-        if (fAtiv && c.atividade !== fAtiv) return false;
-        if (fForm && c.formalizacao !== fForm) return false;
-        if (fNat && c.natureza !== fNat) return false;
-        if (fFav && c.favorecido !== fFav) return false;
-        return true;
-      });
-
-      if (listaFiltrada.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="19" class="p-3 text-center text-zinc-500 italic bg-white">Nenhum processo cadastrado ou encontrado para o filtro selecionado.</td></tr>`;
-        document.getElementById("card-deficit-topo").textContent = "R$ 0,00";
-        return;
-      }
+      const modoCorrigir = document.getElementById("sel-corrigir").value;
 
       let deficitGeralAcumulado = 0;
+      const linhasHtml = [];
 
-      tbody.innerHTML = listaFiltrada.map(c => {
-        // Soma valores por competência (dez/26 a dez/27) lançados em Despesas Contratuais / Eventuais
+      contratosSalvos.forEach(c => {
+        if (fOrc && c.orcamento !== fOrc) return;
+        if (fUg && c.ug !== fUg) return;
+        if (fSigla && c.sigla !== fSigla) return;
+        if (fProc && c.processo !== fProc) return;
+        if (fAtiv && c.atividade !== fAtiv) return;
+        if (fForm && c.formalizacao !== fForm) return;
+        if (fNat && c.natureza !== fNat) return;
+        if (fFav && c.favorecido !== fFav) return;
+
         const mapaMeses = {};
         COMPETENCIAS_2027.forEach(comp => mapaMeses[comp.label] = 0);
 
@@ -1066,6 +1227,10 @@
         const baseContrato = c.valorTotal > 0 ? c.valorTotal : (c.valorRepasse || 0);
         const ajustarValor = baseContrato - totalExecutadoMeses;
         const deficitProc = totalEmpenhadoProc - baseContrato;
+
+        if (modoCorrigir === "AJUSTAR" && ajustarValor === 0) return;
+        if (modoCorrigir === "DEFICIT" && deficitProc >= 0) return;
+
         deficitGeralAcumulado += deficitProc;
 
         const colunasMesesHtml = COMPETENCIAS_2027.map(comp => {
@@ -1073,7 +1238,7 @@
           return `<td class="bg-[#fde68a] text-right px-1 font-mono text-[10px] ${valMes > 0 ? 'font-bold text-slate-900' : 'text-zinc-600'}">${formatarMoeda(valMes)}</td>`;
         }).join("");
 
-        return `
+        linhasHtml.push(`
           <tr onclick="selecionarProcessoDaTabela('${c.processo}')" class="hover:bg-amber-100 cursor-pointer">
             <td class="bg-white px-1 font-semibold truncate text-[9px]" title="${c.nomeUg || c.sigla}">${c.sigla || c.nomeUg || c.ug}</td>
             <td class="bg-white px-1 font-mono font-bold text-[10px]">${c.processo} (${c.atividade || c.formalizacao || 'GERAL'})</td>
@@ -1083,9 +1248,16 @@
             ${colunasMesesHtml}
             <td class="bg-black text-amber-300 text-right px-1 font-mono font-bold text-[10px]">${formatarMoeda(deficitProc)}</td>
           </tr>
-        `;
-      }).join("");
+        `);
+      });
 
+      if (linhasHtml.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="19" class="p-3 text-center text-zinc-500 italic bg-white">Nenhum processo cadastrado ou encontrado para o filtro selecionado.</td></tr>`;
+        document.getElementById("card-deficit-topo").textContent = "R$ 0,00";
+        return;
+      }
+
+      tbody.innerHTML = linhasHtml.join("");
       document.getElementById("card-deficit-topo").textContent = formatarMoeda(deficitGeralAcumulado);
     }
 
@@ -1095,7 +1267,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // Inicialização limpa em branco
     limparFormulario();
     atualizarSelectsEConsolidado();
     carregarBasesTesouro();
