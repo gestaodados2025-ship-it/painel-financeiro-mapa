@@ -836,21 +836,21 @@
         document.getElementById("status-tesouro").textContent = `Base EXE/RAP ativa (${baseTesouroGlobal.length} registros)`;
 
         document.querySelectorAll("#tbody-empenhos tr input:first-child").forEach(inp => {
-          if (inp.value.trim()) buscarEmpenhoNasBases(inp);
+          if (inp.value.trim() && !inp.value.includes("R$")) buscarEmpenhoNasBases(inp);
         });
       } catch (e) {
         document.getElementById("status-tesouro").textContent = "Modo Offline (Lançamento Manual)";
       }
     }
 
-    // Busca Nota de Empenho blindada e amarrada estritamente à UG Executora numérica da Ficha
+    // Busca Nota de Empenho blindada contra textos acidentais e amarrada perfeitamente à UG da Ficha
     function buscarEmpenhoNasBases(input) {
       const neDigitada = input.value.trim().toUpperCase();
       const tr = input.closest("tr");
       const inputs = tr.querySelectorAll("input");
       const ugInformada = document.getElementById("inp-ug").value.trim();
 
-      if (!neDigitada) {
+      if (!neDigitada || neDigitada.includes("R$")) {
         for (let i = 1; i <= 6; i++) tr.cells[i].textContent = "";
         inputs[1].value = "R$ -";
         inputs[2].value = "R$ -";
@@ -861,7 +861,7 @@
         return;
       }
 
-      // Filtro rigoroso: NE digitada E UG Executora correspondente numérica
+      // Filtro flexível e robusto: Procura a NE e valida se a UG contém o código (ex: 130010)
       const registrosNe = baseTesouroGlobal.filter(d => {
         const matchNe = d.ne.toUpperCase().includes(neDigitada);
         if (!matchNe) return false;
@@ -893,8 +893,11 @@
         tr.dataset.pagoTesouro = totPago;
 
         if (!document.getElementById("inp-ug").value && ref.ug) {
-          document.getElementById("inp-ug").value = ref.ug;
-          atualizarNomeUg();
+          const matchUg = ref.ug.match(/\d{6}/);
+          if (matchUg) {
+            document.getElementById("inp-ug").value = matchUg[0];
+            atualizarNomeUg();
+          }
         }
         if (!document.getElementById("inp-processo").value && ref.proc) {
           document.getElementById("inp-processo").value = ref.proc;
@@ -906,7 +909,10 @@
           document.getElementById("inp-natureza").value = ref.ndDet;
         }
       } else {
-        alert(`Nota de empenho ${neDigitada} não encontrada para a UG Executora ${ugInformada || 'informada'}. Verifique o número ou a UG.`);
+        // Dispara aviso apenas se o usuário digitou uma NE real e ela não foi encontrada na base
+        if (baseTesouroGlobal.length > 0 && neDigitada.length > 3) {
+          alert(`Nota de empenho ${neDigitada} não encontrada para a UG Executora ${ugInformada || 'informada'}. Verifique o número ou a UG.`);
+        }
       }
       recalcularTudo();
     }
@@ -927,8 +933,11 @@
 
       const primeiro = encontrados[0];
       if (!document.getElementById("inp-ug").value && primeiro.ug) {
-        document.getElementById("inp-ug").value = primeiro.ug;
-        atualizarNomeUg();
+        const matchUg = primeiro.ug.match(/\d{6}/);
+        if (matchUg) {
+          document.getElementById("inp-ug").value = matchUg[0];
+          atualizarNomeUg();
+        }
       }
       if (!document.getElementById("inp-favorecido").value && primeiro.favorecido) {
         document.getElementById("inp-favorecido").value = primeiro.favorecido;
@@ -975,7 +984,7 @@
       const empenhos = [];
       document.querySelectorAll("#tbody-empenhos tr").forEach(tr => {
         const inputs = tr.querySelectorAll("input");
-        if (inputs[0].value.trim()) {
+        if (inputs[0].value.trim() && !inputs[0].value.includes("R$")) {
           empenhos.push({
             ne: inputs[0].value.trim().toUpperCase(),
             acao: tr.cells[1].textContent,
@@ -1107,7 +1116,7 @@
 
       if (baseTesouroGlobal.length > 0) {
         document.querySelectorAll("#tbody-empenhos tr input:first-child").forEach(inp => {
-          if (inp.value.trim()) buscarEmpenhoNasBases(inp);
+          if (inp.value.trim() && !inp.value.includes("R$")) buscarEmpenhoNasBases(inp);
         });
       }
 
