@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "17/11/2026 18:56",
+  "atualizado_em": "17/11/2026 20:50",
   "ugs_monitoradas": [
     "130010",
     "130141",
@@ -10,11 +10,11 @@
   "evolucao_mensal": {
     "OUT/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 360712491.5200001
+      "RAP_PAGO_MES": 46808938.23999999
     },
     "NOV/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 31535648.34
+      "RAP_PAGO_MES": 31621985.79
     },
     "JAN/2026": {
       "EXE_PAGO_MES": 0.0,
@@ -22,19 +22,19 @@
     },
     "FEV/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 134144275.37000003
+      "RAP_PAGO_MES": 134149046.62000003
     },
     "MAR/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 401907510.4499999
+      "RAP_PAGO_MES": 401918948.3999999
     },
     "ABR/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 139279735.08
+      "RAP_PAGO_MES": 139272292.45000002
     },
     "MAI/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 850108271.77
+      "RAP_PAGO_MES": 853770021.95
     },
     "JUN/2026": {
       "EXE_PAGO_MES": 0.0,
@@ -42,15 +42,15 @@
     },
     "JUL/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 806778001.9400003
+      "RAP_PAGO_MES": 269120413.3699999
     },
     "AGO/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 1060876620.1600003
+      "RAP_PAGO_MES": 873596082.7300004
     },
     "SET/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 793485554.5199999
+      "RAP_PAGO_MES": 1080270014.0500007
     },
     "DEZ/2026": {
       "EXE_PAGO_MES": 0.0,
@@ -65,7 +65,7 @@
       "mes_referencia": "NOV/2026",
       "ug_executora": "130255",
       "acao": "1211",
-      "ptres": "267935",
+      "ptres": "267933",
       "favorecido": "-9",
       "processo": "-9",
       "contrato_planilha": "",
@@ -4266,7 +4266,7 @@
       "acao": "8606",
       "ptres": "229363",
       "favorecido": "12039966000111",
-      "processo": "-9",
+      "processo": "21036.000822/2022-77",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -34461,9 +34461,9 @@
       "processo": "-9",
       "contrato_planilha": "PASSAGEM",
       "departamento": "VERIFICAR (420013/GABINETE/DEFLO/DECAP · PO 0006)",
-      "empenhado": 100.0,
+      "empenhado": 49196.86,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 100.0,
+      "liquidado_a_pagar": 49196.86,
       "pago_acumulado": 0.0
     },
     {
@@ -35226,9 +35226,9 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
-      "empenhado": 3933.6,
-      "a_liquidar": 1966.8,
-      "liquidado_a_pagar": 1966.8,
+      "empenhado": 880.0,
+      "a_liquidar": 440.0,
+      "liquidado_a_pagar": 440.0,
       "pago_acumulado": 0.0
     },
     {
@@ -35379,10 +35379,10 @@
       "processo": "-9",
       "contrato_planilha": "PASSAGEM",
       "departamento": "VERIFICAR (420013/DECAP · PO 0001)",
-      "empenhado": 0.1,
+      "empenhado": 243.41,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.1,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 243.41
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -36620,9 +36620,9 @@
       "processo": "-9",
       "contrato_planilha": "PASSAGEM",
       "departamento": "VERIFICAR (420013/DEPROS · PO 0001)",
-      "empenhado": 663.38,
-      "a_liquidar": 331.69,
-      "liquidado_a_pagar": 331.69,
+      "empenhado": 2.0,
+      "a_liquidar": 1.0,
+      "liquidado_a_pagar": 1.0,
       "pago_acumulado": 0.0
     },
     {
@@ -36960,9 +36960,9 @@
       "processo": "-9",
       "contrato_planilha": "PASSAGEM",
       "departamento": "VERIFICAR (420013/GABINETE/DEFLO/DECAP · PO 0004)",
-      "empenhado": 2.0,
-      "a_liquidar": 1.0,
-      "liquidado_a_pagar": 1.0,
+      "empenhado": 53.92,
+      "a_liquidar": 26.96,
+      "liquidado_a_pagar": 26.96,
       "pago_acumulado": 0.0
     },
     {
@@ -38116,10 +38116,10 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
-      "empenhado": 92777.44,
-      "a_liquidar": 46388.72,
-      "liquidado_a_pagar": 46388.72,
-      "pago_acumulado": 0.0
+      "empenhado": 467731.2,
+      "a_liquidar": 23732.85,
+      "liquidado_a_pagar": 80731.89,
+      "pago_acumulado": 363266.46
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -38490,9 +38490,9 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
-      "empenhado": 11199.86,
-      "a_liquidar": 5599.93,
-      "liquidado_a_pagar": 5599.93,
+      "empenhado": 92777.44,
+      "a_liquidar": 46388.72,
+      "liquidado_a_pagar": 46388.72,
       "pago_acumulado": 0.0
     },
     {
@@ -63358,12 +63358,12 @@
       "acao": "20ZV",
       "ptres": "81000562R",
       "favorecido": "18338228000151",
-      "processo": "-9",
+      "processo": "21000066961202351",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 57342.74,
-      "a_liquidar": 28671.37,
-      "liquidado_a_pagar": 28671.37,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -64140,12 +64140,12 @@
       "acao": "20ZV",
       "ptres": "81000562R",
       "favorecido": "76167717000194",
-      "processo": "21000068235202373",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 146688.0,
+      "a_liquidar": 73344.0,
+      "liquidado_a_pagar": 73344.0,
       "pago_acumulado": 0.0
     },
     {
@@ -64344,12 +64344,12 @@
       "acao": "20ZV",
       "ptres": "I32400001",
       "favorecido": "87842233000110",
-      "processo": "-9",
-      "contrato_planilha": "COMPARTILHADA",
-      "departamento": "PRONER",
-      "empenhado": 26710.32,
-      "a_liquidar": 13355.16,
-      "liquidado_a_pagar": 13355.16,
+      "processo": "21000033587202316",
+      "contrato_planilha": NaN,
+      "departamento": NaN,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -64956,12 +64956,12 @@
       "acao": "20ZV",
       "ptres": "B71170006",
       "favorecido": "95719373000123",
-      "processo": "-9",
+      "processo": "21000048702202349",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 107751.64,
-      "a_liquidar": 53875.82,
-      "liquidado_a_pagar": 53875.82,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -65449,12 +65449,12 @@
       "acao": "20ZV",
       "ptres": "71180014B",
       "favorecido": "10282945000105",
-      "processo": "21000048712202384",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 46112.26,
+      "a_liquidar": 23056.13,
+      "liquidado_a_pagar": 23056.13,
       "pago_acumulado": 0.0
     },
     {
@@ -67642,12 +67642,12 @@
       "acao": "20ZV",
       "ptres": "20ZVP241",
       "favorecido": "95780458000117",
-      "processo": "21000076810202310",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 9200.0,
+      "a_liquidar": 4600.0,
+      "liquidado_a_pagar": 4600.0,
       "pago_acumulado": 0.0
     },
     {
@@ -68254,12 +68254,12 @@
       "acao": "20ZV",
       "ptres": "20ZVP241",
       "favorecido": "75845537000151",
-      "processo": "21000080918202307",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 14640.46,
+      "a_liquidar": 7320.23,
+      "liquidado_a_pagar": 7320.23,
       "pago_acumulado": 0.0
     },
     {
@@ -69546,12 +69546,12 @@
       "acao": "20ZV",
       "ptres": "20ZVP241",
       "favorecido": "76950039000131",
-      "processo": "-9",
+      "processo": "21000092201202308",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 274823.52,
-      "a_liquidar": 137411.76,
-      "liquidado_a_pagar": 137411.76,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -69563,12 +69563,12 @@
       "acao": "20ZV",
       "ptres": "20ZVP241",
       "favorecido": "75771279000106",
-      "processo": "21000092204202333",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 2553.48,
+      "a_liquidar": 1276.74,
+      "liquidado_a_pagar": 1276.74,
       "pago_acumulado": 0.0
     },
     {
@@ -70158,12 +70158,12 @@
       "acao": "20ZV",
       "ptres": "I20230004",
       "favorecido": "04208358000165",
-      "processo": "-9",
+      "processo": "21000033052202337",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 46806.28,
-      "a_liquidar": 23403.14,
-      "liquidado_a_pagar": 23403.14,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -70668,12 +70668,12 @@
       "acao": "20ZV",
       "ptres": "I20230004",
       "favorecido": "91997056000118",
-      "processo": "-9",
+      "processo": "21000033187202301",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 12040.0,
-      "a_liquidar": 6020.0,
-      "liquidado_a_pagar": 6020.0,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -70719,12 +70719,12 @@
       "acao": "20ZV",
       "ptres": "B71170006",
       "favorecido": "76208495000100",
-      "processo": "21000048705202382",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 249319.66,
+      "a_liquidar": 124659.83,
+      "liquidado_a_pagar": 124659.83,
       "pago_acumulado": 0.0
     },
     {
@@ -70821,12 +70821,12 @@
       "acao": "20ZV",
       "ptres": "I38010013",
       "favorecido": "36388445000138",
-      "processo": "21000032888202314",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 388881.08,
+      "a_liquidar": 194440.54,
+      "liquidado_a_pagar": 194440.54,
       "pago_acumulado": 0.0
     },
     {
@@ -70838,12 +70838,12 @@
       "acao": "20ZV",
       "ptres": "I32980002",
       "favorecido": "87613048000153",
-      "processo": "21000033679202398",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 0.5,
+      "a_liquidar": 0.25,
+      "liquidado_a_pagar": 0.25,
       "pago_acumulado": 0.0
     },
     {
@@ -70889,12 +70889,12 @@
       "acao": "20ZV",
       "ptres": "B71170006",
       "favorecido": "76402882000183",
-      "processo": "21000048384202316",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 143990.54,
+      "a_liquidar": 71995.27,
+      "liquidado_a_pagar": 71995.27,
       "pago_acumulado": 0.0
     },
     {
@@ -71484,12 +71484,12 @@
       "acao": "20ZV",
       "ptres": "81000562R",
       "favorecido": "75771253000168",
-      "processo": "-9",
+      "processo": "21000050468202310",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 5033.32,
-      "a_liquidar": 2516.66,
-      "liquidado_a_pagar": 2516.66,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -71535,12 +71535,12 @@
       "acao": "20ZV",
       "ptres": "81000562R",
       "favorecido": "95639472000103",
-      "processo": "21000050626202331",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 184397.1,
+      "a_liquidar": 92198.55,
+      "liquidado_a_pagar": 92198.55,
       "pago_acumulado": 0.0
     },
     {
@@ -71756,12 +71756,12 @@
       "acao": "20ZV",
       "ptres": "81000562R",
       "favorecido": "45279643000154",
-      "processo": "-9",
+      "processo": "21000064648202389",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 90758.44,
-      "a_liquidar": 45379.22,
-      "liquidado_a_pagar": 45379.22,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -73320,12 +73320,12 @@
       "acao": "20ZV",
       "ptres": "81000562R",
       "favorecido": "18338202000103",
-      "processo": "21000047235202330",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 287085.66,
+      "a_liquidar": 143542.83,
+      "liquidado_a_pagar": 143542.83,
       "pago_acumulado": 0.0
     },
     {
@@ -73541,12 +73541,12 @@
       "acao": "20ZV",
       "ptres": "B71170006",
       "favorecido": "75654566000136",
-      "processo": "21000048138202364",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 735852.62,
+      "a_liquidar": 367926.31,
+      "liquidado_a_pagar": 367926.31,
       "pago_acumulado": 0.0
     },
     {
@@ -73558,12 +73558,12 @@
       "acao": "20ZV",
       "ptres": "I20230004",
       "favorecido": "04219343000100",
-      "processo": "21000033066202351",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 16664.42,
+      "a_liquidar": 8332.21,
+      "liquidado_a_pagar": 8332.21,
       "pago_acumulado": 0.0
     },
     {
@@ -74170,12 +74170,12 @@
       "acao": "20ZV",
       "ptres": "I28180011",
       "favorecido": "01488169000103",
-      "processo": "21000033012202395",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 284881.36,
+      "a_liquidar": 142440.68,
+      "liquidado_a_pagar": 142440.68,
       "pago_acumulado": 0.0
     },
     {
@@ -74255,12 +74255,12 @@
       "acao": "20ZV",
       "ptres": "B71170006",
       "favorecido": "76968627000100",
-      "processo": "21000048407202392",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 162400.94,
+      "a_liquidar": 81200.47,
+      "liquidado_a_pagar": 81200.47,
       "pago_acumulado": 0.0
     },
     {
@@ -74901,12 +74901,12 @@
       "acao": "20ZV",
       "ptres": "I32980002",
       "favorecido": "94706033000103",
-      "processo": "21000033961202375",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 75310.06,
+      "a_liquidar": 37655.03,
+      "liquidado_a_pagar": 37655.03,
       "pago_acumulado": 0.0
     },
     {
@@ -75819,12 +75819,12 @@
       "acao": "20ZV",
       "ptres": "I36460011",
       "favorecido": "76002674000197",
-      "processo": "-9",
+      "processo": "21000033028202306",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 177328.28,
-      "a_liquidar": 88664.14,
-      "liquidado_a_pagar": 88664.14,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -75836,12 +75836,12 @@
       "acao": "20ZV",
       "ptres": "B71260010S",
       "favorecido": "83102640000130",
-      "processo": "-9",
+      "processo": "21000045416202321",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 60400.0,
-      "a_liquidar": 30200.0,
-      "liquidado_a_pagar": 30200.0,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -76142,12 +76142,12 @@
       "acao": "20ZV",
       "ptres": "I39770007",
       "favorecido": "49345911000140",
-      "processo": "-9",
+      "processo": "21000032910202326",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 283606.06,
-      "a_liquidar": 141803.03,
-      "liquidado_a_pagar": 141803.03,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -77502,12 +77502,12 @@
       "acao": "20ZV",
       "ptres": "I20230008",
       "favorecido": "87613386000195",
-      "processo": "21000019221202415",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 133958.86,
+      "a_liquidar": 66979.43,
+      "liquidado_a_pagar": 66979.43,
       "pago_acumulado": 0.0
     },
     {
@@ -77655,12 +77655,12 @@
       "acao": "20ZV",
       "ptres": "I32980002",
       "favorecido": "94577509000145",
-      "processo": "21000019192202483",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 58814.16,
+      "a_liquidar": 29407.08,
+      "liquidado_a_pagar": 29407.08,
       "pago_acumulado": 0.0
     },
     {
@@ -77791,12 +77791,12 @@
       "acao": "20ZV",
       "ptres": "I32980002",
       "favorecido": "94706033000103",
-      "processo": "-9",
+      "processo": "21000020568202401",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 14759.1,
-      "a_liquidar": 7379.55,
-      "liquidado_a_pagar": 7379.55,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -77910,12 +77910,12 @@
       "acao": "20ZV",
       "ptres": "I20230008",
       "favorecido": "92411933000190",
-      "processo": "21000020449202440",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 22813.88,
+      "a_liquidar": 11406.94,
+      "liquidado_a_pagar": 11406.94,
       "pago_acumulado": 0.0
     },
     {
@@ -78131,12 +78131,12 @@
       "acao": "20ZV",
       "ptres": "I20230008",
       "favorecido": "94704103000186",
-      "processo": "21000020348202479",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 202177.84,
+      "a_liquidar": 101088.92,
+      "liquidado_a_pagar": 101088.92,
       "pago_acumulado": 0.0
     },
     {
@@ -78318,12 +78318,12 @@
       "acao": "20ZV",
       "ptres": "B71260005",
       "favorecido": "82562893000123",
-      "processo": "21000020433202437",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 26582.0,
+      "a_liquidar": 13291.0,
+      "liquidado_a_pagar": 13291.0,
       "pago_acumulado": 0.0
     },
     {
@@ -78454,12 +78454,12 @@
       "acao": "20ZV",
       "ptres": "I20230008",
       "favorecido": "01640339000115",
-      "processo": "-9",
-      "contrato_planilha": "COMPARTILHADA",
-      "departamento": "PRONER",
-      "empenhado": 146923.08,
-      "a_liquidar": 73461.54,
-      "liquidado_a_pagar": 73461.54,
+      "processo": "21000019253202411",
+      "contrato_planilha": NaN,
+      "departamento": NaN,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -78743,12 +78743,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "95587648000112",
-      "processo": "21000020236202418",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 138548.14,
+      "a_liquidar": 69274.07,
+      "liquidado_a_pagar": 69274.07,
       "pago_acumulado": 0.0
     },
     {
@@ -79202,12 +79202,12 @@
       "acao": "20ZV",
       "ptres": "I42790010",
       "favorecido": "03434792000109",
-      "processo": "21000021064202408",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 22507.52,
+      "a_liquidar": 11253.76,
+      "liquidado_a_pagar": 11253.76,
       "pago_acumulado": 0.0
     },
     {
@@ -79253,12 +79253,12 @@
       "acao": "20ZV",
       "ptres": "I20230008",
       "favorecido": "01611828000149",
-      "processo": "21000021140202477",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 29309.0,
+      "a_liquidar": 14654.5,
+      "liquidado_a_pagar": 14654.5,
       "pago_acumulado": 0.0
     },
     {
@@ -79729,12 +79729,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "01616255000146",
-      "processo": "21000019905202417",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 65960.06,
+      "a_liquidar": 32980.03,
+      "liquidado_a_pagar": 32980.03,
       "pago_acumulado": 0.0
     },
     {
@@ -79763,12 +79763,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "95587770000199",
-      "processo": "-9",
-      "contrato_planilha": "COMPARTILHADA",
-      "departamento": "PRONER",
-      "empenhado": 1982.7,
-      "a_liquidar": 991.35,
-      "liquidado_a_pagar": 991.35,
+      "processo": "21000022277202449",
+      "contrato_planilha": NaN,
+      "departamento": NaN,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -79882,12 +79882,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "76205970000195",
-      "processo": "-9",
-      "contrato_planilha": "COMPARTILHADA",
-      "departamento": "PRONER",
-      "empenhado": 130792.42,
-      "a_liquidar": 65396.21,
-      "liquidado_a_pagar": 65396.21,
+      "processo": "21000021901202491",
+      "contrato_planilha": NaN,
+      "departamento": NaN,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -80052,12 +80052,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "75741330000137",
-      "processo": "21000022160202465",
+      "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "empenhado": 326771.3,
+      "a_liquidar": 163385.65,
+      "liquidado_a_pagar": 163385.65,
       "pago_acumulado": 0.0
     },
     {
@@ -80290,12 +80290,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "95589255000148",
-      "processo": "21000020658202493",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 30569.9,
+      "a_liquidar": 15284.95,
+      "liquidado_a_pagar": 15284.95,
       "pago_acumulado": 0.0
     },
     {
@@ -82075,12 +82075,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "75741363000187",
-      "processo": "21000024609202420",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 223143.26,
+      "a_liquidar": 111571.63,
+      "liquidado_a_pagar": 111571.63,
       "pago_acumulado": 0.0
     },
     {
@@ -82126,12 +82126,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "76105634000170",
-      "processo": "21000023975202461",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 343136.48,
+      "a_liquidar": 171568.24,
+      "liquidado_a_pagar": 171568.24,
       "pago_acumulado": 0.0
     },
     {
@@ -83299,12 +83299,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "75825828000188",
-      "processo": "-9",
+      "processo": "21000025177202474",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 145969.92,
-      "a_liquidar": 72984.96,
-      "liquidado_a_pagar": 72984.96,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -84506,12 +84506,12 @@
       "acao": "20ZV",
       "ptres": "B71170014",
       "favorecido": "76205665000101",
-      "processo": "21000025975202404",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "-9",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "PRONER",
+      "empenhado": 194641.28,
+      "a_liquidar": 97320.64,
+      "liquidado_a_pagar": 97320.64,
       "pago_acumulado": 0.0
     },
     {
@@ -86019,12 +86019,12 @@
       "acao": "20ZV",
       "ptres": "B71260005",
       "favorecido": "83102673000180",
-      "processo": "-9",
-      "contrato_planilha": "COMPARTILHADA",
-      "departamento": "PRONER",
-      "empenhado": 108361.24,
-      "a_liquidar": 54180.62,
-      "liquidado_a_pagar": 54180.62,
+      "processo": "21000030865202456",
+      "contrato_planilha": NaN,
+      "departamento": NaN,
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
       "pago_acumulado": 0.0
     },
     {
@@ -118829,12 +118829,12 @@
       "acao": "20ZV",
       "ptres": "DP11258",
       "favorecido": "04056230000123",
-      "processo": "-9",
-      "contrato_planilha": NaN,
-      "departamento": NaN,
-      "empenhado": 0.0,
-      "a_liquidar": 0.0,
-      "liquidado_a_pagar": 0.0,
+      "processo": "308342022",
+      "contrato_planilha": "COMPARTILHADA",
+      "departamento": "CAIXA ECONÔMICA",
+      "empenhado": 5730000.0,
+      "a_liquidar": 2865000.0,
+      "liquidado_a_pagar": 2865000.0,
       "pago_acumulado": 0.0
     },
     {
@@ -141686,7 +141686,7 @@
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8593)",
       "ne_ccor": "420013000012017NE000484",
       "ne_curta": "2017NE000484",
       "mes_referencia": "NOV/2026",
@@ -141696,7 +141696,7 @@
       "favorecido": "00640110000118",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DEPROS",
+      "departamento": "VERIFICAR (420013/DEPROS · PO 0002)",
       "empenhado": 77960.87,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 77960.87,
@@ -147959,7 +147959,7 @@
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_215A)",
       "ne_ccor": "420013000012021NE000060",
       "ne_curta": "2021NE000060",
       "mes_referencia": "NOV/2026",
@@ -147969,7 +147969,7 @@
       "favorecido": "30417158000122",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "VERIFICAR (GABINETE/DEFLO/DECAP · PO 0000)",
+      "departamento": "VERIFICAR (420013/GABINETE/DEFLO/DECAP · PO 0000)",
       "empenhado": 5954.0,
       "a_liquidar": 2977.0,
       "liquidado_a_pagar": 2977.0,
@@ -147993,7 +147993,7 @@
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8593)",
       "ne_ccor": "420013000012023NE000140",
       "ne_curta": "2023NE000140",
       "mes_referencia": "NOV/2026",
@@ -148003,14 +148003,14 @@
       "favorecido": "45511847000179",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DEPROS",
+      "departamento": "VERIFICAR (420013/DEPROS · PO 0000)",
       "empenhado": 74055.4,
       "a_liquidar": 37027.7,
       "liquidado_a_pagar": 37027.7,
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8593)",
       "ne_ccor": "420013000012023NE000141",
       "ne_curta": "2023NE000141",
       "mes_referencia": "NOV/2026",
@@ -148020,14 +148020,14 @@
       "favorecido": "45511847000179",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DEPROS",
+      "departamento": "VERIFICAR (420013/DEPROS · PO 0000)",
       "empenhado": 211600.0,
       "a_liquidar": 105800.0,
       "liquidado_a_pagar": 105800.0,
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012023NE000809",
       "ne_curta": "2023NE000809",
       "mes_referencia": "NOV/2026",
@@ -148037,7 +148037,7 @@
       "favorecido": "10501105000188",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 383.0,
       "a_liquidar": 191.5,
       "liquidado_a_pagar": 191.5,
@@ -148129,7 +148129,7 @@
       "pago_acumulado": 382600.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_21B6)",
       "ne_ccor": "420013000012024NE000063",
       "ne_curta": "2024NE000063",
       "mes_referencia": "NOV/2026",
@@ -148139,14 +148139,14 @@
       "favorecido": "00509612000104",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 259629.2,
       "a_liquidar": 129814.6,
       "liquidado_a_pagar": 129814.6,
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012024NE000067",
       "ne_curta": "2024NE000067",
       "mes_referencia": "NOV/2026",
@@ -148156,7 +148156,7 @@
       "favorecido": "18104789000196",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 382000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
@@ -148214,7 +148214,7 @@
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_21B6)",
       "ne_ccor": "420013000012024NE000081",
       "ne_curta": "2024NE000081",
       "mes_referencia": "NOV/2026",
@@ -148224,7 +148224,7 @@
       "favorecido": "420013",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 45178.94,
       "a_liquidar": 22589.47,
       "liquidado_a_pagar": 22589.47,
@@ -148248,7 +148248,7 @@
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_21B6)",
       "ne_ccor": "420013000012024NE000098",
       "ne_curta": "2024NE000098",
       "mes_referencia": "NOV/2026",
@@ -148258,7 +148258,7 @@
       "favorecido": "00509612000104",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 278858.74,
       "a_liquidar": 139429.37,
       "liquidado_a_pagar": 139429.37,
@@ -148384,7 +148384,7 @@
       "pago_acumulado": 573000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000060",
       "ne_curta": "2025NE000060",
       "mes_referencia": "NOV/2026",
@@ -148394,14 +148394,14 @@
       "favorecido": "03235662000139",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 192225.12,
       "a_liquidar": 1225.12,
       "liquidado_a_pagar": 1225.12,
       "pago_acumulado": 189774.88
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000061",
       "ne_curta": "2025NE000061",
       "mes_referencia": "NOV/2026",
@@ -148411,7 +148411,7 @@
       "favorecido": "13282432000184",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 191000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
@@ -148469,7 +148469,7 @@
       "pago_acumulado": 190427.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000066",
       "ne_curta": "2025NE000066",
       "mes_referencia": "NOV/2026",
@@ -148479,7 +148479,7 @@
       "favorecido": "02081364000179",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 191000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
@@ -148537,7 +148537,7 @@
       "pago_acumulado": 185751.91
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000072",
       "ne_curta": "2025NE000072",
       "mes_referencia": "NOV/2026",
@@ -148547,14 +148547,14 @@
       "favorecido": "22251713000160",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 191000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
       "pago_acumulado": 191000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000073",
       "ne_curta": "2025NE000073",
       "mes_referencia": "NOV/2026",
@@ -148564,14 +148564,14 @@
       "favorecido": "20409373000128",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 384709.36,
       "a_liquidar": 2709.36,
       "liquidado_a_pagar": 2709.36,
       "pago_acumulado": 379290.64
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000075",
       "ne_curta": "2025NE000075",
       "mes_referencia": "NOV/2026",
@@ -148581,14 +148581,14 @@
       "favorecido": "09372995000196",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 477500.0,
       "a_liquidar": 238750.0,
       "liquidado_a_pagar": 238750.0,
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000076",
       "ne_curta": "2025NE000076",
       "mes_referencia": "NOV/2026",
@@ -148598,14 +148598,14 @@
       "favorecido": "07573024000189",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 191000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
       "pago_acumulado": 191000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000079",
       "ne_curta": "2025NE000079",
       "mes_referencia": "NOV/2026",
@@ -148615,7 +148615,7 @@
       "favorecido": "18104789000196",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 382000.0,
       "a_liquidar": 191000.0,
       "liquidado_a_pagar": 191000.0,
@@ -148639,7 +148639,7 @@
       "pago_acumulado": 285858.4
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000081",
       "ne_curta": "2025NE000081",
       "mes_referencia": "NOV/2026",
@@ -148649,14 +148649,14 @@
       "favorecido": "05453827000174",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 191000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
       "pago_acumulado": 191000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000082",
       "ne_curta": "2025NE000082",
       "mes_referencia": "NOV/2026",
@@ -148666,14 +148666,14 @@
       "favorecido": "04656234000142",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 41000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
       "pago_acumulado": 41000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000083",
       "ne_curta": "2025NE000083",
       "mes_referencia": "NOV/2026",
@@ -148683,14 +148683,14 @@
       "favorecido": "04656234000142",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 151310.0,
       "a_liquidar": 1310.0,
       "liquidado_a_pagar": 1310.0,
       "pago_acumulado": 148690.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000090",
       "ne_curta": "2025NE000090",
       "mes_referencia": "NOV/2026",
@@ -148700,14 +148700,14 @@
       "favorecido": "00325635000169",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 257500.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
       "pago_acumulado": 257500.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000091",
       "ne_curta": "2025NE000091",
       "mes_referencia": "NOV/2026",
@@ -148717,14 +148717,14 @@
       "favorecido": "00325635000169",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 220000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
       "pago_acumulado": 220000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000093",
       "ne_curta": "2025NE000093",
       "mes_referencia": "NOV/2026",
@@ -148734,14 +148734,14 @@
       "favorecido": "16725392000196",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 274769.2,
       "a_liquidar": 83769.2,
       "liquidado_a_pagar": 83769.2,
       "pago_acumulado": 107230.8
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000094",
       "ne_curta": "2025NE000094",
       "mes_referencia": "NOV/2026",
@@ -148751,14 +148751,14 @@
       "favorecido": "20181590000103",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 192000.0,
       "a_liquidar": 1000.0,
       "liquidado_a_pagar": 1000.0,
       "pago_acumulado": 190000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000113",
       "ne_curta": "2025NE000113",
       "mes_referencia": "NOV/2026",
@@ -148768,14 +148768,14 @@
       "favorecido": "67662437000161",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 215436.03,
       "a_liquidar": 24436.03,
       "liquidado_a_pagar": 24436.03,
       "pago_acumulado": 166563.97
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000119",
       "ne_curta": "2025NE000119",
       "mes_referencia": "NOV/2026",
@@ -148785,14 +148785,14 @@
       "favorecido": "31280504000136",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 191000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
       "pago_acumulado": 191000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000120",
       "ne_curta": "2025NE000120",
       "mes_referencia": "NOV/2026",
@@ -148802,14 +148802,14 @@
       "favorecido": "00609582000108",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 382000.0,
       "a_liquidar": 191000.0,
       "liquidado_a_pagar": 191000.0,
       "pago_acumulado": 0.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8622)",
       "ne_ccor": "420013000012025NE000121",
       "ne_curta": "2025NE000121",
       "mes_referencia": "NOV/2026",
@@ -148819,14 +148819,14 @@
       "favorecido": "09350566000118",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DECAP",
+      "departamento": "VERIFICAR (420013/DECAP · PO 0000)",
       "empenhado": 191000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
       "pago_acumulado": 191000.0
     },
     {
-      "tipo_recurso": "RAP001 (RAP_OUTRAS)",
+      "tipo_recurso": "RAP001 (RAP_8593)",
       "ne_ccor": "420013000012025NE000122",
       "ne_curta": "2025NE000122",
       "mes_referencia": "NOV/2026",
@@ -148836,7 +148836,7 @@
       "favorecido": "01112780000124",
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
-      "departamento": "DEPROS",
+      "departamento": "VERIFICAR (420013/DEPROS · PO 0000)",
       "empenhado": 955000.0,
       "a_liquidar": 0.0,
       "liquidado_a_pagar": 0.0,
@@ -148946,6 +148946,546 @@
     }
   ],
   "contratos_vigentes": [
+    {
+      "ug": "130010",
+      "numero": "00003/2016",
+      "processo": "21079.000022/2016-10",
+      "fornecedor": "ENERGISA RONDONIA - DISTRIBUIDORA DE ENERGIA S.A",
+      "objeto": "FORNECIMENTO DE ENERGIA ELETRICA PELADISTRIBUIDORA AO CNSUMIDOR (CEPLAC/SUERO), NASUNIADES DE ARIQUEMES, BURITIS, CAMPO NOVO, CACAULANDIA, MACHADINHO, JARÚ, M.DA SERRA, OURO PRETO, JI-PARANÁ, CACOAL E COLODADO.",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "135.000,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00007/2017",
+      "processo": "21809.000008/2017-05",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO",
+      "objeto": "SERVIÇO DE FORNECIMENTO DE ÁGUA ENCANADA TRATADA PARA ATENDER TRABALHOS DA CEPLAC ESCRITÓRIO LOCAL DE CAMETÁ/PA, VENCEDOR SERVIÇO AUTONOMO DE AGUA E ESGOTO-SAAE/PREFEITURA MUNICIPAL DE CAMETÁ, VALOR TOTAL DO CONTRATO R$ 392,40A SER PAGO EM PARCELAR MENSAIS PERÍODO INICIALDE 12 MESES, POR PRAZO INDETERMINADO, CONFORMEART. 25, CAPUT DA LEI 8.666/93.",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "392,40"
+    },
+    {
+      "ug": "130010",
+      "numero": "00008/2017",
+      "processo": "21809.000071/2017-33",
+      "fornecedor": "COMPANHIA DE SANEAMENTO DO TOCANTINS - SANEATINS",
+      "objeto": "PRESTAÇÃO DE SERVIÇOS DE FORNECIMENTO DE AGUA ENCANADA POTÁVEL, COLETA E TRATAMENTO DE ESGOTO SANITÁRIO PELA BRK AMBIENTAL, MEDIANTETARIFA VIGENTE, VISANDO ATENDER ESC. LOCAL DACEPLAC NO MUNICÍPIO DE TUCUMA/PA, POR TEMPO INDETERMINADO A PARTIR DA ASSINATURA.",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "2.196,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "63778/2017",
+      "processo": "21809.000163/2016-32",
+      "fornecedor": "EQUATORIAL PARA DISTRIBUIDORA DE ENERGIA S.A.",
+      "objeto": "CONTRATAÇÃO DE EMPRESA PARA O FORNECIMENTO DE ENERGIA ELÉTRICA PARA ATENDER AS UNIDADES DA DA CEPLAC/SUEPA, NO EXERCÍCIO DE 2017  ,NOS MUNICÍPIOS DE: ACARA, ALENQUER, ALTAMIRA  ,ANAPU, BRASIL NOVO, BELÉM, CAMETÁ, ITAITUBA, MARITUBA, MEDICILÂNDIA, NOVO REPARTIMENTO, PACAJÁPLACAS, RURÓPOLIS, SANTARÉM, SANTA IZABEL, TOMEAÇÚ, TRAIRÃO, TUCUMÃ, SÃO FELIX DO XINGU, EURUARÁ, ESTAÇÕES EXPERIMENTAIS E FUTUROS ESCRI-TÓRIOS DA CEPLAC NO ESTADO DO PARÁ.",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "480.000,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00001/2016",
+      "processo": "21097.000007/2015-82",
+      "fornecedor": "COMPANHIA DE AGUAS E ESGOTOS DE RONDONIA CAERD",
+      "objeto": "PRESTAÇÃO DE SERVIÇOS DE FORNECIMENTODA ÁGUA E/OU ESGOTAMENTO SANITÁRIO, E SERVIÇOSDE ADORDO COM OS PADRÔES ESTABELECIDOS NO DECRETO 4334/89.",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "24.000,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00005/2017",
+      "processo": "21809.000006/2017-16",
+      "fornecedor": "MUNICIPIO DE ACARA",
+      "objeto": "CONTRATAÇÃO FORNECIMENTO DE ÁGUA ENCANADA TRATADA PARA O ESC. LOCAL DE ACARÁ/PA, CONTRATADA: SAM-PREFEITURA MUNICIPAL DE ACRÁ/PA - 051.96548/0001-72, TRAV. SÃO JOSÉ NR. 120 - 68690-000, VALOR TOTAL R$ 392,40 FUNDAMENTO LEGAL, ART. 25, CAPUT DA LEI NR. 8.666/93, PERÍODO VIGÊNCIA INDERTERMINADO, DATA DA ASSINATURA 15/09/2017",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "392,40"
+    },
+    {
+      "ug": "130010",
+      "numero": "00006/2017",
+      "processo": "21809.000007/2017-52",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTOS",
+      "objeto": "CNTRATAÇÃO DE SERVIÇOS DE ÁGUA ENCANADATRATADA PARA O ESC. LOCAL DE SANTA IZABEL DO PARÁ, CONTRATADA SAAE/PREFEITURA MUNICIPAL DE SANTA IZABEL, CNPJ N° 05696125000-11, AVENIDA RIOBRANCO N° 1059, CENTRO CEP 68790-000, VALOR R$336,00. FUNDAMENTO ART. 25 CAPUT DA LEI 8.666/93.",
+      "vigencia_fim": "",
+      "valor_global": "336,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00010/2017",
+      "processo": "21809.000004/2017-19",
+      "fornecedor": "COMPANHIA DE SANEAMENTO DO PARA",
+      "objeto": "PRESTAÇÃO DE FORNECIMENTO DE ÁGUA E COLETA DE ESGOTOS SANITÁRIOS, OBJETIVANDO ATENDERAS UNIDADES ADMINISTRATIVAS, VINCULADAS A CEPLAC/SUPAM, ESTABELECIDAS EMALENQUER E SANTARÉM-PAE DEMAIS MUNICÍPIOS OPERADOS PELA MESMA NO INTERIOR DO ESTADO DO PARÁ,",
+      "vigencia_fim": "",
+      "valor_global": "1.400,16"
+    },
+    {
+      "ug": "130010",
+      "numero": "00002/2020",
+      "processo": "21079.000189/2019-15",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO",
+      "objeto": "PRESTAÇÃO DE SERVIÇO DE FORNECIMENTO DE ÁGUA TRATADA E/OU ESGOTAMENTO SANITÁRIO PARA AUNIDADE DA CEPLAC/RO NO MUNICIPIO DE CACOAL/ROCONFORME CLAUSULA DO REFERIDO CONTRATO.",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "1.713,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00004/2019",
+      "processo": "21079.000049/2019-47",
+      "fornecedor": "AGUAS DE ARIQUEMES SANEAMENTO SPE S/A",
+      "objeto": "FORNECIMENTO DE ÁGUA TRATADA E DE COLETA E TRATAENTO DE ESGOTAMENTOSANITÁRIO PELA CONTRATADA (ÀGUAS DE ARIQUEMES SANEAMENTO SIE LTAÀ CONTRATANTE (CEPLAC-ARIQUEMES).",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "1.500,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00011/2019",
+      "processo": "21079.000180/2019-12",
+      "fornecedor": "AGUAS DE BURITIS SANEAMENTO S.A",
+      "objeto": "PRESTAÇÃO DE SERVIÇO DE FORNECIMENTO DE ÁGUA TRATADA E DE COLETA  E TRATAMENTO DE ESGOTO PARA A UNIDADE DA CEPLAC EM BURITIS/RO CFECONTRATO.",
+      "vigencia_fim": "2099-12-31",
+      "valor_global": "840,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00006/2020",
+      "processo": "21808.000080/2020-30",
+      "fornecedor": "ENERGISA MATO GROSSO - DISTRIBUIDORA DE ENERGIA S.A.",
+      "objeto": "PRESTAÇÃO DE SERVIÇO COM FORNECIMENTO DE ENERGIA ELÉTRICA NA UNIDADE DA CEPLAC EM ALTAFLORESTA.",
+      "vigencia_fim": "2071-03-15",
+      "valor_global": "28.100,64"
+    },
+    {
+      "ug": "130010",
+      "numero": "00007/2016",
+      "processo": "21084.000351/2016-83",
+      "fornecedor": "COMPANHIA DE ELETRICIDADE DO ESTADO DA BAHIA COELBA",
+      "objeto": "PRESTAÇÃO DE SERVIÇO COM FORNECIMENTO DE ENERGIA ELETRICA, PARA SEDE E OS ESCRITORIOS LOCAIS E REGIONAIS DA SEPLAC/BA.",
+      "vigencia_fim": "",
+      "valor_global": "1.269.460,20"
+    },
+    {
+      "ug": "130010",
+      "numero": "00023/2021",
+      "processo": "21079.000067/2021-43",
+      "fornecedor": "OUROMAX LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS DE COMUNICAÇÃO MULTIMÍDIA – INTERNET VIA FIBRA ÓTICA, 50 MBPS",
+      "vigencia_fim": "2026-11-20",
+      "valor_global": "4.080,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00032/2021",
+      "processo": "21000.106456/2021-95",
+      "fornecedor": "FUNDACAO ARTHUR BERNARDES",
+      "objeto": "O PRESENTE CONTRATO TEM POR OBJETO ESPECÍFICO A PRESTAÇÃO DE SERVIÇOS DE GESTÃO ADMINISTRAVA E FINANCEIRA PELA FUNARBE EM APOIO A CEPLAC/SDI NA EXECUÇÃO DO PROJETO DE PESQUISA E INOVAÇÃO: \"SELEÇÃO DE VARIEDADES DE CACAUEIRO PARA CULTIVO EM ALTO NÍVEL TECNOLÓGICO NO EXTREMO SUL DA BAHIA.\"",
+      "vigencia_fim": "2026-12-30",
+      "valor_global": "705.435,50"
+    },
+    {
+      "ug": "130010",
+      "numero": "00031/2021",
+      "processo": "21000.106468/2021-10",
+      "fornecedor": "FUNDACAO ARTHUR BERNARDES",
+      "objeto": "O PRESENTE CONTRATO TEM POR OBJETO ESPECÍFICO A PRESTAÇÃO DE SERVIÇOS DE GESTÃO ADMINISTRAVA E FINANCEIRA PELA FUNARBE EM APOIO A CEPLAC/SDI NA EXECUÇÃO DO PROJETO DE PESQUISA E INOVAÇÃO: \"REESTRUTURAÇÃO DA COLEÇÃO BRASILEIRA DE GERMOPLASMA DE CACAU, PARA ASSEGURAR AS BASES GENÉTICAS NECESSÁRIAS PARA AUMENTAR A PRODUTIVIDADE E A QUALIDADE DOS CACAUAIS.",
+      "vigencia_fim": "2027-01-04",
+      "valor_global": "1.446.093,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00036/2022",
+      "processo": "21084.000033/2021-80",
+      "fornecedor": "WONDER SERVICOS TERCEIRIZADOS LTDA",
+      "objeto": "O PRESENTE INSTRUMENTO É A CONTRATAÇÃO DE SERVIÇOS CONTINUADOS\r\nDE TRABALHADORES DA AGROPECUÁRIA, COM DISPONIBILIZAÇÃO DE MÃO DE OBRA EM REGIME DE DEDICAÇÃO\r\nEXCLUSIVA, QUE SERÃO PRESTADOS NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERÊNCIA.",
+      "vigencia_fim": "2027-01-13",
+      "valor_global": "1.579.767,48"
+    },
+    {
+      "ug": "130010",
+      "numero": "00038/2022",
+      "processo": "21084.000033/2021-80",
+      "fornecedor": "MAIA SILVA EMPREENDIMENTOS LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTINUADOS DE TRABALHADORES DA AGROPECUÁRIA, COM DISPONIBILIZAÇÃO DE MÃO DE OBRA EM REGIME DE DEDICAÇÃO EXCLUSIVA, PARA ATENDER AS AS NECESSIDADES DA  ESTAÇÃO EXPERIMENTAL DO EXTREMO SUL - ESSUL, SUBES/CEPLAC",
+      "vigencia_fim": "2027-01-13",
+      "valor_global": "388.529,64"
+    },
+    {
+      "ug": "130010",
+      "numero": "00041/2022",
+      "processo": "21084.000033/2021-80",
+      "fornecedor": "WONDER SERVICOS TERCEIRIZADOS LTDA",
+      "objeto": "PRESTAÇÃO SERVIÇOS CONTINUADOS DE TRABALHADORES DA AGROPECUÁRIA,, PARA ESTAÇÃO EXPERIMENTAL FILOGONIO PEIXOTO - ESFIP.",
+      "vigencia_fim": "2027-01-13",
+      "valor_global": "66.944,07"
+    },
+    {
+      "ug": "130010",
+      "numero": "00043/2022",
+      "processo": "21000.042678/2020-91",
+      "fornecedor": "EMPRESA BAIANA DE AGUAS E SANEAMENTO SA",
+      "objeto": "PRESTAÇÃO DOS SERVIÇOS DE ABASTECIMENTO DE ÁGUA E/OU ESGOTAMENTO SANITÁRIO, NOS SEGUINTE MUNICÍPIOS DO ESTADO DA BAHIA: CAMAMU, EUNÁPOLIS, FLORETA AZUL, IBIRAPITANGA IPIAÚ ITUBERÁ, MUTUÍPE, TEOLÂNIDA TEXEIRA DE FREITAS, UBATÃ, ITAMARJÚ, CANMAVIEIRAS, CAMACAN E UNA, NO PRAZO DE 12 (DOZE) MESES, PRORROGÁVEL POR IGUAIS E SUCESSIVOS PERÍODOS, LIMITADAO A 60 (SESSENTA) MESES, CONTADOS A PARTIR DA ASSINATURA.",
+      "vigencia_fim": "2030-05-16",
+      "valor_global": "33.326,67"
+    },
+    {
+      "ug": "130010",
+      "numero": "00049/2022",
+      "processo": "21000.108470/2022-12",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO",
+      "objeto": "CONTRATAÇÃO DA AUTARQUIA PÚBLICA MUNICIPAL SAAE DE ITORORÓ - BAHIA, PARA FORNECIMENTO DE PRESTAÇÃO DE SERVIÇOS DE SANEAMENTO BÁSICO.",
+      "vigencia_fim": "",
+      "valor_global": "587,12"
+    },
+    {
+      "ug": "130010",
+      "numero": "00048/2022",
+      "processo": "21000.108481/2022-94",
+      "fornecedor": "SAAE - SERVICO AUTONOMO DE AGUA E ESGOTO DE JUSSARI-BA",
+      "objeto": "CONTRATAÇÃO DA AUTARQUIA PÚBLICA MUNICIPAL SAAE DE JUSSARI - BAHIA, PARA FORNECIMENTO DE PRESTAÇÃO DE SERVIÇOS DE SANEAMENTO BÁSICO.",
+      "vigencia_fim": "",
+      "valor_global": "2.350,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00052/2022",
+      "processo": "21000.108474/2022-92",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO",
+      "objeto": "CONTRATO DE PRESTAÇÃO DE SERVIÇO DE FORNECIMENTO DE ÁGUA POTÁVEL-TAPEROÁ",
+      "vigencia_fim": "",
+      "valor_global": "826,42"
+    },
+    {
+      "ug": "130010",
+      "numero": "00050/2022",
+      "processo": "21000.108478/2022-71",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO",
+      "objeto": "CONTRATAÇÃO DO SERVIÇO AUTÔNOMO DE ÁGUA E ESGOTO - SAAE-Valença- BA",
+      "vigencia_fim": "",
+      "valor_global": "949,34"
+    },
+    {
+      "ug": "130010",
+      "numero": "00056/2023",
+      "processo": "21000.007440/2022-81",
+      "fornecedor": "PRATA SERVICOS ADMINISTRATIVOS LTDA",
+      "objeto": "PRESTAÇÃO DE SERVIÇOS CONTINUADOS DE LIMPEZA, CONSERVAÇÃO E HIGIENIZAÇÃO PREDIAL, PARA A SUPERINTENDÊNCIA DE DESENVOLVIMENTO DA REGIÃO CACAUEIRA NO ESTADO DA BAHIA - SUCAB/CEPLAC.",
+      "vigencia_fim": "2027-04-21",
+      "valor_global": "675.333,31"
+    },
+    {
+      "ug": "130010",
+      "numero": "00068/2023",
+      "processo": "21809.000063/2023-35",
+      "fornecedor": "AGUAS DE RUROPOLIS CAPTACAO TRATAMENTO E DISTRIBUICAO DE AGUA SPE LTDA",
+      "objeto": "Contratação de Empresa Especializada em Serviços de Abastecimento de Água e Coleta de Esgoto, visando atender o Escritório Local da SUCAP/CEPLAC, em Rurópolis/Pará.",
+      "vigencia_fim": "",
+      "valor_global": "1.440,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00071/2023",
+      "processo": "21000.036955/2023-70",
+      "fornecedor": "AMBAR ENERGIA AMAZONAS S.A.",
+      "objeto": "CONTRATAÇÃO DE FORNECIMENTO DE SERVIÇO DE ENERGIA ELÉTRICA NA UNIDADE DA CEPLAC/ÃM. NA ESTAÇÃO EXPERIMENTAL RIO NEGRO - ENERG/CEDAM/SUPAM/CEPLAC.",
+      "vigencia_fim": "",
+      "valor_global": "5.361,41"
+    },
+    {
+      "ug": "130010",
+      "numero": "00004/2024",
+      "processo": "21808.000057/2024-79",
+      "fornecedor": "EDP ESPIRITO SANTO DISTRIBUICAO DE ENERGIA S.A.",
+      "objeto": "CONTRATAÇÃO  DO SERVIÇO DE FORNECIMENTO DE ENERGIA ELÉTRICA, VISANDO ATENDER A ESTAÇÃO EXPERIMENTAL DA CEPLAC FILOGÔNIO PEIXOTO - ESFIP,  ATRAVÉS DE INEXIGIBILIDADE DE LICITAÇÃO, PELA EMPRESA DISTRIBUIÇÃO DE ENERGIA - EDP.",
+      "vigencia_fim": "",
+      "valor_global": "14.126,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00008/2024",
+      "processo": "21808.000056/2024-24",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO DE LINHARES",
+      "objeto": "O PRESENTE INSTRUMENTO É A CONTRATAÇAO DE SERVIÇOS COMUNS DE FORNECIMENTO DE ÁGUA POTÁVEL CANALIZADA E TRATAMENTO DE ESGOTO SANITÁRIO PARA ATENDER O ESCRITÓRIO LOCAL E ESTAÇÃO EXPERIMENTAL FILOGÔNIO PEIXOTO DESFOO CENTRO  DE DESENVOLVIMENTO DA LAVOURA CACAUEIRA NO ESTADO DO ESPÍRITO SANTO - ESFIP. O PRAZO DE VIGÊNCIA DO CONTRATO É POR TEMPO INDETERMINADO, NA FORMA DO ARTIGO 109 DA LEI 14.133, DE 2021, CONTADOS A PARTIR DA DATA DE ASSINATURA DO CONTRATO.",
+      "vigencia_fim": "",
+      "valor_global": "8.045,56"
+    },
+    {
+      "ug": "130010",
+      "numero": "00005/2024",
+      "processo": "21000.026360/2024-97",
+      "fornecedor": "NITROBAHIA INSEMINACAO ARTIFICIAL LTDA",
+      "objeto": "O OBJETO DO PRESENTE INSTRUMENTO É A EVENTUAL AQUISIÇÃO DE  NITROGÊNIO LÍQUIDO,  NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERÊNCIA.",
+      "vigencia_fim": "2027-01-24",
+      "valor_global": "197.400,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00009/2025",
+      "processo": "21079.000018/2024-53",
+      "fornecedor": "RG SEGURANCA E VIGILANCIA LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE VIGILÂNCIA ARMADA E RONDA MOTORIZADA, DIURNO E NOTURNO, NAS DEPENDÊNCIAS DA ESTAÇÃO EXPERIMENTAL DE PESQUISA E INOVAÇÃO DE RONDÔNIA, EM OURO PRETO DO OESTE/RO,",
+      "vigencia_fim": "2030-04-20",
+      "valor_global": "1.653.844,80"
+    },
+    {
+      "ug": "130010",
+      "numero": "00010/2025",
+      "processo": "21079.000018/2024-53",
+      "fornecedor": "GX SERVICOS DE SEGURANCA LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE VIGILÂNCIA ARMADA E RONDA MOTORIZADA, DIURNO E NOTURNO, NAS DEPENDÊNCIAS DA ESTAÇÃO EXPERIMENTAL ARIOSTO RIVA, EM ALTA FLORESTA - MT",
+      "vigencia_fim": "2030-03-26",
+      "valor_global": "1.532.100,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00026/2025",
+      "processo": "21000.037479/2024-95",
+      "fornecedor": "FORT SERVICOS LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE LIMPEZA, CONSERVAÇÃO, HIGIENIZAÇÃO E ASSEIO DIÁRIO, A SEREM EXECUTADOS NO ESTADO DO MATO GROSSO/MT.",
+      "vigencia_fim": "2030-04-15",
+      "valor_global": "5.129,48"
+    },
+    {
+      "ug": "130010",
+      "numero": "00031/2025",
+      "processo": "21000.037479/2024-95",
+      "fornecedor": "FORT SERVICOS LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE LIMPEZA, CONSERVAÇÃO, HIGIENIZAÇÃO E ASSEIO DIÁRIO, A SEREM EXECUTADOS NO ESTADO DE RONDÔNIA/RO",
+      "vigencia_fim": "2030-04-15",
+      "valor_global": "797.731,20"
+    },
+    {
+      "ug": "130010",
+      "numero": "00008/2025",
+      "processo": "21000.057265/2023-54",
+      "fornecedor": "EMPRESA BAIANA DE AGUAS E SANEAMENTO SA",
+      "objeto": "FORNECIMENTO DE ÁGUA E COLETA DE ESGOTO SANITÁRIO FORNECIMENTO DE ÁGUA E COLETA DE ESGOTO SANITÁRIO, NOS ESCRITÓRIOS DA CEPLAC NOS MUNICIPIOS DE CAMAMU, FLORESTA AZUL, IBIRAPITANGA, IPIAÚ, ITUBERÁ, MUTUIPE, TELOLÂNDIA, TEXEIRA DE FREITAS, UBATÃ , ITANHÉM, UBAITABA, GUARATINGA, JEQUIÉ, LAGE, UNA, CAMACAN, URUÇUCA, ARATACA, ITAPEBI, ITAGIBÁ E IBIRATAIAA",
+      "vigencia_fim": "",
+      "valor_global": "21.102,36"
+    },
+    {
+      "ug": "130010",
+      "numero": "00030/2025",
+      "processo": "21000.037479/2024-95",
+      "fornecedor": "LIMP CAR LOCACAO E SERVICOS LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE LIMPEZA, CONSERVAÇÃO, HIGIENIZAÇÃO E ASSEIO DIÁRIO, A SEREM EXECUTADOS NO ESTADO DO PARÁ/PA.",
+      "vigencia_fim": "2030-04-23",
+      "valor_global": "1.847.692,20"
+    },
+    {
+      "ug": "130010",
+      "numero": "00024/2025",
+      "processo": "21000.037479/2024-95",
+      "fornecedor": "TARGET ADMINISTRADORA E TERCEIRIZACOES LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE LIMPEZA, CONSERVAÇÃO, HIGIENIZAÇÃO E ASSEIO DIÁRIO, A SEREM EXECUTADOS NO ESTADO DO AMAZONAS/AM.",
+      "vigencia_fim": "2030-04-24",
+      "valor_global": "326.607,94"
+    },
+    {
+      "ug": "130010",
+      "numero": "00011/2025",
+      "processo": "21809.000200/2024-12",
+      "fornecedor": "COMPANHIA DE SANEAMENTO DO PARA",
+      "objeto": "CONTRATAÇÃO DA COMPANHIA DE SANEAMENTO DO PARÁ, PARA APRESTAÇÃO DOS SERVIÇOS PÚBLICOS DE FORNECIMENTO DE ÁGUA E/OU COLETA DE ESGOTOS SANITÁRIOS, NO CONTRATAÇÃO DA COMPANHIA DE SANEAMENTO DO PARÁ, ESCRITÓRIO DE DIFUSÃO E TECNOLOGIA DA CEPLAC NO MUNICÍPIO DE ALENQUER/PARÁ",
+      "vigencia_fim": "",
+      "valor_global": "1.200,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00029/2025",
+      "processo": "21079.000181/2024-16",
+      "fornecedor": "AGUAS DE JARU SPE S.A.",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS DE FORNECIMENTO DE ÁGUA POTÁVEL E COLETA DE ESGOTO, PARA ATENDER A UNIDADE DA CEPLAC-SUROM/SDT-JARU, NA CIDADE DE JARU/RO",
+      "vigencia_fim": "",
+      "valor_global": "3.489,73"
+    },
+    {
+      "ug": "130010",
+      "numero": "00035/2025",
+      "processo": "21809.000200/2024-12",
+      "fornecedor": "COMPANHIA DE SANEAMENTO DO PARA",
+      "objeto": "CONTRATAÇÃO DE PRESTAÇÃO DOS SERVIÇOS PÚBLICOS DE FORNECIMENTO DE ÁGUA E/OU COLETA DE ESGOTOS SANITÁRIOS, NAS DEPENDÊNCIAS DA SUPERINTENDÊNCIA REGIONAL DA LAVOURA CACAUEIRA NO ESTADO DO PARÁ.",
+      "vigencia_fim": "",
+      "valor_global": "1.800,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00001/2025",
+      "processo": "21808.000010/2025-96",
+      "fornecedor": "FORCA TATICA VIGILANCIA E SEGURANCA LTDA",
+      "objeto": "CONTRATAÇÃO DE PRESTAÇÃO DE SERVIÇOS CONTÍNUOS DE VIGILÂNCIA ARMADA E DESARMADA PARA A ESTAÇÃO EXPERIMENTAL DE FILOGÔNIO PEIXOTO - ESFIP/SUBES/CEPLAC.",
+      "vigencia_fim": "2027-05-13",
+      "valor_global": "588.015,69"
+    },
+    {
+      "ug": "130010",
+      "numero": "00002/2025",
+      "processo": "21082.000131/2024-80",
+      "fornecedor": "MACHADO DISTRIBUIDORA DE AGUAS MINERAIS E BEBIDAS LTDA",
+      "objeto": "O OBJETO DO PRESENTE INSTRUMENTO É A AQUISIÇÃO DE ÁGUA MINERAL E GARRAFÕES PARA ÁGUA MINERAL, NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERENCIA.",
+      "vigencia_fim": "2027-03-24",
+      "valor_global": "54.980,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00041/2025",
+      "processo": "21000.074566/2024-23",
+      "fornecedor": "SAAE - SERVICO AUTONOMO DE AGUA E ESGOTO DE JUSSARI-BA",
+      "objeto": "CONTRATAÇÃO DOS SERVIÇOS DE FORNECIMENTO DE ÁGUA POTÁVEL E ESGOTAMENTO SANITÁRIO PARA O ESCRITÓRIO LOCALDE JUSSARI  ATRAVÉS DO S.A.A.E - SERVIÇO AUTÔNOMO DE ÁGUA E ESGOTO.",
+      "vigencia_fim": "",
+      "valor_global": "3.441,16"
+    },
+    {
+      "ug": "130010",
+      "numero": "00043/2025",
+      "processo": "21000.074566/2024-23",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO",
+      "objeto": "CONTRATAÇÃO, POR INEXIGIBILIDADE DE LICITAÇÃO, DOS SERVIÇOS DE FORNECIMENTO DE ÁGUA POTÁVEL E COLETA DE ESGOTO, COM A  EMPRESA SERVIÇO AUTONOMO DE AGUA E ESGOTO- SAAE PARA ATENDER NA CIDADE DE ITORORÓ.",
+      "vigencia_fim": "",
+      "valor_global": "715,20"
+    },
+    {
+      "ug": "130010",
+      "numero": "00045/2025",
+      "processo": "21000.074566/2024-23",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO",
+      "objeto": "CONTRATAÇÃO, POR INEXIGIBILIDADE DE LICITAÇÃO, DOS SERVIÇOS DE FORNECIMENTO DE ÁGUA POTÁVEL E COLETA DE ESGOTO, COM A  EMPRESA SERVICO AUTONOMO DE AGUA E ESGOTO- SAAE PARA ATENDER A UNIDADE DA CEPLAC-SUBES , NA CIDADE NA CIDADE TAPEROÁ.",
+      "vigencia_fim": "",
+      "valor_global": "1.074,72"
+    },
+    {
+      "ug": "130010",
+      "numero": "00042/2025",
+      "processo": "21000.074566/2024-23",
+      "fornecedor": "SERVICO AUTONOMO DE AGUA E ESGOTO",
+      "objeto": "PRESTAÇÃO DE SERVIÇOS, COM FORNECIMENTO DE ÁGUA POTÁVEL, COLETA DE ESGOTO SANITÁRIO DO ESCRITÓRIO REGIONAL DA CEPLAC NA CIDADE VALENÇA-BA.",
+      "vigencia_fim": "",
+      "valor_global": "4.571,76"
+    },
+    {
+      "ug": "130010",
+      "numero": "00028/2025",
+      "processo": "21000.015072/2025-98",
+      "fornecedor": "BELEM RIO SEGURANCA LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE VIGILÂNCIA ARMADA PARA ESTAÇÃO DE PESQUISA DA CEPLAC, LOCALIZADA NO ESTADO DO AMAZONAS - SUPAM/AM",
+      "vigencia_fim": "2027-08-17",
+      "valor_global": "314.960,88"
+    },
+    {
+      "ug": "130010",
+      "numero": "00056/2025",
+      "processo": "21000.036059/2025-72",
+      "fornecedor": "PRIME CONSULTORIA E ASSESSORIA EMPRESARIAL LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE ADMINISTRAÇÃO E GERENCIAMENTO INFORMATIZADO DE FROTA PARA ABASTECIMENTO DE VEÍCULOS, VISANDO ATENDER ÀS UNIDADES DA COMISSÃO EXECUTIVA DO PLANO DA LAVOURA CACAUEIRA - CEPLAC, LOCALIZADAS NOS ESTADOS DO AMAZONAS, BAHIA, ESPÍRITO SANTO, MATO GROSSO, PARÁ E RONDÔNIA, NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERÊNCIA.",
+      "vigencia_fim": "2027-10-02",
+      "valor_global": "747.079,59"
+    },
+    {
+      "ug": "130010",
+      "numero": "00063/2025",
+      "processo": "21000.015072/2025-98",
+      "fornecedor": "BELEM RIO SEGURANCA LTDA",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTÍNUOS DE VIGILÂNCIA ARMADA E DESARMADA PARA AS UNIDADES DA CEPLAC, LOCALIZADAS NO ESTADO DO PARÁ, A SEREM EXECUTADOS EM REGIME DE DEDICAÇÃO EXCLUSIVA DE MÃO DE OBRA.",
+      "vigencia_fim": "2027-10-22",
+      "valor_global": "1.585.458,24"
+    },
+    {
+      "ug": "130010",
+      "numero": "00067/2025",
+      "processo": "21000.081910/2025-11",
+      "fornecedor": "PINHEIRO S VEICULOS LTDA",
+      "objeto": "ESCOLHA DA PROPOSTA MAIS VANTAJOSA PARA A EVENTUAL AQUISIÇÃO DE VEÍCULOS AUTOMOTORES, A FIM DE ATENDER AS DEMANDAS DA COMISSÃO EXECUTIVA DO PLANO DA LAVOURA CACAUEIRA - CEPLAC",
+      "vigencia_fim": "2026-12-02",
+      "valor_global": "133.430,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00070/2025",
+      "processo": "21808.000177/2025-57",
+      "fornecedor": "FUNDACAO DE DESENVOLVIMENTO DA PESQUISA DO AGRONEGOCIO",
+      "objeto": "CONTRATAÇÃO DOS SERVIÇOS DE SUPORTE ADMINISTRATIVO E FINANCEIRO DA FUNDAÇÃO DO DESENVOLVIMENTO DA PESQUISA DO AGRONEGÓCIO – FUNDEPAG",
+      "vigencia_fim": "2026-12-09",
+      "valor_global": "1.905.948,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "2025NE000116",
+      "processo": "21809.000200/2024-12",
+      "fornecedor": "COMPANHIA DE SANEAMENTO DO PARA",
+      "objeto": "CONTRATAÇÃO DE EMPRESA PARA FORNECIMENTO DE ÁGUA ENCANADA TRATADA,E SERVIÇOS DE ESGOTO\nPARA ATENDER AO ESCRITÓRIO DE DIFUSÃO E TECNOLOGIA DA CEPLAC NOS MUNICÍPIOS DE SANTARÉM - PARÁ CONTRATO 10/2025",
+      "vigencia_fim": "",
+      "valor_global": "1.800,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00004/2026",
+      "processo": "21809.000141/2025-63",
+      "fornecedor": "STYLUS SERVICOS DE LIMPEZA E CONSERVACAO LTDA",
+      "objeto": "CONTRATAÇÃO SERVIÇOS, ATRAVÉS DE EMPRESA ESPECIALIZADA NO FORNECIMENTO DE MÃO DE OBRA NA CATEGORIA DE TRABALHADORES DA AGROPECUÁRIA - SERVIÇOS AUXILIARES, COM OBJETIVO DE ATENDER A ESTAÇÃO DE PESQUISA DO MAPA/SDR/CEPLAC/COPAM NO ESTADO DO PARÁ, UNIDADE DE TUCUMÃ - PARÁ. SERVIÇOS COM REGIME DE DEDICAÇÃO EXCLUSIVA DE MÃO DE OBRA, CONFORME CONDIÇÕES E EXIGÊNCIAS QUE SERÃO ESTABELECIDAS NESTE TERMO DE REFERENCIA E ETP, REFERENTE AO GRUPO 3, VALOR DO CONTRATO R$ 443.100,00",
+      "vigencia_fim": "2027-06-11",
+      "valor_global": "474.868,18"
+    },
+    {
+      "ug": "130010",
+      "numero": "00007/2026",
+      "processo": "21809.000141/2025-63",
+      "fornecedor": "UMJ LTDA",
+      "objeto": "CONTRATAÇÃO SERVIÇOS, ATRAVÉS DE EMPRESA ESPECIALIZADA NO FORNECIMENTO DE MÃO DE OBRA NA CATEGORIA DE TRABALHADORES DA AGROPECUÁRIA - SERVIÇOS AUXILIARES, COM OBJETIVO DE ATENDER A ESTAÇÃO DE PESQUISA DO MAPA/SDR/CEPLAC/COPAM NO ESTADO DO PARÁ, UNIDADE DE MEDICILÂNDIA - PARÁ. SERVIÇOS COM REGIME DE DEDICAÇÃO EXCLUSIVA DE MÃO DE OBRA, CONFORME CONDIÇÕES E EXIGÊNCIAS QUE SERÃO ESTABELECIDAS NESTE TERMO DE REFERENCIA E ETP. VALOR TOTAL DO CONTRATO R$ 1.451.058,36 REFERENTE AO GRUPO 2.",
+      "vigencia_fim": "2027-06-21",
+      "valor_global": "1.533.148,76"
+    },
+    {
+      "ug": "130010",
+      "numero": "00008/2026",
+      "processo": "21809.000141/2025-63",
+      "fornecedor": "STYLUS SERVICOS DE LIMPEZA E CONSERVACAO LTDA",
+      "objeto": "CONTRATAÇÃO SERVIÇOS, ATRAVÉS DE EMPRESA ESPECIALIZADA NO FORNECIMENTO DE MÃO DE OBRA NA CATEGORIA DE TRABALHADORES DA AGROPECUÁRIA - SERVIÇOS AUXILIARES, COM OBJETIVO DE ATENDER A ESTAÇÃO DE PESQUISA DO MAPA/SDR/CEPLAC/COPAM NO ESTADO DO PARÁ, UNIDADE DE MARITUBA- PARÁ. SERVIÇOS COM REGIME DE DEDICAÇÃO EXCLUSIVA DE MÃO DE OBRA, CONFORME CONDIÇÕES E EXIGÊNCIAS QUE FORAM  ESTABELECIDAS NO CONTRATO N .° 08/2026, NOTA INFORMATIVA 14 E OFÍCIO DE CONCORDÂNCIA, REFERENTE AO GRUPO 1, VALOR TOTAL DO CONTRATO R$  852.199,68.",
+      "vigencia_fim": "2027-07-02",
+      "valor_global": "888.578,79"
+    },
+    {
+      "ug": "130010",
+      "numero": "00026/2026",
+      "processo": "21079.000119/2025-13",
+      "fornecedor": "ARAUNA SERVICOS ESPECIALIZADOS LTDA",
+      "objeto": "O OBJETO DO PRESENTE INSTRUMENTO É A CONTRATAÇÃO DE EMPRESA ESPECIALIZADA NA PRESTAÇÃO DE SERVIÇOS AGROPECUÁRIOS, COM REGIME DE DEDICAÇÃO EXCLUSIVA DE MÃO DE OBRA, A SEREM EXECUTADAS NA ESTAÇÃO EXPERIMENTAL DE OURO PRETO DO OESTE (ESEOP), NO ESTADO DE RONDÔNIA - COROM/CEPLAC, NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERÊNCIA. O CONTRATO CONTEMPLA, AO TODO, 11 POSTOS DE TRABALHO. O VALOR MENSAL DA CONTRATAÇÃO É DE R$ 71.365,37 (SETENTA E UM MIL, TREZENTOS E SESSENTA E CINCO REAIS E TRINTA E SETE CENTAVOS), PERFAZENDO O VALOR GLOBAL ANUAL DE R$ 856.384,44 (OITOCENTOS E CINQUENTA E SEIS MIL, TREZENTOS E OITENTA E QUATRO REAIS E QUARENTA E QUATRO CENTAVOS), PARA O PERÍODO DE 5 (CINCO) ANOS DE VIGÊNCIA.",
+      "vigencia_fim": "2031-09-17",
+      "valor_global": "856.384,44"
+    },
+    {
+      "ug": "130010",
+      "numero": "00013/2026",
+      "processo": "21809.000027/2025-33",
+      "fornecedor": "CONCEPT SERVICE SERVICOS GERAIS",
+      "objeto": "CONTRATAÇÃO DE SERVIÇOS CONTINUADOS DE TRABALHADORES EM AGROPECUÁRIA- SERVIÇOS AUXILIARES, COM DISPONIBILIZAÇÃO DE MÃO DE OBRA EM REGIME DE DEDICAÇÃO EXCLUSIVA PARA A  ESTAÇÃO DE PESQUISA DO MAPA/SDI/CEPLAC/SUPAM NO ESTADO DO AMAZONAS, DENOMINADA  ESTAÇÃO EXPERIMENTAL RIO NEGRO - ERNEG, DO CENTRO DE PESQUISA E INOVAÇÃO,  QUE SERÃO PRESTADOS NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERÊNCIA, ANEXO DO EDITAL.\nLOCALIZAÇÃO DA ESTAÇÃO: KM 932 (ANTIGO KM 48) DA BR174 – DISTRITO AGROPECUÁRIO DA SUFRAMA – ZONA RURAL - MANAUS - AMAZONAS.\nVALOR DA DESPESA  MENSAL É DE R$ 56.779,18 (CINQUENTA E SEIS MIL, SETECENTOS E SETENTA E NOVE REAIS E DEZOITO CENTAVOS) E VALOR ANUAL DE R$ 681.350,16 (SEISCENTOS E OITENTA E UM MIL, TREZENTOS E CINQUENTA REAIS E DEZESSEIS CENTAVOS )",
+      "vigencia_fim": "2027-10-06",
+      "valor_global": "681.350,16"
+    },
+    {
+      "ug": "130010",
+      "numero": "00012/2026",
+      "processo": "21000.022347/2026-21",
+      "fornecedor": "MACHADO DISTRIBUIDORA DE AGUAS MINERAIS E BEBIDAS LTDA",
+      "objeto": "CONTRATAÇÃO DE  EMPRESA PARA FORNECIMENTO DE ÁGUA MINERAL SEM GÁS, PARA ATENDER AS SUPERINTENDÊNCIAS DA CEPLAC/COBES, NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERÊNCIA.",
+      "vigencia_fim": "2027-10-21",
+      "valor_global": "45.420,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00011/2026",
+      "processo": "21000.022347/2026-21",
+      "fornecedor": "ALLIANCE GESTAO E NEGOCIOS LTDA",
+      "objeto": "CONTRATAÇÃO DE  EMPRESA PARA FORNECIMENTO DE CAFÉ TORRADO MOÍDO, PARA ATENDER AS SUPERINTENDÊNCIAS DA CEPLAC/COBES/COPAM, CORAM E CEDES, NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERÊNCIA.",
+      "vigencia_fim": "2027-10-20",
+      "valor_global": "28.320,00"
+    },
+    {
+      "ug": "130010",
+      "numero": "00014/2026",
+      "processo": "21000.022347/2026-21",
+      "fornecedor": "64.733.989 MIRIAN DE ARAUJO RIBEIRO",
+      "objeto": "CONTRATAÇÃO DE  EMPRESA PARA FORNECIMENTO DE LEITE EM PÓ PARA ATENDER AS SUPERINTENDÊNCIAS DA CEPLAC/COBES E COPAM, NAS CONDIÇÕES ESTABELECIDAS NO TERMO DE REFERÊNCIA.",
+      "vigencia_fim": "2027-10-27",
+      "valor_global": "14.250,00"
+    },
     {
       "ug": "130141",
       "numero": "00028/2021",
