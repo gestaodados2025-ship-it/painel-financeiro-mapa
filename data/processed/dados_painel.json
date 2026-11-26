@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "26/11/2026 07:09",
+  "atualizado_em": "26/11/2026 09:00",
   "ugs_monitoradas": [
     "130010",
     "130141",
@@ -14,7 +14,7 @@
     },
     "NOV/2026": {
       "EXE_PAGO_MES": 0.0,
-      "RAP_PAGO_MES": 43596652.36999999
+      "RAP_PAGO_MES": 58987128.669999994
     },
     "JAN/2026": {
       "EXE_PAGO_MES": 0.0,
@@ -3212,7 +3212,7 @@
       "acao": "2000",
       "ptres": "168974",
       "favorecido": "16604411000126",
-      "processo": "21000.006153/2023-35",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -4351,7 +4351,7 @@
       "acao": "215A",
       "ptres": "268998",
       "favorecido": "16604411000126",
-      "processo": "21000.006153/2023-35",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -5541,7 +5541,7 @@
       "acao": "2000",
       "ptres": "169076",
       "favorecido": "35046831000189",
-      "processo": "21000.058495/2026-83",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -6119,7 +6119,7 @@
       "acao": "8622",
       "ptres": "229316",
       "favorecido": "16604411000126",
-      "processo": "-9",
+      "processo": "21000.006153/2023-35",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -6170,7 +6170,7 @@
       "acao": "214Z",
       "ptres": "229421",
       "favorecido": "16604411000126",
-      "processo": "21000.006153/2023-35",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -6289,7 +6289,7 @@
       "acao": "2000",
       "ptres": "168958",
       "favorecido": "21793208000185",
-      "processo": "21000.027463/2026-36",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -6595,7 +6595,7 @@
       "acao": "2161",
       "ptres": "229372",
       "favorecido": "57142978000105",
-      "processo": "21000.036358/2023-45",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -6867,7 +6867,7 @@
       "acao": "2000",
       "ptres": "168961",
       "favorecido": "57142978000105",
-      "processo": "21000.036358/2023-45",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -6970,6 +6970,23 @@
       "ptres": "168963",
       "favorecido": "04251374000130",
       "processo": "21000.087362/2026-14",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "130005000012026NE000643",
+      "ne_curta": "2026NE000643",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "130005",
+      "acao": "2000",
+      "ptres": "168958",
+      "favorecido": "31864187000103",
+      "processo": "21000.025998/2026-72",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -7683,7 +7700,7 @@
       "acao": "20ZY",
       "ptres": "229419",
       "favorecido": "130010",
-      "processo": "-8",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -17747,7 +17764,7 @@
       "acao": "8606",
       "ptres": "229363",
       "favorecido": "12039966000111",
-      "processo": "-9",
+      "processo": "21036.000822/2022-77",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -25050,6 +25067,40 @@
     },
     {
       "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "130063000012026NE000156",
+      "ne_curta": "2026NE000156",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "130063",
+      "acao": "8606",
+      "ptres": "229363",
+      "favorecido": "09060474716",
+      "processo": "21044.007009/2026-52",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "130063000012026NE000157",
+      "ne_curta": "2026NE000157",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "130063",
+      "acao": "8606",
+      "ptres": "229363",
+      "favorecido": "55063497772",
+      "processo": "21044.007009/2026-52",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
       "ne_ccor": "130067000012026NE000008",
       "ne_curta": "2026NE000008",
       "mes_referencia": "NOV/2026",
@@ -27268,6 +27319,23 @@
       "ptres": "261060",
       "favorecido": "46114196000146",
       "processo": "21022000185202531",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "130069000012026NE000144",
+      "ne_curta": "2026NE000144",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "130069",
+      "acao": "20ZV",
+      "ptres": "247476",
+      "favorecido": "24487206000156",
+      "processo": "21022000419202621",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -29681,7 +29749,7 @@
       "acao": "8606",
       "ptres": "249597",
       "favorecido": "61426588000134",
-      "processo": "21034.040672/2026-88",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -31143,7 +31211,7 @@
       "acao": "8606",
       "ptres": "229363",
       "favorecido": "05340639000130",
-      "processo": "21050.002791/2024-72",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -57537,6 +57605,57 @@
     },
     {
       "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "130141000012026NE001010",
+      "ne_curta": "2026NE001010",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "130141",
+      "acao": "20ZV",
+      "ptres": "261158",
+      "favorecido": "75658377000131",
+      "processo": "21000040578202616",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "130141000012026NE001011",
+      "ne_curta": "2026NE001011",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "130141",
+      "acao": "20ZV",
+      "ptres": "261054",
+      "favorecido": "04552626000161",
+      "processo": "21000084904202605",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "130141000012026NE001012",
+      "ne_curta": "2026NE001012",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "130141",
+      "acao": "20ZV",
+      "ptres": "261054",
+      "favorecido": "04362024000141",
+      "processo": "21000084902202616",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
       "ne_ccor": "130248000012026NE000007",
       "ne_curta": "2026NE000007",
       "mes_referencia": "NOV/2026",
@@ -63674,6 +63793,23 @@
     },
     {
       "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "135039132032026NE000477",
+      "ne_curta": "2026NE000477",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "135039",
+      "acao": "20ZV",
+      "ptres": "261159",
+      "favorecido": "31837899000125",
+      "processo": "21167.000336/2025",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
       "ne_ccor": "135046132032026NE000400",
       "ne_curta": "2026NE000400",
       "mes_referencia": "NOV/2026",
@@ -64548,6 +64684,23 @@
       "acao": "215A",
       "ptres": "268998",
       "favorecido": "12590543000195",
+      "processo": "-9",
+      "contrato_planilha": "",
+      "departamento": "",
+      "empenhado": 0.0,
+      "a_liquidar": 0.0,
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 0.0
+    },
+    {
+      "tipo_recurso": "EXE001 (Exercicio 2026)",
+      "ne_ccor": "158139264342026NE000744",
+      "ne_curta": "2026NE000744",
+      "mes_referencia": "NOV/2026",
+      "ug_executora": "158139",
+      "acao": "20ZV",
+      "ptres": "247476",
+      "favorecido": "04016579000131",
       "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
@@ -66452,7 +66605,7 @@
       "acao": "8622",
       "ptres": "261018",
       "favorecido": "07944935000175",
-      "processo": "21000026297202651",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -66554,7 +66707,7 @@
       "acao": "8622",
       "ptres": "261018",
       "favorecido": "43925888000186",
-      "processo": "21000026394202643",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -67030,7 +67183,7 @@
       "acao": "8622",
       "ptres": "261018",
       "favorecido": "43925888000186",
-      "processo": "21000026394202643",
+      "processo": "-9",
       "contrato_planilha": "",
       "departamento": "",
       "empenhado": 0.0,
@@ -93878,8 +94031,8 @@
       "departamento": "PRONER",
       "empenhado": 1170727.18,
       "a_liquidar": 233527.18,
-      "liquidado_a_pagar": 937200.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 233527.18,
+      "pago_acumulado": 703672.82
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -111881,8 +112034,8 @@
       "departamento": "PRONER",
       "empenhado": 421212.33,
       "a_liquidar": 39212.33,
-      "liquidado_a_pagar": 382000.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 39212.33,
+      "pago_acumulado": 342787.67
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -117576,8 +117729,8 @@
       "departamento": "PRONER",
       "empenhado": 1192888.16,
       "a_liquidar": 237888.16,
-      "liquidado_a_pagar": 955000.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 237888.16,
+      "pago_acumulado": 717111.84
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -117644,8 +117797,8 @@
       "departamento": "PRONER",
       "empenhado": 2597600.0,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 1623500.0,
-      "pago_acumulado": 974100.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 2597600.0
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -117729,8 +117882,8 @@
       "departamento": "PRONER",
       "empenhado": 410052.35,
       "a_liquidar": 28052.35,
-      "liquidado_a_pagar": 382000.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 28052.35,
+      "pago_acumulado": 353947.65
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -117797,8 +117950,8 @@
       "departamento": "PRONER",
       "empenhado": 4125600.0,
       "a_liquidar": 1833600.0,
-      "liquidado_a_pagar": 2292000.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 1833600.0,
+      "pago_acumulado": 458400.0
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -118103,8 +118256,8 @@
       "departamento": "PRONER",
       "empenhado": 864761.67,
       "a_liquidar": 148511.67,
-      "liquidado_a_pagar": 716250.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 148511.67,
+      "pago_acumulado": 567738.33
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -120313,8 +120466,8 @@
       "departamento": "PRONER",
       "empenhado": 536277.23,
       "a_liquidar": 154277.23,
-      "liquidado_a_pagar": 382000.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 154277.23,
+      "pago_acumulado": 227722.77
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -120328,8 +120481,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 3932700.0,
-      "a_liquidar": 0.0,
+      "empenhado": 5197973.51,
+      "a_liquidar": 1265273.51,
       "liquidado_a_pagar": 1265273.51,
       "pago_acumulado": 2667426.49
     },
@@ -120379,8 +120532,8 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "PRONER",
-      "empenhado": 2600000.0,
-      "a_liquidar": 0.0,
+      "empenhado": 5200000.0,
+      "a_liquidar": 2600000.0,
       "liquidado_a_pagar": 2600000.0,
       "pago_acumulado": 0.0
     },
@@ -122591,8 +122744,8 @@
       "departamento": "PRONER",
       "empenhado": 7513469.23,
       "a_liquidar": 3340909.15,
-      "liquidado_a_pagar": 4172560.08,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 3340909.15,
+      "pago_acumulado": 831650.93
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -128065,8 +128218,8 @@
       "departamento": "PRONER",
       "empenhado": 1132713.03,
       "a_liquidar": 177713.03,
-      "liquidado_a_pagar": 955000.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 177713.03,
+      "pago_acumulado": 777286.97
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -128201,8 +128354,8 @@
       "departamento": "PRONER",
       "empenhado": 1588279.89,
       "a_liquidar": 2979.89,
-      "liquidado_a_pagar": 1585300.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 2979.89,
+      "pago_acumulado": 1582320.11
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -129136,8 +129289,8 @@
       "departamento": "PRONER",
       "empenhado": 552813.31,
       "a_liquidar": 75313.31,
-      "liquidado_a_pagar": 477500.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 75313.31,
+      "pago_acumulado": 402186.69
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -129544,8 +129697,8 @@
       "departamento": "PRONER",
       "empenhado": 480852.71,
       "a_liquidar": 3352.71,
-      "liquidado_a_pagar": 477500.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 3352.71,
+      "pago_acumulado": 474147.29
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -129595,8 +129748,8 @@
       "departamento": "PRONER",
       "empenhado": 978316.83,
       "a_liquidar": 23316.83,
-      "liquidado_a_pagar": 955000.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 23316.83,
+      "pago_acumulado": 931683.17
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -129731,8 +129884,8 @@
       "departamento": "PRONER",
       "empenhado": 1398194.55,
       "a_liquidar": 13444.55,
-      "liquidado_a_pagar": 1344454.18,
-      "pago_acumulado": 40295.82
+      "liquidado_a_pagar": 13444.55,
+      "pago_acumulado": 1371305.45
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -129901,8 +130054,8 @@
       "departamento": "PRONER",
       "empenhado": 8143433.17,
       "a_liquidar": 3732828.7,
-      "liquidado_a_pagar": 4410604.47,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 3732828.7,
+      "pago_acumulado": 677775.77
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -131227,8 +131380,8 @@
       "departamento": "PRONER",
       "empenhado": 382414.47,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 382414.47,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 382414.47
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -131329,8 +131482,8 @@
       "departamento": "PRONER",
       "empenhado": 403222.01,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 403222.01,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 403222.01
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -132128,8 +132281,8 @@
       "departamento": "PRONER",
       "empenhado": 449512.01,
       "a_liquidar": 17686.79,
-      "liquidado_a_pagar": 431825.22,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 17686.79,
+      "pago_acumulado": 414138.43
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -132910,8 +133063,8 @@
       "departamento": "PRONER",
       "empenhado": 263662.61,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 263662.61,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 263662.61
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -134202,8 +134355,8 @@
       "departamento": "PRONER",
       "empenhado": 263662.61,
       "a_liquidar": 0.0,
-      "liquidado_a_pagar": 263662.61,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 0.0,
+      "pago_acumulado": 263662.61
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -135511,8 +135664,8 @@
       "departamento": "PRONER",
       "empenhado": 437529.24,
       "a_liquidar": 55529.24,
-      "liquidado_a_pagar": 382000.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 55529.24,
+      "pago_acumulado": 326470.76
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -139251,8 +139404,8 @@
       "departamento": "PRONER",
       "empenhado": 288602.3,
       "a_liquidar": 2102.3,
-      "liquidado_a_pagar": 286500.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 2102.3,
+      "pago_acumulado": 284397.7
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -139676,8 +139829,8 @@
       "departamento": "PRONER",
       "empenhado": 326090.16,
       "a_liquidar": 87340.16,
-      "liquidado_a_pagar": 238750.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 87340.16,
+      "pago_acumulado": 151409.84
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -139693,8 +139846,8 @@
       "departamento": "PRONER",
       "empenhado": 488858.99,
       "a_liquidar": 72372.98,
-      "liquidado_a_pagar": 416486.01,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 72372.98,
+      "pago_acumulado": 344113.03
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -141053,8 +141206,8 @@
       "departamento": "PRONER",
       "empenhado": 306488.37,
       "a_liquidar": 19988.37,
-      "liquidado_a_pagar": 286500.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 19988.37,
+      "pago_acumulado": 266511.63
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -141903,8 +142056,8 @@
       "departamento": "PRONER",
       "empenhado": 273568.43,
       "a_liquidar": 73018.43,
-      "liquidado_a_pagar": 200550.0,
-      "pago_acumulado": 0.0
+      "liquidado_a_pagar": 73018.43,
+      "pago_acumulado": 127531.57
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
@@ -155807,10 +155960,10 @@
       "processo": "-9",
       "contrato_planilha": "COMPARTILHADA",
       "departamento": "VERIFICAR (20ZV/FISCON/130141,130255 e 135098 · PO 0000)",
-      "empenhado": 2400000.0,
-      "a_liquidar": 480000.0,
-      "liquidado_a_pagar": 480000.0,
-      "pago_acumulado": 1440000.0
+      "empenhado": 2240000.0,
+      "a_liquidar": 320000.0,
+      "liquidado_a_pagar": 320000.0,
+      "pago_acumulado": 1600000.0
     },
     {
       "tipo_recurso": "RAP001 (RAP_20ZV)",
